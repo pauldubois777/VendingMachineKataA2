@@ -10,4 +10,7 @@ Before writing any code, I first outlined a high level design of the objects and
 
 Here are my design objects and notes:
 
+* Model 1: This is a test
+* Model 2: Test 2
+* model 3: test 3
 
