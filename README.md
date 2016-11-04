@@ -23,7 +23,12 @@ Here are my design objects and notes:
 * Method to Get Qty Available (product)
 
 ### Bank object - Holds the money in the machine
-* Method to check if bank can make change. 
+* Method to check if bank can make change.
+    The maximum change ever needed will be 20 cents
+    At least 4 nickles then return true
+    else if at least 2 nickles and at least 1 dime return true
+    else if 1 nickle and at least 2 dimes return true
+    otherwise return false
 * Balance - Array of coins with qty of each coin in machine
 * Method to return a monetary value from the bank.  This removes the appropriate coins from the bank balance, and send them to the Return object.
 * Method to add coins to the bank.  Increases the Balance array of coins appropriately. 
