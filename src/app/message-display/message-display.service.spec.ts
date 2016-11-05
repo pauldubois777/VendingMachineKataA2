@@ -9,9 +9,13 @@ describe('Service: MessageDisplay', () => {
     service = new MessageDisplayService();
   });
 
-  it('after creation message should be insert coins message and balance = 0', () => {
-    expect(service.message).toBe(StringConstants.INSERT_COIN_MESSAGE);
-    expect(service.balance).toBe(0);
+  it('after creation message should be insert coins message', () => {
+    expect(service.displayMessage).toBe(StringConstants.INSERT_COIN_MESSAGE);
+  });
+
+  it('after setDisplayBalance to non zero amount, message should be balance amount', () => {
+    service.setDisplayBalance(1.25);
+    expect(service.displayMessage).toBe('1.25');
   });
 
 });

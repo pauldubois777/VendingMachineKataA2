@@ -5,12 +5,19 @@ import { StringConstants } from '../shared/string-constants';
 
 @Injectable()
 export class MessageDisplayService {
-  message: string;
-  balance: number;
+  displayMessage: string;
+  private displayBalance: number;
 
   constructor() {
-    this.message = StringConstants.INSERT_COIN_MESSAGE;
-    this.balance = 0;
+    this.setDisplayBalance(0.00);
   }
 
+  setDisplayBalance(balance: number) {
+    this.displayBalance = balance;
+    if (this.displayBalance === 0) {
+      this.displayMessage = StringConstants.INSERT_COIN_MESSAGE;
+    } else {
+      this.displayMessage = '' + this.displayBalance;
+    }
+  }
 }
