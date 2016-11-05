@@ -26,8 +26,8 @@ describe('Service: MessageDisplay', () => {
   });
 
   it('after setting ExactChangeOnly to true and balance to zero, message should be exact change message', () => {
-    service.DisplayBalance = 0;
     service.ExactChangeOnly = true;
+    service.DisplayBalance = 0;
     expect(service.displayMessage).toBe(StringConstants.EXACT_CHANGE_MESSAGE);
   });
 });
