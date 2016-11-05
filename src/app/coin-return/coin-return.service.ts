@@ -1,8 +1,16 @@
 import { Injectable } from '@angular/core';
 
+import { Coins } from '../models/coins';
+
 @Injectable()
 export class CoinReturnService {
+  private coins: Coins;
 
-  constructor() { }
+  constructor() {
+    this.coins = new Coins();
+  }
 
+  getCoins(): Coins {
+    return this.coins;
+  }
 }

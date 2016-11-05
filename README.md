@@ -33,7 +33,7 @@ Here are my design objects and notes:
 * Method to return a monetary value from the bank.  This removes the appropriate coins from the bank balance, and send them to the Return object.
 * Method to add coins to the bank.  Increases the Balance array of coins appropriately. 
 
-### Return object - Represents the coin return area
+### Coin Return object - Represents the coin return area
 * Balance - Array of coins with qty of each coin in the return area
 * Method to increase coins gets an array of coins with qty of each coin
 * Method to remove all sets balance array to empty

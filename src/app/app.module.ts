@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { CoinReturn } from './coin-return/coin-return.service'
+import { CoinReturnService } from './coin-return/coin-return.service'
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { CoinReturn } from './coin-return/coin-return.service'
     HttpModule
   ],
   providers: [
-    CoinReturn
+    CoinReturnService
   ],
   bootstrap: [AppComponent]
 })
