@@ -13,4 +13,8 @@ export class CoinReturnService {
   getCoins(): Coins {
     return this.coins;
   }
+
+  returnCoins(coinsToReturn: Coins){
+    this.coins.addCoins(coinsToReturn);
+  }
 }
