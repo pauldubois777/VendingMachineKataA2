@@ -7,23 +7,23 @@ import { Coins } from '../models/coins';
 
 @Injectable()
 export class CoinReturnService {
-  private coins: Coins;
+  private _coins: Coins;
 
   constructor() {
-    this.coins = new Coins();
+    this._coins = new Coins();
   }
 
-  getCoins(): Coins {
-    return this.coins;
+  get Coins(): Coins {
+    return this._coins;
   }
 
   addToReturn(coinsToReturn: Coins) {
-    this.coins.addCoins(coinsToReturn);
+    this._coins.addCoins(coinsToReturn);
   }
 
   emptyReturn() {
-    this.coins.nickles = 0;
-    this.coins.dimes = 0;
-    this.coins.quarters = 0;
+    this._coins.nickles = 0;
+    this._coins.dimes = 0;
+    this._coins.quarters = 0;
   }
 }

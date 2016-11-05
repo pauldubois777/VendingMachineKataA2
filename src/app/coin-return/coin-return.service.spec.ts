@@ -11,7 +11,7 @@ describe('Service: CoinReturn', () => {
   });
 
   it('after creation should have coins with all quantities 0 and value 0', () => {
-    let coins = service.getCoins();
+    let coins = service.Coins;
     expect(coins.nickles).toBe(0);
     expect(coins.dimes).toBe(0);
     expect(coins.quarters).toBe(0);
@@ -21,7 +21,7 @@ describe('Service: CoinReturn', () => {
   it('after addToReturn, coins should have proper quantities and value', () => {
     let coinsToReturn = new Coins(3, 4, 5);
     service.addToReturn(coinsToReturn);
-    let coins = service.getCoins();
+    let coins = service.Coins;
 
     expect(coins.nickles).toBe(3);
     expect(coins.dimes).toBe(4);
@@ -33,7 +33,7 @@ describe('Service: CoinReturn', () => {
     let coinsToReturn = new Coins(3, 4, 5);
     service.addToReturn(coinsToReturn);
     service.emptyReturn();
-    let coins = service.getCoins();
+    let coins = service.Coins;
 
     expect(coins.nickles).toBe(0);
     expect(coins.dimes).toBe(0);
