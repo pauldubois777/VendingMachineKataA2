@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { CoinReturnService } from './coin-return/coin-return.service'
+import { MessageDisplayService } from './message-display/message-display.service'
 
 @NgModule({
   declarations: [
