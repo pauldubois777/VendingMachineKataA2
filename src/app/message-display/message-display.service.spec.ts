@@ -18,4 +18,11 @@ describe('Service: MessageDisplay', () => {
     expect(service.displayMessage).toBe('1.25');
   });
 
+  it('after setDisplayBalance to non zero amount, and then setDisplayBalance back to zero, message should be insert coins message', () => {
+    service.setDisplayBalance(1.25);
+    expect(service.displayMessage).toBe('1.25');
+    service.setDisplayBalance(0);
+    expect(service.displayMessage).toBe(StringConstants.INSERT_COIN_MESSAGE);
+  });
+
 });
