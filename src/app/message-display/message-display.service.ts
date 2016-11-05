@@ -6,18 +6,33 @@ import { StringConstants } from '../shared/string-constants';
 @Injectable()
 export class MessageDisplayService {
   displayMessage: string;
-  private displayBalance: number;
+  private _displayBalance: number;
+  private _exactChangeOnly: boolean;
 
   constructor() {
-    this.setDisplayBalance(0.00);
+    this.DisplayBalance = 0;
+    this.ExactChangeOnly = false;
   }
 
-  setDisplayBalance(balance: number) {
-    this.displayBalance = balance;
-    if (this.displayBalance === 0) {
-      this.displayMessage = StringConstants.INSERT_COIN_MESSAGE;
+  set DisplayBalance(balance: number) {
+    this._displayBalance = balance;
+    this.setDisplayMessage();
+  }
+
+  set ExactChangeOnly(exactChangeOnly: boolean){
+    this._exactChangeOnly = exactChangeOnly;
+    this.setDisplayMessage();
+  }
+
+  setDisplayMessage(){
+    if (this._displayBalance === 0) {
+      if (this._exactChangeOnly) {
+        this.displayMessage = StringConstants.EXACT_CHANGE_MESSAGE;
+      } else {
+        this.displayMessage = StringConstants.INSERT_COIN_MESSAGE;
+      }
     } else {
-      this.displayMessage = '' + this.displayBalance;
+      this.displayMessage = '' + this._displayBalance;
     }
   }
 }

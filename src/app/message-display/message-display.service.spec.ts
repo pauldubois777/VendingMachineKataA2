@@ -13,16 +13,21 @@ describe('Service: MessageDisplay', () => {
     expect(service.displayMessage).toBe(StringConstants.INSERT_COIN_MESSAGE);
   });
 
-  it('after setDisplayBalance to non zero amount, message should be balance amount', () => {
-    service.setDisplayBalance(1.25);
+  it('after setting DisplayBalance to non zero amount, message should be balance amount', () => {
+    service.DisplayBalance = 1.25;
     expect(service.displayMessage).toBe('1.25');
   });
 
-  it('after setDisplayBalance to non zero amount, and then setDisplayBalance back to zero, message should be insert coins message', () => {
-    service.setDisplayBalance(1.25);
+  it('after setting DisplayBalance to non zero amount, and then setDisplayBalance back to zero, message should be insert coins message', () => {
+    service.DisplayBalance = 1.25;
     expect(service.displayMessage).toBe('1.25');
-    service.setDisplayBalance(0);
+    service.DisplayBalance = 0;
     expect(service.displayMessage).toBe(StringConstants.INSERT_COIN_MESSAGE);
   });
 
+  it('after setting ExactChangeOnly to true and balance to zero, message should be exact change message', () => {
+    service.DisplayBalance = 0;
+    service.ExactChangeOnly = true;
+    expect(service.displayMessage).toBe(StringConstants.EXACT_CHANGE_MESSAGE);
+  });
 });
