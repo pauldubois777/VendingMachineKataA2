@@ -11,15 +11,11 @@ describe('Service: CoinReturn', () => {
     service = new CoinReturnService();
   });
 
-  it('after creation should have coins with all quantities 0', () => {
+  it('after creation should have coins with all quantities 0 and value 0', () => {
     let coins = service.getCoins();
     expect(coins.nickles).toBe(0);
     expect(coins.dimes).toBe(0);
     expect(coins.quarters).toBe(0);
-  });
-
-  it('after creation should have coins with value 0', () => {
-    let coins = service.getCoins();
     expect(coins.getValue()).toBe(0);
   });
 
