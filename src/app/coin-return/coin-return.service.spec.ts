@@ -19,7 +19,7 @@ describe('Service: CoinReturn', () => {
     expect(coins.getValue()).toBe(0);
   });
 
-  it('after ReturnCoins, coins should have proper quantities and value', () => {
+  it('after returnCoins, coins should have proper quantities and value', () => {
     let coinsToReturn = new Coins(3, 4, 5);
     service.returnCoins(coinsToReturn);
 
@@ -29,5 +29,17 @@ describe('Service: CoinReturn', () => {
     expect(coins.dimes).toBe(4);
     expect(coins.quarters).toBe(5);
     expect(coins.getValue()).toBe(1.80);
+  });
+
+  it('after returnCoins and then emptyReturn, coins should all have qty 0 with value 0 ', () => {
+    let coinsToReturn = new Coins(3, 4, 5);
+    service.returnCoins(coinsToReturn);
+    service.emptyReturn();
+    let coins = service.getCoins();
+    
+    expect(coins.nickles).toBe(0);
+    expect(coins.dimes).toBe(0);
+    expect(coins.quarters).toBe(0);
+    expect(coins.getValue()).toBe(0);
   });
 });

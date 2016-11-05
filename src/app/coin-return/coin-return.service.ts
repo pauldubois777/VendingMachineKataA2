@@ -17,4 +17,10 @@ export class CoinReturnService {
   returnCoins(coinsToReturn: Coins){
     this.coins.addCoins(coinsToReturn);
   }
+
+  emptyReturn(){
+    this.coins.nickles = 0;
+    this.coins.dimes = 0;
+    this.coins.quarters = 0;
+  }
 }
