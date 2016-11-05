@@ -9,4 +9,9 @@ export class Coins {
     return (this.nickles * .05) + (this.dimes * .10) + (this.quarters * .25);
   }
 
+  addCoins(newCoins: Coins) {
+    this.nickles += newCoins.nickles;
+    this.dimes += newCoins.dimes;
+    this.quarters += newCoins.quarters;
+  }
 }
