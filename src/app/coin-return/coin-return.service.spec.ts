@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { CoinReturnService } from './coin-return.service';
-import { Coins } from '../models/coins';
+import { CoinsEnum } from '../shared/coins.enum';
 
 let service: CoinReturnService;
 
@@ -10,34 +10,50 @@ describe('Service: CoinReturn', () => {
     service = new CoinReturnService();
   });
 
-  it('after creation should have coins with all quantities 0 and value 0', () => {
-    let coins = service.Coins;
-    expect(coins.nickles).toBe(0);
-    expect(coins.dimes).toBe(0);
-    expect(coins.quarters).toBe(0);
-    expect(coins.getValue()).toBe(0);
+  it('after creation should have empty coins array', () => {
+    expect(service.Coins.length).toBe(0);
   });
 
-  it('after addToReturn, coins should have proper quantities and value', () => {
-    let coinsToReturn = new Coins(3, 4, 5);
-    service.addToReturn(coinsToReturn);
-    let coins = service.Coins;
+  it('after addToReturn, coins array should have proper coins', () => {
+    service.addToReturn(CoinsEnum.DIME);
+    service.addToReturn(CoinsEnum.NICKLE);
+    service.addToReturn(CoinsEnum.QUARTER);
+    service.addToReturn(CoinsEnum.PENNY);
 
-    expect(coins.nickles).toBe(3);
-    expect(coins.dimes).toBe(4);
-    expect(coins.quarters).toBe(5);
-    expect(coins.getValue()).toBe(1.80);
+    expect(service.Coins.length).toBe(4);
+
+    expect(service.Coins[0]).toBe(CoinsEnum.DIME);
+    expect(service.Coins[1]).toBe(CoinsEnum.NICKLE);
+    expect(service.Coins[2]).toBe(CoinsEnum.QUARTER);
+    expect(service.Coins[3]).toBe(CoinsEnum.PENNY);
   });
 
-  it('after addToReturn and then emptyReturn, coins should all have qty 0 with value 0 ', () => {
-    let coinsToReturn = new Coins(3, 4, 5);
-    service.addToReturn(coinsToReturn);
+  it('after addToReturn and then emptyReturn, coins array should be empty', () => {
+    service.addToReturn(CoinsEnum.DIME);
+    service.addToReturn(CoinsEnum.NICKLE);
+    service.addToReturn(CoinsEnum.QUARTER);
+    service.addToReturn(CoinsEnum.PENNY);
+
+    expect(service.Coins.length).toBe(4);
+
     service.emptyReturn();
-    let coins = service.Coins;
 
-    expect(coins.nickles).toBe(0);
-    expect(coins.dimes).toBe(0);
-    expect(coins.quarters).toBe(0);
-    expect(coins.getValue()).toBe(0);
+    expect(service.Coins.length).toBe(0);
+  });
+
+  it('emptyReturn should return coins', () => {
+    service.addToReturn(CoinsEnum.DIME);
+    service.addToReturn(CoinsEnum.NICKLE);
+    service.addToReturn(CoinsEnum.QUARTER);
+    service.addToReturn(CoinsEnum.PENNY);
+
+    let returnedCoins = service.emptyReturn();
+
+    expect(returnedCoins.length).toBe(4);
+
+    expect(returnedCoins[0]).toBe(CoinsEnum.DIME);
+    expect(returnedCoins[1]).toBe(CoinsEnum.NICKLE);
+    expect(returnedCoins[2]).toBe(CoinsEnum.QUARTER);
+    expect(returnedCoins[3]).toBe(CoinsEnum.PENNY);
   });
 });

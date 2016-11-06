@@ -3,27 +3,27 @@
 
 import { Injectable } from '@angular/core';
 
-import { Coins } from '../models/coins';
+import { CoinsEnum } from '../shared/coins.enum';
 
 @Injectable()
 export class CoinReturnService {
-  private _coins: Coins;
+  private _coins: Array<CoinsEnum>;
 
   constructor() {
-    this._coins = new Coins();
+    this._coins = new Array<CoinsEnum>();
   }
 
-  get Coins(): Coins {
+  get Coins(): Array<CoinsEnum> {
     return this._coins;
   }
 
-  addToReturn(coinsToReturn: Coins) {
-    this._coins.addCoins(coinsToReturn);
+  addToReturn(coin: CoinsEnum) {
+    this._coins.push(coin);
   }
 
-  emptyReturn() {
-    this._coins.nickles = 0;
-    this._coins.dimes = 0;
-    this._coins.quarters = 0;
+  emptyReturn(): Array<CoinsEnum> {
+    let returnVal = this._coins.splice(0);
+    this._coins = [];
+    return returnVal;
   }
 }
