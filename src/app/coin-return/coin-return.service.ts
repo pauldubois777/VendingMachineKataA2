@@ -23,7 +23,6 @@ export class CoinReturnService {
 
   emptyReturn(): Array<CoinsEnum> {
     let returnVal = this._coins.splice(0);
-    this._coins = [];
     return returnVal;
   }
 }
