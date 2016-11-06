@@ -56,4 +56,13 @@ describe('Service: MessageDisplay', () => {
     service.TempMessage = tempMessageTwo;
     expect(service.displayMessage).toBe(tempMessageTwo);
   });
+
+
+  it('setting temp message then immediately setting balance to non zero should not change temp message', () => {
+    let tempMessage = 'This is a temp message';
+    service.TempMessage = tempMessage;
+    service.DisplayBalance = 1.50;
+    expect(service.displayMessage).toBe(tempMessage);
+  });
+
 });
