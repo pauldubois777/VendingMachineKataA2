@@ -1,16 +1,18 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject } from '@angular/core/testing';
 import { InventoryService } from './inventory.service';
+import { Product } from '../models/product';
+import { INITIAL_INVENTORY } from '../shared/initial-inventory';
+
+let service: InventoryService;
 
 describe('Service: Inventory', () => {
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [InventoryService]
-    });
+    service = new InventoryService();
   });
 
-  it('should ...', inject([InventoryService], (service: InventoryService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('after creation should have initial inventory', () => {
+    expect(service.Inventory).toEqual(INITIAL_INVENTORY);
+  });
+
 });
