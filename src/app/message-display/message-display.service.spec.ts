@@ -1,6 +1,9 @@
 /* tslint:disable:no-unused-variable */
+
+
 import { MessageDisplayService } from './message-display.service';
 import { StringConstants } from '../shared/string-constants';
+import { NumericConstants } from '../shared/numeric-constants';
 
 let service: MessageDisplayService;
 
@@ -37,4 +40,12 @@ describe('Service: MessageDisplay', () => {
     expect(service.displayMessage).toBe(tempMessage);
   });
 
+  it('after setting TempMessage, message should revert after timeout duration', (done) => {
+    let tempMessage = 'This is a temp message';
+    service.TempMessage = tempMessage;
+    setTimeout( () => {
+      expect(service.displayMessage).toBe(StringConstants.INSERT_COIN_MESSAGE);
+      done();
+    }, NumericConstants.TEMP_MESSAGE_DURATION_MS);
+  });
 });

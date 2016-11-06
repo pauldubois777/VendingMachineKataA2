@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 
 import { StringConstants } from '../shared/string-constants';
+import { NumericConstants } from '../shared/numeric-constants';
 
 @Injectable()
 export class MessageDisplayService {
@@ -9,6 +10,7 @@ export class MessageDisplayService {
   private _displayBalance: number;
   private _exactChangeOnly: boolean;
   private _tempMessage: string;
+  private _tempMsgTimer: NodeJS.Timer;
 
   constructor() {
     this._displayBalance = 0;
@@ -28,8 +30,20 @@ export class MessageDisplayService {
   }
 
   set TempMessage(tempMessage: string){
+    // Cancel any previous temp message that is being displayed
+    if (this._tempMsgTimer) {
+      clearTimeout(this._tempMsgTimer);
+    }
+
+    // Set the new temp message
     this._tempMessage = tempMessage;
     this.setDisplayMessage();
+
+    // Set the timer for the temp message so it will be cleared
+    this._tempMsgTimer = setTimeout( () => {
+      this._tempMessage = '';
+      this.setDisplayMessage();
+    }, NumericConstants.TEMP_MESSAGE_DURATION_MS);
   }
 
   setDisplayMessage() {
