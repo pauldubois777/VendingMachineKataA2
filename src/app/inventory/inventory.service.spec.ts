@@ -34,10 +34,15 @@ describe('Service: Inventory', () => {
     // Make the qty zero by dispensing all
     let qtyToDispense = service.Inventory[0].qty;
     for (let idx = 0; idx < qtyToDispense; idx++) {
-      service.dispense(service.Inventory[0].product)
+      service.dispense(service.Inventory[0].product);
     }
 
     let dispensedProduct = service.dispense(service.Inventory[0].product);
+    expect(dispensedProduct).toEqual(null);
+  });
+
+  it('dispensing a product not in inventory returns null', () => {
+    let dispensedProduct = service.dispense(new Product(999999, 'Product not in inventory', 3.14));
     expect(dispensedProduct).toEqual(null);
   });
 });

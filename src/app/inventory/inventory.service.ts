@@ -18,6 +18,8 @@ export class InventoryService {
     return this._inventory;
   }
 
+  // Returns null if invalid product or product qty is zero
+  // TODO: Alter logic to throw exception if invalid product
   dispense(product: Product): Product {
     let dispensedProduct: Product = null;
 
