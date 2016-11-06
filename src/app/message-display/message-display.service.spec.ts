@@ -57,7 +57,6 @@ describe('Service: MessageDisplay', () => {
     expect(service.displayMessage).toBe(tempMessageTwo);
   });
 
-
   it('setting temp message then immediately setting balance to non zero should not change temp message', () => {
     let tempMessage = 'This is a temp message';
     service.TempMessage = tempMessage;
@@ -65,4 +64,14 @@ describe('Service: MessageDisplay', () => {
     expect(service.displayMessage).toBe(tempMessage);
   });
 
+
+  it('setting temp message then setting balance to non zero should show balance after temp message expires', (done) => {
+    let tempMessage = 'This is a temp message';
+    service.TempMessage = tempMessage;
+    service.DisplayBalance = 1.05;
+    setTimeout( () => {
+      expect(service.displayMessage).toBe('1.05');
+      done();
+    }, NumericConstants.TEMP_MESSAGE_DURATION_MS);
+  });
 });
