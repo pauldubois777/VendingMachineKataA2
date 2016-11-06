@@ -48,4 +48,12 @@ describe('Service: MessageDisplay', () => {
       done();
     }, NumericConstants.TEMP_MESSAGE_DURATION_MS);
   });
+
+  it('setting temp message and setting it again before timeout should change message', () => {
+    let tempMessageOne = 'This is a temp message ONE';
+    service.TempMessage = tempMessageOne;
+    let tempMessageTwo = 'This is a temp message TWO';
+    service.TempMessage = tempMessageTwo;
+    expect(service.displayMessage).toBe(tempMessageTwo);
+  });
 });
