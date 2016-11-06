@@ -25,4 +25,19 @@ describe('Service: Inventory', () => {
     }
   });
 
+  it('dispensing product with qty returns product', () => {
+    let dispensedProduct = service.dispense(INITIAL_INVENTORY[0].product);
+    expect(dispensedProduct).toEqual(INITIAL_INVENTORY[0].product);
+  });
+
+  it('dispensing a product with 0 qty returns null', () => {
+    // Make the qty zero by dispensing all
+    let qtyToDispense = service.Inventory[0].qty;
+    for (let idx = 0; idx < qtyToDispense; idx++) {
+      service.dispense(service.Inventory[0].product)
+    }
+
+    let dispensedProduct = service.dispense(service.Inventory[0].product);
+    expect(dispensedProduct).toEqual(null);
+  });
 });
