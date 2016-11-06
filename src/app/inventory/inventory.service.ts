@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { InventoryItem } from '../models/inventory-item';
 import { Product } from '../models/product';
 import { INITIAL_INVENTORY } from '../shared/initial-inventory';
+import { StringConstants } from '../shared/string-constants';
 
 @Injectable()
 export class InventoryService {
@@ -15,24 +16,27 @@ export class InventoryService {
   }
 
   get Inventory(): Array<InventoryItem>{
-    return this._inventory;
-  }
+    let inventory: Array<InventoryItem> = new Array<InventoryItem>();
 
-  // Returns null if invalid product or product qty is zero
-  // TODO: Alter logic to throw exception if invalid product
-  dispense(product: Product): Product {
-    let dispensedProduct: Product = null;
-
-    // Small amount of products so just go through them all
-    this._inventory.forEach( (inventoryItem, idx) => {
-      if (inventoryItem.product.id === product.id) {
-        if (inventoryItem.qty > 0) {
-          this._inventory[idx].qty--;
-          dispensedProduct = inventoryItem.product;
-        }
-      }
+    this._inventory.forEach( (inventoryItem) => {
+      inventory.push(inventoryItem.clone());
     });
 
-    return dispensedProduct;
+    return inventory;
+  }
+
+  dispense(product: Product): boolean {
+    let inventoryItemFound = this._inventory.find( inventoryItem => inventoryItem.product.id === product.id );
+    if (inventoryItemFound) {
+      if (inventoryItemFound.qty > 0) {
+        // Send the product to the consumer!
+        inventoryItemFound.qty--;
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      throw new Error(StringConstants.PRODUCT_NOT_IN_INVENTORY_ERROR);
+    }
   }
 }

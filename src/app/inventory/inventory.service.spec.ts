@@ -3,6 +3,7 @@
 import { InventoryService } from './inventory.service';
 import { Product } from '../models/product';
 import { INITIAL_INVENTORY } from '../shared/initial-inventory';
+import { StringConstants } from '../shared/string-constants';
 
 let service: InventoryService;
 
@@ -17,7 +18,8 @@ describe('Service: Inventory', () => {
 
   it('dispensing each product decrements product qtys', () => {
     INITIAL_INVENTORY.forEach( (inventoryItem) => {
-      service.dispense(inventoryItem.product);
+      let dispenseReturnValue = service.dispense(inventoryItem.product);
+      expect(dispenseReturnValue).toEqual(true);
     });
 
     for (let idx = 0; idx < INITIAL_INVENTORY.length; idx++) {
@@ -25,24 +27,31 @@ describe('Service: Inventory', () => {
     }
   });
 
-  it('dispensing product with qty returns product', () => {
-    let dispensedProduct = service.dispense(INITIAL_INVENTORY[0].product);
-    expect(dispensedProduct).toEqual(INITIAL_INVENTORY[0].product);
+  it('dispensing product with qty returns true', () => {
+    let dispenseReturnValue = service.dispense(INITIAL_INVENTORY[0].product);
+    expect(dispenseReturnValue).toEqual(true);
   });
 
-  it('dispensing a product with 0 qty returns null', () => {
+  it('dispensing a product with 0 qty returns false', () => {
     // Make the qty zero by dispensing all
     let qtyToDispense = service.Inventory[0].qty;
     for (let idx = 0; idx < qtyToDispense; idx++) {
       service.dispense(service.Inventory[0].product);
     }
 
-    let dispensedProduct = service.dispense(service.Inventory[0].product);
-    expect(dispensedProduct).toEqual(null);
+    let dispenseReturnValue = service.dispense(service.Inventory[0].product);
+    expect(dispenseReturnValue).toEqual(false);
   });
 
-  it('dispensing a product not in inventory returns null', () => {
-    let dispensedProduct = service.dispense(new Product(999999, 'Product not in inventory', 3.14));
-    expect(dispensedProduct).toEqual(null);
+  it('dispensing a product not in inventory throws error', () => {
+    let productNotInInventory = new Product(999999, 'Product not in inventory', 3.14);
+    expect(() => service.dispense(productNotInInventory)).toThrowError(StringConstants.PRODUCT_NOT_IN_INVENTORY_ERROR);
+  });
+
+  it('altering returned Inventory should not change Inventory', () => {
+    let inventory = service.Inventory;
+    let origQty = inventory[0].qty;
+    inventory[0].qty = origQty + 1;
+    expect(service.Inventory[0].qty).toEqual(origQty);
   });
 });
