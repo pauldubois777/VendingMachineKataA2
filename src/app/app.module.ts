@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { CoinReturnService } from './coin-return/coin-return.service'
 import { MessageDisplayService } from './message-display/message-display.service'
+import { InventoryService } from './inventory/inventory.service'
 
 @NgModule({
   declarations: [
@@ -17,7 +18,9 @@ import { MessageDisplayService } from './message-display/message-display.service
     HttpModule
   ],
   providers: [
-    CoinReturnService
+    CoinReturnService,
+    MessageDisplayService,
+    InventoryService
   ],
   bootstrap: [AppComponent]
 })
