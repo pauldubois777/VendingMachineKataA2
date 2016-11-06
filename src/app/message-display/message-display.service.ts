@@ -8,10 +8,13 @@ export class MessageDisplayService {
   displayMessage: string;
   private _displayBalance: number;
   private _exactChangeOnly: boolean;
+  private _tempMessage: string;
 
   constructor() {
-    this.DisplayBalance = 0;
-    this.ExactChangeOnly = false;
+    this._displayBalance = 0;
+    this._exactChangeOnly = false;
+    this._tempMessage = '';
+    this.setDisplayMessage();
   }
 
   set DisplayBalance(balance: number) {
@@ -24,15 +27,24 @@ export class MessageDisplayService {
     this.setDisplayMessage();
   }
 
-  setDisplayMessage(){
-    if (this._displayBalance === 0) {
-      if (this._exactChangeOnly) {
-        this.displayMessage = StringConstants.EXACT_CHANGE_MESSAGE;
-      } else {
-        this.displayMessage = StringConstants.INSERT_COIN_MESSAGE;
-      }
+  set TempMessage(tempMessage: string){
+    this._tempMessage = tempMessage;
+    this.setDisplayMessage();
+  }
+
+  setDisplayMessage() {
+    if (this._tempMessage) {
+      this.displayMessage = this._tempMessage;
     } else {
-      this.displayMessage = '' + this._displayBalance;
+      if (this._displayBalance === 0) {
+        if (this._exactChangeOnly) {
+          this.displayMessage = StringConstants.EXACT_CHANGE_MESSAGE;
+        } else {
+          this.displayMessage = StringConstants.INSERT_COIN_MESSAGE;
+        }
+      } else {
+        this.displayMessage = '' + this._displayBalance;
+      }
     }
   }
 }
