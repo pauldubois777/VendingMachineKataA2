@@ -15,4 +15,14 @@ describe('Service: Inventory', () => {
     expect(service.Inventory).toEqual(INITIAL_INVENTORY);
   });
 
+  it('dispensing each product decrements product qtys', () => {
+    INITIAL_INVENTORY.forEach( (inventoryItem) => {
+      service.dispense(inventoryItem.product);
+    });
+
+    for (let idx = 0; idx < INITIAL_INVENTORY.length; idx++) {
+      expect(service.Inventory[idx].qty).toEqual(INITIAL_INVENTORY[idx].qty - 1);
+    }
+  });
+
 });
