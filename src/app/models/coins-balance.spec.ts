@@ -27,6 +27,15 @@ describe('Model: CoinsBalance', () => {
     expect(coinsBalance.ValueInCents).toEqual(valueInCents);
   });
 
+  it('calling reset sets all coin qtys to zero and value is zero', () => {
+    coinsBalance = new CoinsBalance(nickles, dimes, quarters);
+    coinsBalance.reset();
+    expect(coinsBalance.getCoinBalance(CoinsEnum.NICKLE)).toEqual(0);
+    expect(coinsBalance.getCoinBalance(CoinsEnum.DIME)).toEqual(0);
+    expect(coinsBalance.getCoinBalance(CoinsEnum.QUARTER)).toEqual(0);
+    expect(coinsBalance.ValueInCents).toEqual(0);
+  });
+
   it('adding valid coins returns true and updates qty and value correctly', () => {
     testAddCoin(CoinsEnum.NICKLE, true, 5);
     testAddCoin(CoinsEnum.DIME, true, 15);
