@@ -37,15 +37,20 @@ describe('Model: CoinsBalance', () => {
   });
 
   it('adding valid coins returns true and updates qty and value correctly', () => {
-    testAddCoin(CoinsEnum.NICKLE, true, 5);
-    testAddCoin(CoinsEnum.DIME, true, 15);
-    testAddCoin(CoinsEnum.QUARTER, true, 40);
+    testAddCoin(CoinsEnum.NICKLE, true, 1, 5);
+    testAddCoin(CoinsEnum.DIME, true, 1, 15);
+    testAddCoin(CoinsEnum.QUARTER, true, 1, 40);
+  });
+
+  it('adding invalid coins returns false, does not update qtys, and value stays zero', () => {
+    testAddCoin(CoinsEnum.PENNY, false, 0, 0);
+    testAddCoin(CoinsEnum.UNKNOWN, false, 0, 0);
   });
 });
 
-function testAddCoin(coinEnum: CoinsEnum, expectedRetValue: boolean, expectedValue: number) {
+function testAddCoin(coinEnum: CoinsEnum, expectedRetValue: boolean, coinQty: number, expectedValue: number) {
   let retVal = coinsBalance.addCoin(coinEnum);
   expect(retVal).toEqual(expectedRetValue);
-  expect(coinsBalance.getCoinBalance(coinEnum)).toEqual(1);
+  expect(coinsBalance.getCoinBalance(coinEnum)).toEqual(coinQty);
   expect(coinsBalance.ValueInCents).toEqual(expectedValue);
 }
