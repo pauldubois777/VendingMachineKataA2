@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { CoinReturnService } from './coin-return/coin-return.service'
 import { MessageDisplayService } from './message-display/message-display.service'
+import { InitialInventoryService } from './inventory/initial-inventory.service'
 import { InventoryService } from './inventory/inventory.service'
 import { BankService } from './bank/bank.service'
 
@@ -21,6 +22,7 @@ import { BankService } from './bank/bank.service'
   providers: [
     CoinReturnService,
     MessageDisplayService,
+    InitialInventoryService,
     InventoryService,
     BankService
   ],

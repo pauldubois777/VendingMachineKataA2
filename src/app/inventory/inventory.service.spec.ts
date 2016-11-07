@@ -1,15 +1,18 @@
 /* tslint:disable:no-unused-variable */
 
+import { InitialInventoryService } from './initial-inventory.service';
 import { InventoryService } from './inventory.service';
 import { Product } from '../models/product';
-import { INITIAL_INVENTORY } from '../shared/initial-inventory';
+import { INITIAL_INVENTORY } from './initial-inventory';
 import { StringConstants } from '../shared/string-constants';
 
 let service: InventoryService;
 
 describe('Service: Inventory', () => {
   beforeEach(() => {
-    service = new InventoryService();
+    const initialInventoryService = new InitialInventoryService();
+    const initialInventorySpy = spyOn(initialInventoryService, 'InitialInventory').and.returnValue(INITIAL_INVENTORY);
+    service = new InventoryService(initialInventoryService);
   });
 
   it('after creation should have initial inventory', () => {
