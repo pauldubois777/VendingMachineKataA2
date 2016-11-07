@@ -1,12 +1,8 @@
-import { CoinsEnum } from '../shared/coins.enum';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class InitialBankCoins {
-  coins: Array<number>;
-
-  constructor () {
-    this.coins = new Array<number>();
-    this.coins[CoinsEnum.NICKLE] = 8;
-    this.coins[CoinsEnum.DIME] = 7;
-    this.coins[CoinsEnum.QUARTER] = 6;
-  }
+  nickles = 8;
+  dimes = 7;
+  quarters = 6;
 }

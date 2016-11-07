@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
 
+import { CoinsBalance } from '../models/coins-balance';
 import { CoinsEnum } from '../shared/coins.enum';
-import { InitialBankCoinsService } from './initial-bank-coins.service';
+import { InitialBankCoins } from './initial-bank-coins';
 
 @Injectable()
-export class BankService {
-  private _coinQuantities: Array<number>;
+export class BankService extends CoinsBalance {
 
-  constructor(private _initialBankCoinsService: InitialBankCoinsService) {
-    this._coinQuantities = _initialBankCoinsService.InitialCoins;
-  }
-
-  get Coins(): Array<number>{
-     return this._coinQuantities.slice(0);
+  constructor(initialBankCoins: InitialBankCoins) {
+    super(initialBankCoins.nickles, initialBankCoins.dimes, initialBankCoins.quarters);
   }
 }

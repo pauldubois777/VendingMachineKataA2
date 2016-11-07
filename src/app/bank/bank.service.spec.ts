@@ -3,30 +3,28 @@
 import { BankService } from './bank.service';
 import { CoinsEnum } from '../shared/coins.enum';
 import { InitialBankCoins } from './initial-bank-coins';
-import { InitialBankCoinsService } from './initial-bank-coins.service';
 
 let service: BankService;
-
-let initialCoinQuantities: Array<number>;
-let initialBankCoinsServiceSpy;
+let nickles = 5;
+let dimes = 10;
+let quarters = 11;
+let valueInCents = 400;
 
 describe('Service: Bank', () => {
   beforeEach(() => {
-    initialCoinQuantities = new Array<number>();
-    initialCoinQuantities[CoinsEnum.NICKLE] = 4;
-    initialCoinQuantities[CoinsEnum.DIME] = 3;
-    initialCoinQuantities[CoinsEnum.QUARTER] = 2;
+    let initialBankCoins = new InitialBankCoins();
+    initialBankCoins.nickles = nickles;
+    initialBankCoins.dimes = dimes;
+    initialBankCoins.quarters = quarters;
 
-    const initialBankCoinsService = new InitialBankCoinsService();
-    initialBankCoinsServiceSpy = spyOn(initialBankCoinsService, 'InitialCoins').and.returnValue(initialCoinQuantities);
-    service = new BankService(initialBankCoinsService);
+    service = new BankService(initialBankCoins);
   });
 
-  it('after creation should have initial coin quantities', () => {
-    expect(service.Coins[CoinsEnum.NICKLE]).toEqual(initialCoinQuantities[CoinsEnum.NICKLE]);
-    expect(service.Coins[CoinsEnum.DIME]).toEqual(initialCoinQuantities[CoinsEnum.DIME]);
-    expect(service.Coins[CoinsEnum.QUARTER]).toEqual(initialCoinQuantities[CoinsEnum.QUARTER]);
-    expect(initialBankCoinsServiceSpy.calls.count()).toBe(1, 'stubbed InitialCoins was called once');
+  it('after creation should have initial coin quantities and value', () => {
+    expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(nickles);
+    expect(service.getCoinBalance(CoinsEnum.DIME)).toEqual(dimes);
+    expect(service.getCoinBalance(CoinsEnum.QUARTER)).toEqual(quarters);
+    expect(service.ValueInCents).toEqual(valueInCents);
   });
 });
 
