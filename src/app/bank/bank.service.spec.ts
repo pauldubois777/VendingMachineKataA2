@@ -1,16 +1,20 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject } from '@angular/core/testing';
 import { BankService } from './bank.service';
+import { CoinsEnum } from '../shared/coins.enum';
+import { InitialBankCoins } from '../shared/initial-bank-coins';
+
+let service: BankService;
 
 describe('Service: Bank', () => {
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [BankService]
-    });
+    service = new BankService();
   });
 
-  it('should ...', inject([BankService], (service: BankService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('after creation should have initial coin quantities', () => {
+    expect(service.Coins[CoinsEnum.NICKLE]).toEqual(InitialBankCoins[CoinsEnum.NICKLE]);
+    expect(service.Coins[CoinsEnum.DIME]).toEqual(InitialBankCoins[CoinsEnum.DIME]);
+    expect(service.Coins[CoinsEnum.QUARTER]).toEqual(InitialBankCoins[CoinsEnum.QUARTER]);
+  });
 });
+
