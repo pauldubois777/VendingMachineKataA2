@@ -14,7 +14,7 @@ export class CoinReturnService {
   }
 
   get Coins(): Array<CoinsEnum> {
-    return this._coins;
+    return this._coins.slice(0);
   }
 
   addToReturn(coin: CoinsEnum) {
