@@ -1,4 +1,4 @@
-import { CoinsEnum } from './coins.enum';
+import { CoinsEnum } from '../shared/coins.enum';
 
 export class InitialBankCoins {
   coins: Array<number>;

@@ -2,5 +2,6 @@ export enum CoinsEnum {
   PENNY,
   NICKLE,
   DIME,
-  QUARTER
+  QUARTER,
+  UNKNOWN
 }

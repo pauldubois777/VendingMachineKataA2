@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 
 import { CoinsEnum } from '../shared/coins.enum';
-import { InitialBankCoins } from '../shared/initial-bank-coins';
+import { InitialBankCoinsService } from './initial-bank-coins.service';
 
 @Injectable()
 export class BankService {
   private _coinQuantities: Array<number>;
 
-  constructor() {
-    this._coinQuantities = new Array<number>();
-    this._coinQuantities[CoinsEnum.NICKLE] = InitialBankCoins[CoinsEnum.NICKLE];
-    this._coinQuantities[CoinsEnum.DIME] = InitialBankCoins[CoinsEnum.DIME];
-    this._coinQuantities[CoinsEnum.QUARTER] = InitialBankCoins[CoinsEnum.QUARTER];
+  constructor(private _initialBankCoinsService: InitialBankCoinsService) {
+    this._coinQuantities = _initialBankCoinsService.InitialCoins;
   }
 
   get Coins(): Array<number>{
