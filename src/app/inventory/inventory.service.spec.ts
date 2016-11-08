@@ -1,37 +1,44 @@
 /* tslint:disable:no-unused-variable */
 
-import { InitialInventoryService } from './initial-inventory.service';
+import { InitialInventory } from './initial-inventory';
+import { InventoryItem } from '../models/inventory-item';
 import { InventoryService } from './inventory.service';
 import { Product } from '../models/product';
-import { INITIAL_INVENTORY } from './initial-inventory';
 import { StringConstants } from '../shared/string-constants';
 
 let service: InventoryService;
+let initialInventory: InitialInventory;
 
 describe('Service: Inventory', () => {
   beforeEach(() => {
-    const initialInventoryService = new InitialInventoryService();
-    const initialInventorySpy = spyOn(initialInventoryService, 'InitialInventory').and.returnValue(INITIAL_INVENTORY);
-    service = new InventoryService(initialInventoryService);
+    // Let's use some products other than the initial inventory to flex tests
+    initialInventory = new InitialInventory();
+    initialInventory.inventory = [
+      new InventoryItem (new Product(5, 'TestCola', .75), 2),
+      new InventoryItem (new Product(6, 'ChipsAhoy', 1.50), 5),
+      new InventoryItem (new Product(8, 'Popcorn', .8), 3),
+      new InventoryItem (new Product(7, 'Star Wars DVD', 3.35), 6)
+    ];
+    service = new InventoryService(initialInventory);
   });
 
   it('after creation should have initial inventory', () => {
-    expect(service.Inventory).toEqual(INITIAL_INVENTORY);
+    expect(service.Inventory).toEqual(initialInventory.inventory);
   });
 
   it('dispensing each product decrements product qtys', () => {
-    INITIAL_INVENTORY.forEach( (inventoryItem) => {
+    initialInventory.inventory.forEach( (inventoryItem) => {
       let dispenseReturnValue = service.dispense(inventoryItem.product);
       expect(dispenseReturnValue).toEqual(true);
     });
 
-    for (let idx = 0; idx < INITIAL_INVENTORY.length; idx++) {
-      expect(service.Inventory[idx].qty).toEqual(INITIAL_INVENTORY[idx].qty - 1);
+    for (let idx = 0; idx < initialInventory.inventory.length; idx++) {
+      expect(service.Inventory[idx].qty).toEqual(initialInventory.inventory[idx].qty - 1);
     }
   });
 
   it('dispensing product with qty returns true', () => {
-    let dispenseReturnValue = service.dispense(INITIAL_INVENTORY[0].product);
+    let dispenseReturnValue = service.dispense(initialInventory.inventory[0].product);
     expect(dispenseReturnValue).toEqual(true);
   });
 

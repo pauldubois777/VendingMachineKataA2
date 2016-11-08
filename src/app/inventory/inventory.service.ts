@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 
 import { InventoryItem } from '../models/inventory-item';
 import { Product } from '../models/product';
-import { InitialInventoryService } from './initial-inventory.service';
+import { InitialInventory } from './initial-inventory';
 import { StringConstants } from '../shared/string-constants';
 
 @Injectable()
 export class InventoryService {
   private _inventory: Array<InventoryItem> = new Array<InventoryItem>();
 
-  constructor(private initialInventoryService: InitialInventoryService) {
-    this.initialInventoryService.InitialInventory.forEach( (intitialInventoryItem) => {
+  constructor(initialInventory: InitialInventory) {
+    initialInventory.inventory.forEach( (intitialInventoryItem) => {
       this._inventory.push(intitialInventoryItem.clone());
     });
   }
