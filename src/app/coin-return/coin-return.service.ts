@@ -1,6 +1,7 @@
 // This service represent the machine's Coin Return area.
 // Other services can add coins to the return, or allow the user to empty the return.
-
+// This class cannot extend the CoinsBalance class because the Coin Return can have pennys as well as 
+// invalid coins
 import { Injectable } from '@angular/core';
 
 import { CoinsEnum } from '../shared/coins.enum';
