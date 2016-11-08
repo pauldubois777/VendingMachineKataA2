@@ -14,10 +14,10 @@ describe('Service: Inventory', () => {
     // Let's use some products other than the initial inventory to flex tests
     initialInventory = new InitialInventory();
     initialInventory.inventory = [
-      new InventoryItem (new Product(5, 'TestCola', .75), 2),
-      new InventoryItem (new Product(6, 'ChipsAhoy', 1.50), 5),
-      new InventoryItem (new Product(8, 'Popcorn', .8), 3),
-      new InventoryItem (new Product(7, 'Star Wars DVD', 3.35), 6)
+      new InventoryItem (new Product(5, 'TestCola', 75), 2),
+      new InventoryItem (new Product(6, 'ChipsAhoy', 150), 5),
+      new InventoryItem (new Product(8, 'Popcorn', 80), 3),
+      new InventoryItem (new Product(7, 'Star Wars DVD', 335), 6)
     ];
     service = new InventoryService(initialInventory);
   });
@@ -54,7 +54,7 @@ describe('Service: Inventory', () => {
   });
 
   it('dispensing a product not in inventory throws error', () => {
-    let productNotInInventory = new Product(999999, 'Product not in inventory', 3.14);
+    let productNotInInventory = new Product(999999, 'Product not in inventory', 314);
     expect(() => service.dispense(productNotInInventory)).toThrowError(StringConstants.PRODUCT_NOT_IN_INVENTORY_ERROR);
   });
 

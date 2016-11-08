@@ -2,7 +2,7 @@ import { InventoryItem } from '../models/inventory-item';
 import { Product } from '../models/product';
 
 let inventoryItem: InventoryItem;
-let product: Product = new Product(1, 'Product One', 1.23);
+let product: Product = new Product(1, 'Product One', 123);
 let inventoryQty = 10;
 
 describe('Model: InventoryItem', () => {
