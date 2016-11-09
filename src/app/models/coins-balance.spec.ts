@@ -59,6 +59,13 @@ describe('Model: CoinsBalance', () => {
     testRemoveCoin(CoinsEnum.PENNY, false, 0, valueInCents);
     testRemoveCoin(CoinsEnum.UNKNOWN, false, 0, valueInCents);
   });
+
+  it('removing valid coin with qty zero returns false and does not update qty or value', () => {
+    coinsBalance = new CoinsBalance(0, 0, 0);
+    testRemoveCoin(CoinsEnum.NICKLE, false, 0, 0);
+    testRemoveCoin(CoinsEnum.DIME, false, 0, 0);
+    testRemoveCoin(CoinsEnum.QUARTER, false, 0, 0);
+  });
 });
 
 function testAddCoin(coinEnum: CoinsEnum, expectedRetValue: boolean, coinQty: number, expectedValue: number) {
