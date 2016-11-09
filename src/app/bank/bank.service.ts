@@ -22,7 +22,7 @@ export class BankService extends CoinsBalance {
       } else {
         if (this.getCoinBalance(CoinsEnum.NICKLE) >= 1 && this.getCoinBalance(CoinsEnum.DIME) >= 2) {
           return true;
-        } else { 
+        } else {
           return false;
         }
       }
