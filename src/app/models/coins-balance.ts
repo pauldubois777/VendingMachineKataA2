@@ -26,6 +26,25 @@ export class CoinsBalance {
     }
   }
 
+  removeCoin(coinEnum: CoinsEnum): boolean {
+    if (coinEnum === CoinsEnum.NICKLE && this._nickels > 0) {
+      this._nickels--;
+      return true;
+    } else {
+      if (coinEnum === CoinsEnum.DIME && this._dimes > 0) {
+        this._dimes--;
+        return true;
+      } else {
+        if (coinEnum === CoinsEnum.QUARTER && this._quarters > 0) {
+          this._quarters--;
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+  }
+
   reset() {
     this._nickels = 0;
     this._dimes = 0;

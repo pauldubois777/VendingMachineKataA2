@@ -46,10 +46,30 @@ describe('Model: CoinsBalance', () => {
     testAddCoin(CoinsEnum.PENNY, false, 0, 0);
     testAddCoin(CoinsEnum.UNKNOWN, false, 0, 0);
   });
+
+  it('removing valid coins returns true and updates qty and value correctly', () => {
+    coinsBalance = new CoinsBalance(nickles, dimes, quarters);
+    testRemoveCoin(CoinsEnum.NICKLE, true, nickles - 1, valueInCents - 5);
+    testRemoveCoin(CoinsEnum.DIME, true, dimes - 1, valueInCents - 15);
+    testRemoveCoin(CoinsEnum.QUARTER, true, quarters - 1, valueInCents - 40);
+  });
+
+  it('removing invalid coins returns false and does not update qty or value', () => {
+    coinsBalance = new CoinsBalance(nickles, dimes, quarters);
+    testRemoveCoin(CoinsEnum.PENNY, false, 0, valueInCents);
+    testRemoveCoin(CoinsEnum.UNKNOWN, false, 0, valueInCents);
+  });
 });
 
 function testAddCoin(coinEnum: CoinsEnum, expectedRetValue: boolean, coinQty: number, expectedValue: number) {
   let retVal = coinsBalance.addCoin(coinEnum);
+  expect(retVal).toEqual(expectedRetValue);
+  expect(coinsBalance.getCoinBalance(coinEnum)).toEqual(coinQty);
+  expect(coinsBalance.ValueInCents).toEqual(expectedValue);
+}
+
+function testRemoveCoin(coinEnum: CoinsEnum, expectedRetValue: boolean, coinQty: number, expectedValue: number) {
+  let retVal = coinsBalance.removeCoin(coinEnum);
   expect(retVal).toEqual(expectedRetValue);
   expect(coinsBalance.getCoinBalance(coinEnum)).toEqual(coinQty);
   expect(coinsBalance.ValueInCents).toEqual(expectedValue);
