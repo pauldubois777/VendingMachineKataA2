@@ -17,8 +17,15 @@ export class BankService extends CoinsBalance {
     if (this.getCoinBalance(CoinsEnum.NICKLE) >= 4) {
       return true;
     } else {
-      return false;
+      if (this.getCoinBalance(CoinsEnum.NICKLE) >= 2 && this.getCoinBalance(CoinsEnum.DIME) >= 1) {
+        return true;
+      } else {
+        if (this.getCoinBalance(CoinsEnum.NICKLE) >= 1 && this.getCoinBalance(CoinsEnum.DIME) >= 2) {
+          return true;
+        } else { 
+          return false;
+        }
+      }
     }
-
   }
 }

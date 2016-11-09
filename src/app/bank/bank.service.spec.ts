@@ -24,7 +24,18 @@ describe('Service: Bank', () => {
   });
 
   it('CanMakeChange returns true for bank balances that can make change', () => {
-    expect(testBalanceForCanMakeChange(4, 0, 0)).toEqual(true);
+    //                                 NICKELS, DIMES, QUARTERS
+    expect(testBalanceForCanMakeChange(      4,     0,        0)).toEqual(true);
+    expect(testBalanceForCanMakeChange(      5,     0,        0)).toEqual(true);
+    expect(testBalanceForCanMakeChange(      2,     1,        0)).toEqual(true);
+    expect(testBalanceForCanMakeChange(      3,     1,        0)).toEqual(true);
+    expect(testBalanceForCanMakeChange(      2,     2,        0)).toEqual(true);
+    expect(testBalanceForCanMakeChange(      1,     2,        0)).toEqual(true);
+    expect(testBalanceForCanMakeChange(      1,     3,        0)).toEqual(true);
+
+    // Throw some quartes in to make sure they don't break anything
+    expect(testBalanceForCanMakeChange(      1,     2,        4)).toEqual(true);
+    expect(testBalanceForCanMakeChange(      1,     3,        5)).toEqual(true);
   });
 });
 
