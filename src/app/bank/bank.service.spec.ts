@@ -12,11 +12,7 @@ let valueInCents = 400;
 
 describe('Service: Bank', () => {
   beforeEach(() => {
-    let initialBankCoins = new InitialBankCoins();
-    initialBankCoins.nickles = nickles;
-    initialBankCoins.dimes = dimes;
-    initialBankCoins.quarters = quarters;
-
+    let initialBankCoins = createInitialBankCoins(nickles, dimes, quarters);
     service = new BankService(initialBankCoins);
   });
 
@@ -26,5 +22,24 @@ describe('Service: Bank', () => {
     expect(service.getCoinBalance(CoinsEnum.QUARTER)).toEqual(quarters);
     expect(service.ValueInCents).toEqual(valueInCents);
   });
+
+  it('CanMakeChange returns true for bank balances that can make change', () => {
+    expect(testBalanceForCanMakeChange(4, 0, 0)).toEqual(true);
+  });
 });
+
+function testBalanceForCanMakeChange(testNickles: number, testDimes: number, testQuarters: number): boolean {
+    let initialBankCoins = createInitialBankCoins(4, 0, 0);
+    service = new BankService(initialBankCoins);
+    return service.CanMakeChange;
+}
+
+function createInitialBankCoins(initialNickles: number, initialDimes: number, initialQuarters: number): InitialBankCoins {
+    let initialBankCoins = new InitialBankCoins();
+    initialBankCoins.nickles = initialNickles;
+    initialBankCoins.dimes = initialDimes;
+    initialBankCoins.quarters = initialQuarters;
+
+    return initialBankCoins;
+}
 
