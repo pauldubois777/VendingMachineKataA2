@@ -12,11 +12,12 @@ let valueInCents = 400;
 
 describe('Service: Bank', () => {
   beforeEach(() => {
-    let initialBankCoins = createInitialBankCoins(nickles, dimes, quarters);
-    service = new BankService(initialBankCoins);
+
   });
 
   it('after creation should have initial coin quantities and value', () => {
+    let initialBankCoins = createInitialBankCoins(nickles, dimes, quarters);
+    service = new BankService(initialBankCoins);
     expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(nickles);
     expect(service.getCoinBalance(CoinsEnum.DIME)).toEqual(dimes);
     expect(service.getCoinBalance(CoinsEnum.QUARTER)).toEqual(quarters);
@@ -49,6 +50,17 @@ describe('Service: Bank', () => {
     expect(testBalanceForCanMakeChange(      2,     0,        1)).toEqual(false, '2 nickle, 0 dime, 1 quarter');
     expect(testBalanceForCanMakeChange(      3,     0,        0)).toEqual(false, '3 nickle, 0 dime, 0 quarter');
     expect(testBalanceForCanMakeChange(      3,     0,        1)).toEqual(false, '3 nickle, 0 dime, 1 quarter');
+  });
+
+  it('returnValue decreases coins and balance correctly, and correctly calls Coin Return service addToReturn', () => {
+    let initialBankCoins = createInitialBankCoins(5, 2, 4);
+    service = new BankService(initialBankCoins);
+
+    expect(service.returnValueInCents(100)).toEqual(true, 'Return value');
+    expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(5, 'Nickles');
+    expect(service.getCoinBalance(CoinsEnum.DIME)).toEqual(2, 'Dimes');
+    expect(service.getCoinBalance(CoinsEnum.QUARTER)).toEqual(0, 'Quarters');
+    expect(service.ValueInCents).toEqual(45, 'Value in cents');
   });
 });
 

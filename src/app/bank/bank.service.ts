@@ -28,4 +28,20 @@ export class BankService extends CoinsBalance {
       }
     }
   }
+
+  returnValueInCents(valueInCents: number): boolean {
+
+    // Return higher denomination coins first
+    let numberOfQuartersToReturn = Math.floor(valueInCents / 25);
+
+    if (numberOfQuartersToReturn > 0 && numberOfQuartersToReturn <= this.getCoinBalance(CoinsEnum.QUARTER)) {
+      for (let x = 0; x < numberOfQuartersToReturn; x++) {
+        this.removeCoin(CoinsEnum.QUARTER);
+        // Call Coin Return service to return quarters
+        valueInCents = valueInCents % 25;
+      }
+    }
+
+    return valueInCents === 0 ? true : false; 
+  }
 }
