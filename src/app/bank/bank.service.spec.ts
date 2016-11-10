@@ -113,6 +113,7 @@ describe('Service: Bank', () => {
 
   });
 
+  // TODO: Make the following tests more systematic, so I can see I am covering everything.
   describe('returnThisAmount returns proper amount when bank has change of', () => {
     it('2 nickles, 3 dimes, 4 quarters and amount to return is 100 cents', () => {
       testReturnThisAmount(2, 3, 4, 100, 0, 2, 3, 0, 40, 4,
@@ -179,6 +180,13 @@ describe('Service: Bank', () => {
       testReturnThisAmount(2, 3, 4, 20, 0, 2, 1, 4, 120, 2,
         [[CoinsEnum.DIME],
         [CoinsEnum.DIME]]);
+    });
+
+    it('2 nickels, 1 dimes, 4 quarters and amount to return is 20 cents', () => {
+      testReturnThisAmount(2, 1, 4, 20, 0, 0, 0, 4, 100, 3,
+        [[CoinsEnum.DIME],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE]]);
     });
 
     it('2 nickels, 3 dimes, 4 quarters and amount to return is 5 cents', () => {
