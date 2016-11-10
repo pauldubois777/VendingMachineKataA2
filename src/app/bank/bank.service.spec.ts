@@ -62,7 +62,7 @@ describe('Service: Bank', () => {
     });
 
     it('1 nickle, 3 dimes, 4 quarters', () => {
-      expect(testBalanceForCanMakeChange(1, 3, 5)).toEqual(true); 
+      expect(testBalanceForCanMakeChange(1, 3, 5)).toEqual(true);
     });
 
     it('10 nickles, 30 dimes, 4 quarters', () => {
@@ -113,8 +113,8 @@ describe('Service: Bank', () => {
 
   });
 
-  describe('returnThisAmount returns proper amount when bank has change', () => {
-    it('of 2 nickles, 3 dimes, 4 quarters and amount to return is 1 dollar', () => {
+  describe('returnThisAmount returns proper amount when bank has change of', () => {
+    it('2 nickles, 3 dimes, 4 quarters and amount to return is 100 cents', () => {
       testReturnThisAmount(2, 3, 4, 100, 0, 2, 3, 0, 40, 4,
         [[CoinsEnum.QUARTER],
         [CoinsEnum.QUARTER],
@@ -122,11 +122,57 @@ describe('Service: Bank', () => {
         [CoinsEnum.QUARTER]]);
     });
 
-    it('of 2 nickels, 3 dimes, 4 quarters and amount to return is 75 cents', () => {
+    it('2 nickels, 3 dimes, 4 quarters and amount to return is 75 cents', () => {
       testReturnThisAmount(2, 3, 4, 75, 0, 2, 3, 1, 65, 3,
         [[CoinsEnum.QUARTER],
         [CoinsEnum.QUARTER],
         [CoinsEnum.QUARTER]]);
+    });
+
+    it('2 nickels, 3 dimes, 4 quarters and amount to return is 130 cents', () => {
+      testReturnThisAmount(2, 3, 4, 130, 0, 2, 0, 0, 10, 7,
+        [[CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER],
+        [CoinsEnum.DIME],
+        [CoinsEnum.DIME],
+        [CoinsEnum.DIME]]);
+    });
+
+    it('2 nickels, 3 dimes, 4 quarters and amount to return is 120 cents', () => {
+      testReturnThisAmount(2, 3, 4, 120, 0, 2, 1, 0, 20, 6,
+        [[CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER],
+        [CoinsEnum.DIME],
+        [CoinsEnum.DIME]]);
+    });
+
+    it('2 nickels, 3 dimes, 4 quarters and amount to return is 140 cents', () => {
+      testReturnThisAmount(2, 3, 4, 140, 0, 0, 0, 0, 0, 9,
+        [[CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER],
+        [CoinsEnum.DIME],
+        [CoinsEnum.DIME],
+        [CoinsEnum.DIME],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE]]);
+    });
+
+    it('2 nickels, 3 dimes, 4 quarters and amount to return is 135 cents', () => {
+      testReturnThisAmount(2, 3, 4, 135, 0, 1, 0, 0, 5, 8,
+        [[CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER],
+        [CoinsEnum.DIME],
+        [CoinsEnum.DIME],
+        [CoinsEnum.DIME],
+        [CoinsEnum.NICKLE]]);
     });
   });
 });

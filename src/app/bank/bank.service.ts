@@ -33,16 +33,30 @@ export class BankService extends CoinsBalance {
   returnThisAmount(valueInCents: number): number {
 
     // Return higher denomination coins first
-    let numberOfQuartersToReturn = Math.floor(valueInCents / 25);
+    let remainingValueInCents = this.returnCoinDenomination(valueInCents, CoinsEnum.QUARTER, 25);
+    remainingValueInCents = this.returnCoinDenomination(remainingValueInCents, CoinsEnum.DIME, 10);
+    remainingValueInCents = this.returnCoinDenomination(remainingValueInCents, CoinsEnum.NICKLE, 5);
 
-    if (numberOfQuartersToReturn > 0 && numberOfQuartersToReturn <= this.getCoinBalance(CoinsEnum.QUARTER)) {
-      for (let x = 0; x < numberOfQuartersToReturn; x++) {
-        this.removeCoin(CoinsEnum.QUARTER);
-        this.coinReturnService.addToReturn(CoinsEnum.QUARTER);
-        valueInCents = valueInCents % 25;
+    return remainingValueInCents;
+  }
+
+  private returnCoinDenomination(
+    valueRemainingInCents: number,
+    coinEnum: CoinsEnum,
+    coinValueInCents: number): number {
+
+    let numberOfCoinsToReturn = Math.floor(valueRemainingInCents / coinValueInCents);
+    if (numberOfCoinsToReturn > 0) {
+      if (numberOfCoinsToReturn > this.getCoinBalance(coinEnum)) {
+        numberOfCoinsToReturn = this.getCoinBalance(coinEnum);
       }
+      for (let x = 0; x < numberOfCoinsToReturn; x++) {
+        this.removeCoin(coinEnum);
+        this.coinReturnService.addToReturn(coinEnum);
+      }
+      valueRemainingInCents = valueRemainingInCents - (numberOfCoinsToReturn * coinValueInCents);
     }
 
-    return valueInCents;
+    return valueRemainingInCents;
   }
 }
