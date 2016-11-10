@@ -32,7 +32,7 @@ describe('Service: Bank', () => {
     it('4 nickles', () => {
       expect(testBalanceForCanMakeChange(4, 0, 0)).toEqual(true);
     });
-    
+
     it('5 nickles', () => {
       expect(testBalanceForCanMakeChange(5, 0, 0)).toEqual(true);
     });
@@ -62,30 +62,59 @@ describe('Service: Bank', () => {
     });
 
     it('1 nickle, 3 dimes, 4 quarters', () => {
-      expect(testBalanceForCanMakeChange(1, 3, 5)).toEqual(true);  
+      expect(testBalanceForCanMakeChange(1, 3, 5)).toEqual(true); 
     });
 
     it('10 nickles, 30 dimes, 4 quarters', () => {
       expect(testBalanceForCanMakeChange(10, 30, 100)).toEqual(true);
-    });    
+    });
   });
 
-  it('CanMakeChange returns false for bank coin balances that cannot make change', () => {
-    //                                 NICKELS, DIMES, QUARTERS
-    expect(testBalanceForCanMakeChange(      0,     0,        0)).toEqual(false, '0 nickle, 0 dime, 0 quarter');
-    expect(testBalanceForCanMakeChange(      0,     0,        1)).toEqual(false, '0 nickle, 0 dime, 1 quarter');
-    expect(testBalanceForCanMakeChange(      0,     1,        0)).toEqual(false, '0 nickle, 1 dime, 0 quarter');
-    expect(testBalanceForCanMakeChange(      0,     2,        0)).toEqual(false, '0 nickle, 2 dime, 0 quarter');
-    expect(testBalanceForCanMakeChange(      0,     2,        1)).toEqual(false, '0 nickle, 2 dime, 1 quarter');
-    expect(testBalanceForCanMakeChange(      1,     0,        0)).toEqual(false, '1 nickle, 0 dime, 0 quarter');
-    expect(testBalanceForCanMakeChange(      2,     0,        0)).toEqual(false, '2 nickle, 0 dime, 0 quarter');
-    expect(testBalanceForCanMakeChange(      2,     0,        1)).toEqual(false, '2 nickle, 0 dime, 1 quarter');
-    expect(testBalanceForCanMakeChange(      3,     0,        0)).toEqual(false, '3 nickle, 0 dime, 0 quarter');
-    expect(testBalanceForCanMakeChange(      3,     0,        1)).toEqual(false, '3 nickle, 0 dime, 1 quarter');
+  describe('CanMakeChange returns false for bank coin balances that cannot make change when coin balance has', () => {
+    it('0 nickle, 0 dime, 0 quarter', () => {
+      expect(testBalanceForCanMakeChange(      0,     0,        0)).toEqual(false);
+    });
+
+    it('0 nickle, 0 dime, 1 quarter', () => {
+      expect(testBalanceForCanMakeChange(      0,     0,        1)).toEqual(false);
+    });
+
+    it('0 nickle, 1 dime, 0 quarter', () => {
+      expect(testBalanceForCanMakeChange(      0,     1,        0)).toEqual(false);
+    });
+
+    it('0 nickle, 2 dime, 0 quarter', () => {
+      expect(testBalanceForCanMakeChange(      0,     2,        0)).toEqual(false);
+    });
+
+    it('0 nickle, 2 dime, 1 quarter', () => {
+      expect(testBalanceForCanMakeChange(      0,     2,        1)).toEqual(false);
+    });
+
+    it('1 nickle, 0 dime, 0 quarter', () => {
+      expect(testBalanceForCanMakeChange(      1,     0,        0)).toEqual(false);
+    });
+
+    it('2 nickle, 0 dime, 0 quarter', () => {
+      expect(testBalanceForCanMakeChange(      2,     0,        0)).toEqual(false);
+    });
+
+    it('2 nickle, 0 dime, 1 quarter', () => {
+      expect(testBalanceForCanMakeChange(      2,     0,        1)).toEqual(false);
+    });
+
+    it('3 nickle, 0 dime, 0 quarter', () => {
+      expect(testBalanceForCanMakeChange(      3,     0,        0)).toEqual(false);
+    });
+
+    it('3 nickle, 0 dime, 1 quarter', () => {
+      expect(testBalanceForCanMakeChange(      3,     0,        1)).toEqual(false);
+    });
+
   });
 
   describe('returnThisAmount returns proper amount when bank has change', () => {
-    it('of 4 quarters and amount to return is 1 dollar', () => {
+    it('of 2 nickles, 3 dimes, 4 quarters and amount to return is 1 dollar', () => {
       testReturnThisAmount(2, 3, 4, 100, 0, 2, 3, 0, 40, 4,
         [[CoinsEnum.QUARTER],
         [CoinsEnum.QUARTER],
@@ -93,7 +122,7 @@ describe('Service: Bank', () => {
         [CoinsEnum.QUARTER]]);
     });
 
-    it('of 4 quarters and amount to return is 75 cents', () => {
+    it('of 2 nickels, 3 dimes, 4 quarters and amount to return is 75 cents', () => {
       testReturnThisAmount(2, 3, 4, 75, 0, 2, 3, 1, 65, 3,
         [[CoinsEnum.QUARTER],
         [CoinsEnum.QUARTER],
