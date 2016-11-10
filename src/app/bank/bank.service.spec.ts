@@ -218,6 +218,37 @@ describe('Service: Bank', () => {
         [[CoinsEnum.DIME],
         [CoinsEnum.DIME]]);
     });
+
+    it('2 nickels, 2 dimes, 2 quarters and amount to return is 35 cents', () => {
+      testReturnThisAmount(2, 2, 2, 35, 0, 2, 1, 1, 45, 2,
+        [[CoinsEnum.QUARTER],
+        [CoinsEnum.DIME]]);
+    });
+
+    it('1 nickels, 0 dimes, 2 quarters and amount to return is 35 cents', () => {
+      testReturnThisAmount(1, 0, 2, 35, 5, 0, 0, 1, 25, 2,
+        [[CoinsEnum.QUARTER],
+        [CoinsEnum.NICKLE]]);
+    });
+
+    it('12 nickels, 0 dimes, 0 quarters and amount to return is 50 cents', () => {
+      testReturnThisAmount(12, 0, 0, 50, 0, 2, 0, 0, 10, 10,
+        [[CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE]]);
+    });
+
+    it('0 nickels, 0 dimes, 0 quarters and amount to return is 115 cents', () => {
+      testReturnThisAmount(0, 0, 0, 115, 115, 0, 0, 0, 0, 0,
+        []);
+    });
   });
 });
 
@@ -245,7 +276,11 @@ function testReturnThisAmount(
   expect(service.getCoinBalance(CoinsEnum.QUARTER)).toEqual(expectedBalanceQuarters, 'Quarters');
   expect(service.ValueInCents).toEqual(expectedValueInCents, 'Value in cents');
 
-  expect(coinReturnService.addToReturn).toHaveBeenCalledTimes(expectedTimesAddToReturnCalled);
+  if (expectedTimesAddToReturnCalled === 0) {
+    expect(coinReturnService.addToReturn).not.toHaveBeenCalled();
+  } else {
+    expect(coinReturnService.addToReturn).toHaveBeenCalledTimes(expectedTimesAddToReturnCalled);
+  }
   expect(coinReturnService.addToReturn.calls.allArgs(0)).toEqual(expectedAllArgs);
 }
 

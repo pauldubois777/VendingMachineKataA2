@@ -14,7 +14,8 @@ export class BankService extends CoinsBalance {
 
   get CanMakeChange(): boolean {
     // Based on valid coins being nickle, dime, and quarter, the most change that will ever be
-    // needed is 20 cents. 
+    // needed is 20 cents. This is because we will get all of the users money.  So we will
+    // Always be able to return their own money back to them beyond the 20 cents.
     if (this.getCoinBalance(CoinsEnum.NICKLE) >= 4) {
       return true;
     } else {
@@ -34,10 +35,16 @@ export class BankService extends CoinsBalance {
 
     // Return higher denomination coins first
     let remainingValueInCents = this.returnCoinDenomination(valueInCents, CoinsEnum.QUARTER, 25);
-    remainingValueInCents = this.returnCoinDenomination(remainingValueInCents, CoinsEnum.DIME, 10);
-    remainingValueInCents = this.returnCoinDenomination(remainingValueInCents, CoinsEnum.NICKLE, 5);
+    
+    if (remainingValueInCents > 0) {
+      remainingValueInCents = this.returnCoinDenomination(remainingValueInCents, CoinsEnum.DIME, 10);
+    }
 
-    return remainingValueInCents;
+    if (remainingValueInCents > 0) {
+      remainingValueInCents = this.returnCoinDenomination(remainingValueInCents, CoinsEnum.NICKLE, 5);
+    }
+    
+    return remainingValueInCents; // In case the bank doesn't have enough to return.  Let the caller deal with that.
   }
 
   private returnCoinDenomination(
