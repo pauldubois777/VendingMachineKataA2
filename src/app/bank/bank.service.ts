@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core';
 import { CoinsBalance } from '../models/coins-balance';
 import { CoinsEnum } from '../shared/coins.enum';
 import { InitialBankCoins } from './initial-bank-coins';
+import { CoinReturnService } from '../coin-return/coin-return.service';
 
 @Injectable()
 export class BankService extends CoinsBalance {
 
-  constructor(initialBankCoins: InitialBankCoins) {
+  constructor(initialBankCoins: InitialBankCoins, private coinReturnService: CoinReturnService) {
     super(initialBankCoins.nickles, initialBankCoins.dimes, initialBankCoins.quarters);
   }
 
@@ -37,11 +38,11 @@ export class BankService extends CoinsBalance {
     if (numberOfQuartersToReturn > 0 && numberOfQuartersToReturn <= this.getCoinBalance(CoinsEnum.QUARTER)) {
       for (let x = 0; x < numberOfQuartersToReturn; x++) {
         this.removeCoin(CoinsEnum.QUARTER);
-        // Call Coin Return service to return quarters
+        this.coinReturnService.addToReturn(CoinsEnum.QUARTER);
         valueInCents = valueInCents % 25;
       }
     }
 
-    return valueInCents === 0 ? true : false; 
+    return valueInCents === 0 ? true : false;
   }
 }
