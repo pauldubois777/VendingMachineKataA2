@@ -27,18 +27,47 @@ describe('Service: Bank', () => {
     expect(service.ValueInCents).toEqual(valueInCents);
   });
 
-  it('CanMakeChange returns true for bank coin balances that can make change', () => {
-    //                                 NICKELS, DIMES, QUARTERS
-    expect(testBalanceForCanMakeChange(      4,     0,        0)).toEqual(true, '4 nickle');
-    expect(testBalanceForCanMakeChange(      5,     0,        0)).toEqual(true, '5 nickle');
-    expect(testBalanceForCanMakeChange(      2,     1,        0)).toEqual(true, '2 nickle, 1 dime');
-    expect(testBalanceForCanMakeChange(      3,     1,        0)).toEqual(true, '3 nickle, 1 dime');
-    expect(testBalanceForCanMakeChange(      2,     2,        0)).toEqual(true, '2 nickle, 2 dime');
-    expect(testBalanceForCanMakeChange(      1,     2,        0)).toEqual(true, '1 nickle, 2 dime');
-    expect(testBalanceForCanMakeChange(      1,     3,        0)).toEqual(true, '1 nickle, 3 dime');
-    expect(testBalanceForCanMakeChange(      1,     2,        4)).toEqual(true, '1 nickle, 2 dime, 4 quarter');
-    expect(testBalanceForCanMakeChange(      1,     3,        5)).toEqual(true, '1 nickle, 3 dime, 4 quarter');
-    expect(testBalanceForCanMakeChange(      10,   30,      100)).toEqual(true, '10 nickle, 30 dime, 4 quarter');
+  describe('CanMakeChange returns true for bank coin balances that can make change when coin balance has', () => {
+    //                                   NICKELS, DIMES, QUARTERS
+    it('4 nickles', () => {
+      expect(testBalanceForCanMakeChange(4, 0, 0)).toEqual(true);
+    });
+    
+    it('5 nickles', () => {
+      expect(testBalanceForCanMakeChange(5, 0, 0)).toEqual(true);
+    });
+
+    it('2 nickles, 1 dime', () => {
+      expect(testBalanceForCanMakeChange(2, 1, 0)).toEqual(true);
+    });
+
+    it('3 nickles, 1 dime', () => {
+      expect(testBalanceForCanMakeChange(3, 1, 0)).toEqual(true);
+    });
+
+    it('2 nickles, 2 dimes', () => {
+      expect(testBalanceForCanMakeChange(2, 2, 0)).toEqual(true);
+    });
+
+    it('1 nickle, 2 dimes', () => {
+      expect(testBalanceForCanMakeChange(1, 2, 0)).toEqual(true);
+    });
+
+    it('1 nickle, 3 dimes', () => {
+      expect(testBalanceForCanMakeChange(1, 3, 0)).toEqual(true);
+    });
+
+    it('1 nickle, 2 dimes, 4 quarters', () => {
+      expect(testBalanceForCanMakeChange(1, 2, 4)).toEqual(true);
+    });
+
+    it('1 nickle, 3 dimes, 4 quarters', () => {
+      expect(testBalanceForCanMakeChange(1, 3, 5)).toEqual(true);  
+    });
+
+    it('10 nickles, 30 dimes, 4 quarters', () => {
+      expect(testBalanceForCanMakeChange(10, 30, 100)).toEqual(true);
+    });    
   });
 
   it('CanMakeChange returns false for bank coin balances that cannot make change', () => {
