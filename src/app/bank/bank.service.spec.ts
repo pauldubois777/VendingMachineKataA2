@@ -174,6 +174,50 @@ describe('Service: Bank', () => {
         [CoinsEnum.DIME],
         [CoinsEnum.NICKLE]]);
     });
+
+    it('2 nickels, 3 dimes, 4 quarters and amount to return is 20 cents', () => {
+      testReturnThisAmount(2, 3, 4, 20, 0, 2, 1, 4, 120, 2,
+        [[CoinsEnum.DIME],
+        [CoinsEnum.DIME]]);
+    });
+
+    it('2 nickels, 3 dimes, 4 quarters and amount to return is 5 cents', () => {
+      testReturnThisAmount(2, 3, 4, 5, 0, 1, 3, 4, 135, 1,
+        [[CoinsEnum.NICKLE]]);
+    });
+
+    it('2 nickels, 2 dimes, 0 quarters and amount to return is 25 cents', () => {
+      testReturnThisAmount(2, 2, 0, 25, 0, 1, 0, 0, 5, 3,
+        [[CoinsEnum.DIME],
+        [CoinsEnum.DIME],
+        [CoinsEnum.NICKLE]]);
+    });
+
+    it('2 nickels, 0 dimes, 2 quarters and amount to return is 30 cents', () => {
+      testReturnThisAmount(2, 0, 2, 30, 0, 1, 0, 1, 30, 2,
+        [[CoinsEnum.QUARTER],
+        [CoinsEnum.NICKLE]]);
+    });
+
+    it('12 nickels, 0 dimes, 0 quarters and amount to return is 50 cents', () => {
+      testReturnThisAmount(12, 0, 0, 50, 0, 2, 0, 0, 10, 10,
+        [[CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE]]);
+    });
+
+    it('0 nickels, 3 dimes, 0 quarters and amount to return is 25 cents', () => {
+      testReturnThisAmount(0, 3, 0, 25, 5, 0, 1, 0, 10, 2,
+        [[CoinsEnum.DIME],
+        [CoinsEnum.DIME]]);
+    });
   });
 });
 
