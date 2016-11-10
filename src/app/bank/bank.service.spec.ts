@@ -55,27 +55,51 @@ describe('Service: Bank', () => {
     expect(testBalanceForCanMakeChange(      3,     0,        1)).toEqual(false, '3 nickle, 0 dime, 1 quarter');
   });
 
-  it('returnValueInCents decreases coins and balance correctly, and correctly calls Coin Return service addToReturn', () => {
+  describe('returnThisAmount returns proper amount when bank has change', () => {
+    it('of 4 quarters and amount to return is 1 dollar', () => {
+      testReturnThisAmount(2, 3, 4, 100, 0, 2, 3, 0, 40, 4,
+        [[CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER]]);
+    });
 
-    spyOn(coinReturnService, 'addToReturn');
-    let initialBankCoins = createInitialBankCoins(5, 2, 4);
-    service = new BankService(initialBankCoins, coinReturnService);
-
-    expect(service.returnValueInCents(100)).toEqual(true, 'Return value');
-    expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(5, 'Nickles');
-    expect(service.getCoinBalance(CoinsEnum.DIME)).toEqual(2, 'Dimes');
-    expect(service.getCoinBalance(CoinsEnum.QUARTER)).toEqual(0, 'Quarters');
-    expect(service.ValueInCents).toEqual(45, 'Value in cents');
-
-    expect(coinReturnService.addToReturn).toHaveBeenCalledTimes(4);
-    expect(coinReturnService.addToReturn.calls.allArgs(0)).toEqual([
-      [CoinsEnum.QUARTER],
-      [CoinsEnum.QUARTER],
-      [CoinsEnum.QUARTER],
-      [CoinsEnum.QUARTER]
-    ]);
+    it('of 4 quarters and amount to return is 75 cents', () => {
+      testReturnThisAmount(2, 3, 4, 75, 0, 2, 3, 1, 65, 3,
+        [[CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER]]);
+    });
   });
 });
+
+function testReturnThisAmount(
+  initialNickels: number,
+  initialDimes: number,
+  initialQuarters: number,
+  amountToReturnInCents: number,
+  expectedReturnValue: number,
+  expectedBalanceNickles: number,
+  expectedBalanceDimes: number,
+  expectedBalanceQuarters: number,
+  expectedValueInCents: number,
+  expectedTimesAddToReturnCalled: number,
+  expectedAllArgs: Array<Array<CoinsEnum>>) {
+
+  coinReturnService = new CoinReturnService();
+  spyOn(coinReturnService, 'addToReturn');
+  let initialBankCoins = createInitialBankCoins(initialNickels, initialDimes, initialQuarters);
+  service = new BankService(initialBankCoins, coinReturnService);
+
+  expect(service.returnThisAmount(amountToReturnInCents)).toEqual(expectedReturnValue, 'Return value');
+  expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(expectedBalanceNickles, 'Nickles');
+  expect(service.getCoinBalance(CoinsEnum.DIME)).toEqual(expectedBalanceDimes, 'Dimes');
+  expect(service.getCoinBalance(CoinsEnum.QUARTER)).toEqual(expectedBalanceQuarters, 'Quarters');
+  expect(service.ValueInCents).toEqual(expectedValueInCents, 'Value in cents');
+
+  expect(coinReturnService.addToReturn).toHaveBeenCalledTimes(expectedTimesAddToReturnCalled);
+  expect(coinReturnService.addToReturn.calls.allArgs(0)).toEqual(expectedAllArgs);
+}
 
 function testBalanceForCanMakeChange(testNickles: number, testDimes: number, testQuarters: number): boolean {
     let initialBankCoins = createInitialBankCoins(testNickles, testDimes, testQuarters);

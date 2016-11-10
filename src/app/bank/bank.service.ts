@@ -30,7 +30,7 @@ export class BankService extends CoinsBalance {
     }
   }
 
-  returnValueInCents(valueInCents: number): boolean {
+  returnThisAmount(valueInCents: number): number {
 
     // Return higher denomination coins first
     let numberOfQuartersToReturn = Math.floor(valueInCents / 25);
@@ -43,6 +43,6 @@ export class BankService extends CoinsBalance {
       }
     }
 
-    return valueInCents === 0 ? true : false;
+    return valueInCents;
   }
 }
