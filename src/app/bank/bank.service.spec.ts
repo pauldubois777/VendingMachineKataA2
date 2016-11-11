@@ -113,7 +113,6 @@ describe('Service: Bank', () => {
 
   });
 
-  // TODO: Make the following tests more systematic, so I can see I am covering everything.
   describe('returnThisAmount returns proper amount when bank has change of', () => {
 
     // All Quarters
