@@ -72,43 +72,43 @@ describe('Service: Bank', () => {
 
   describe('CanMakeChange returns false for bank coin balances that cannot make change when coin balance has', () => {
     it('0 nickle, 0 dime, 0 quarter', () => {
-      expect(testBalanceForCanMakeChange(      0,     0,        0)).toEqual(false);
+      expect(testBalanceForCanMakeChange(0, 0, 0)).toEqual(false);
     });
 
     it('0 nickle, 0 dime, 1 quarter', () => {
-      expect(testBalanceForCanMakeChange(      0,     0,        1)).toEqual(false);
+      expect(testBalanceForCanMakeChange(0, 0, 1)).toEqual(false);
     });
 
     it('0 nickle, 1 dime, 0 quarter', () => {
-      expect(testBalanceForCanMakeChange(      0,     1,        0)).toEqual(false);
+      expect(testBalanceForCanMakeChange(0, 1, 0)).toEqual(false);
     });
 
     it('0 nickle, 2 dime, 0 quarter', () => {
-      expect(testBalanceForCanMakeChange(      0,     2,        0)).toEqual(false);
+      expect(testBalanceForCanMakeChange(0, 2, 0)).toEqual(false);
     });
 
     it('0 nickle, 2 dime, 1 quarter', () => {
-      expect(testBalanceForCanMakeChange(      0,     2,        1)).toEqual(false);
+      expect(testBalanceForCanMakeChange(0, 2, 1)).toEqual(false);
     });
 
     it('1 nickle, 0 dime, 0 quarter', () => {
-      expect(testBalanceForCanMakeChange(      1,     0,        0)).toEqual(false);
+      expect(testBalanceForCanMakeChange(1, 0, 0)).toEqual(false);
     });
 
     it('2 nickle, 0 dime, 0 quarter', () => {
-      expect(testBalanceForCanMakeChange(      2,     0,        0)).toEqual(false);
+      expect(testBalanceForCanMakeChange(2, 0, 0)).toEqual(false);
     });
 
     it('2 nickle, 0 dime, 1 quarter', () => {
-      expect(testBalanceForCanMakeChange(      2,     0,        1)).toEqual(false);
+      expect(testBalanceForCanMakeChange(2, 0, 1)).toEqual(false);
     });
 
     it('3 nickle, 0 dime, 0 quarter', () => {
-      expect(testBalanceForCanMakeChange(      3,     0,        0)).toEqual(false);
+      expect(testBalanceForCanMakeChange(3, 0, 0)).toEqual(false);
     });
 
     it('3 nickle, 0 dime, 1 quarter', () => {
-      expect(testBalanceForCanMakeChange(      3,     0,        1)).toEqual(false);
+      expect(testBalanceForCanMakeChange(3, 0, 1)).toEqual(false);
     });
 
   });
