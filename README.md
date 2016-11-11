@@ -8,7 +8,9 @@ I wrote it to code the [Vending Machine Kata](https://github.com/guyroyse/vendin
 
 Before writing any code, I first outlined a high level design of the objects and how they will interact.  I also wrote some logic notes as I thought through various aspects.
 
-Here are my design objects and notes:
+As I have worked on the tests and code, I have not updated this section with things I needed to rework.  Rather, when the code is complete, I will add a new section that describes the final design, and the process of creation.
+
+So here are my initial design objects and notes:
 
 ### Product Model
 * Description
@@ -61,5 +63,9 @@ Here are my design objects and notes:
 * If not zero, then displays the balance.  
 * If zero, checks the Bank Object to see if it can make change.  If it can, then display "INSERT COIN", otherwise display "EXACT CHANGE ONLY".
 * Method to display temp messages - Save the current message. display the temp message text for 1 second, then restore the saved text. 
+
+## Design Phase
+
+This section will hold the final design that evolved during the writing of tests and code.  It will show what went wrong with the original design, as well as items that were improved along the way.
 
 
