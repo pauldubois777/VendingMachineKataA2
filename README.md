@@ -64,7 +64,7 @@ So here are my initial design objects and notes:
 * If zero, checks the Bank Object to see if it can make change.  If it can, then display "INSERT COIN", otherwise display "EXACT CHANGE ONLY".
 * Method to display temp messages - Save the current message. display the temp message text for 1 second, then restore the saved text. 
 
-## Design Phase
+## Final Design
 
 This section will hold the final design that evolved during the writing of tests and code.  It will show what went wrong with the original design, as well as items that were improved along the way.
 
