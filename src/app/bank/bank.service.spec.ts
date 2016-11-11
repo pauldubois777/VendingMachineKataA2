@@ -28,7 +28,6 @@ describe('Service: Bank', () => {
   });
 
   describe('CanMakeChange returns true for bank coin balances that can make change when coin balance has', () => {
-    //                                   NICKELS, DIMES, QUARTERS
     it('4 nickles', () => {
       expect(testBalanceForCanMakeChange(4, 0, 0)).toEqual(true);
     });
@@ -115,7 +114,7 @@ describe('Service: Bank', () => {
 
   describe('returnThisAmount returns proper amount when bank has change of', () => {
 
-    // All Quarters
+    // All Quarters returned
     it('2 nickles, 3 dimes, 4 quarters and amount to return is 100 cents', () => {
       testReturnThisAmount(2, 3, 4, 100, 0, 2, 3, 0, 40, 4,
         [[CoinsEnum.QUARTER],
@@ -124,7 +123,7 @@ describe('Service: Bank', () => {
         [CoinsEnum.QUARTER]]);
     });
 
-    // Quarters and a dime
+    // Quarters and a dime returned
     it('2 nickles, 3 dimes, 4 quarters and amount to return is 85 cents', () => {
       testReturnThisAmount(2, 3, 4, 85, 0, 2, 2, 1, 55, 4,
         [[CoinsEnum.QUARTER],
@@ -133,7 +132,7 @@ describe('Service: Bank', () => {
         [CoinsEnum.DIME]]);
     });
 
-    // Quarters, dime, and nickle
+    // Quarters, dime, and nickle returned
     it('2 nickles, 3 dimes, 4 quarters and amount to return is 90 cents', () => {
       testReturnThisAmount(2, 3, 4, 90, 0, 1, 2, 1, 50, 5,
         [[CoinsEnum.QUARTER],
@@ -143,7 +142,7 @@ describe('Service: Bank', () => {
         [CoinsEnum.NICKLE]]);
     });
 
-    // Quarters and nickle
+    // Quarters and nickle returned
     it('2 nickles, 3 dimes, 4 quarters and amount to return is 80 cents', () => {
       testReturnThisAmount(2, 3, 4, 80, 0, 1, 3, 1, 60, 4,
         [[CoinsEnum.QUARTER],
@@ -152,27 +151,27 @@ describe('Service: Bank', () => {
         [CoinsEnum.NICKLE]]);
     });
 
-    // Dimes when Quarters
+    // Dimes when Quarters returned
     it('2 nickles, 3 dimes, 4 quarters and amount to return is 20 cents', () => {
       testReturnThisAmount(2, 3, 4, 20, 0, 2, 1, 4, 120, 2,
         [[CoinsEnum.DIME],
         [CoinsEnum.DIME]]);
     });
 
-    // Nickle when Quarters and dimes
+    // Nickle returned when Quarters and dimes
     it('2 nickles, 3 dimes, 4 quarters and amount to return is 5 cents', () => {
       testReturnThisAmount(2, 3, 4, 5, 0, 1, 3, 4, 135, 1,
         [[CoinsEnum.NICKLE]]);
     });
 
-    // Dime and nickle when Quarters
+    // Dime and nickle returned when Quarters
     it('2 nickles, 3 dimes, 4 quarters and amount to return is 15 cents', () => {
       testReturnThisAmount(2, 3, 4, 15, 0, 1, 2, 4, 125, 2,
         [[CoinsEnum.DIME],
         [CoinsEnum.NICKLE]]);
     });
 
-    // Dimes no quarter
+    // Dimes returned when no quarter
     it('2 nickles, 6 dimes, 0 quarters and amount to return is 50 cents', () => {
       testReturnThisAmount(2, 6, 0, 50, 0, 2, 1, 0, 20, 5,
         [[CoinsEnum.DIME],
@@ -182,7 +181,7 @@ describe('Service: Bank', () => {
         [CoinsEnum.DIME]]);
     });
 
-    // Dimes and nickle no quarter
+    // Dimes and nickle returned when no quarter
     it('2 nickles, 3 dimes, 0 quarters and amount to return is 25 cents', () => {
       testReturnThisAmount(2, 3, 0, 25, 0, 1, 1, 0, 15, 3,
         [[CoinsEnum.DIME],
@@ -190,7 +189,7 @@ describe('Service: Bank', () => {
         [CoinsEnum.NICKLE]]);
     });
 
-    // Nickles no dimes no quarters
+    // Nickles returned when no dimes no quarters
     it('10 nickles, 0 dimes, 0 quarters and amount to return is 25 cents', () => {
       testReturnThisAmount(10, 0, 0, 25, 0, 5, 0, 0, 25, 5,
         [[CoinsEnum.NICKLE],
@@ -200,13 +199,13 @@ describe('Service: Bank', () => {
         [CoinsEnum.NICKLE]]);
     });
 
-    // No coins
+    // No coins returned
     it('0 nickles, 0 dimes, 0 quarters and amount to return is 25 cents', () => {
       testReturnThisAmount(0, 0, 0, 25, 25, 0, 0, 0, 0, 0,
         []);
     });
 
-    // Nickle and dime and quarter not enough coins
+    // Nickle and dime and quarter returned and not enough coins
     it('1 nickles, 1 dimes, 1 quarters and amount to return is 50 cents', () => {
       testReturnThisAmount(1, 1, 1, 50, 10, 0, 0, 0, 0, 3,
         [[CoinsEnum.QUARTER],

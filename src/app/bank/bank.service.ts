@@ -44,7 +44,7 @@ export class BankService extends CoinsBalance {
       remainingValueInCents = this.returnCoinDenomination(remainingValueInCents, CoinsEnum.NICKLE, 5);
     }
 
-    return remainingValueInCents; // In case the bank doesn't have enough to return.  Let the caller deal with that.
+    return remainingValueInCents; // In case the bank doesn't have enough and/or proper coins.  Let the caller deal with that.
   }
 
   private returnCoinDenomination(
