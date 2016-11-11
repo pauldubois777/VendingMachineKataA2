@@ -35,7 +35,7 @@ export class BankService extends CoinsBalance {
 
     // Return higher denomination coins first
     let remainingValueInCents = this.returnCoinDenomination(valueInCents, CoinsEnum.QUARTER, 25);
-    
+
     if (remainingValueInCents > 0) {
       remainingValueInCents = this.returnCoinDenomination(remainingValueInCents, CoinsEnum.DIME, 10);
     }
@@ -43,7 +43,7 @@ export class BankService extends CoinsBalance {
     if (remainingValueInCents > 0) {
       remainingValueInCents = this.returnCoinDenomination(remainingValueInCents, CoinsEnum.NICKLE, 5);
     }
-    
+
     return remainingValueInCents; // In case the bank doesn't have enough to return.  Let the caller deal with that.
   }
 
