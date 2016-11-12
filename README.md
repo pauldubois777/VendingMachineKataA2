@@ -68,4 +68,8 @@ So here are my initial design objects and notes:
 
 This section will hold the final design that evolved during the writing of tests and code.  It will show what went wrong with the original design, as well as items that were improved along the way.
 
+## TODO
 
+* Upgrade to latest version of Jasmine.
+*   Then update functions created to replace getters or setters that can't be tested with current Jasmine version.
+*       MessageDisplayService.setDisplayBalance 
