@@ -77,12 +77,64 @@ describe('Service: Inserted Coins', () => {
     });
     it('Unknown Coin', () => {
       testInsertInvalidCoin(CoinsEnum.UNKNOWN);
+    });
+  });
+
+  describe('calling returnAll() returns all inserted coins, sets value to zero, and calls message display after', () => {
+    it('inserting one coin of each denomination', () => {
+      service.insertCoin(CoinsEnum.QUARTER);
+      service.insertCoin(CoinsEnum.NICKLE);
+      service.insertCoin(CoinsEnum.DIME);
+
+      messageDisplayService.setDisplayBalance.calls.reset();
+
+      service.returnAll();
+
+      expect(coinReturnService.addToReturn).toHaveBeenCalledTimes(3);
+      expect(coinReturnService.addToReturn.calls.allArgs()).toEqual([
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.DIME],
+        [CoinsEnum.QUARTER]
+      ]);
+      expect(messageDisplayService.setDisplayBalance).toHaveBeenCalled();
+      expect(messageDisplayService.setDisplayBalance).toHaveBeenCalledWith(0);
+      expect(service.ValueInCents).toEqual(0);
+    });
+
+    it('inserting multiple coins of each denomination', () => {
+      service.insertCoin(CoinsEnum.DIME);
+      service.insertCoin(CoinsEnum.NICKLE);
+      service.insertCoin(CoinsEnum.QUARTER);
+      service.insertCoin(CoinsEnum.NICKLE);
+      service.insertCoin(CoinsEnum.DIME);
+      service.insertCoin(CoinsEnum.QUARTER);
+      service.insertCoin(CoinsEnum.NICKLE);
+      service.insertCoin(CoinsEnum.DIME);
+
+      messageDisplayService.setDisplayBalance.calls.reset();
+
+      service.returnAll();
+
+      expect(coinReturnService.addToReturn).toHaveBeenCalledTimes(8);
+      expect(coinReturnService.addToReturn.calls.allArgs()).toEqual([
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.NICKLE],
+        [CoinsEnum.DIME],
+        [CoinsEnum.DIME],
+        [CoinsEnum.DIME],
+        [CoinsEnum.QUARTER],
+        [CoinsEnum.QUARTER]
+      ]);
+      expect(messageDisplayService.setDisplayBalance).toHaveBeenCalled();
+      expect(messageDisplayService.setDisplayBalance).toHaveBeenCalledWith(0);
+      expect(service.ValueInCents).toEqual(0);
     });    
   });
 
 });
 
-function testInsertInvalidCoin(insertedCoin: CoinsEnum){
+function testInsertInvalidCoin(insertedCoin: CoinsEnum) {
   service.insertCoin(insertedCoin);
 
   expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(0);

@@ -25,4 +25,20 @@ export class InsertedCoinsService extends CoinsBalance {
       this.coinReturnService.addToReturn(insertedCoin);
     }
   }
+
+  returnAll() {
+    this.returnAllCoinsForDenomination(CoinsEnum.NICKLE);
+    this.returnAllCoinsForDenomination(CoinsEnum.DIME);
+    this.returnAllCoinsForDenomination(CoinsEnum.QUARTER);
+    this.messageDisplayService.setDisplayBalance(0);
+  }
+
+  private returnAllCoinsForDenomination(coinToReturn: CoinsEnum) {
+    let coinCount = this.getCoinBalance(coinToReturn);
+    for (let idx = 0; idx < coinCount; idx++) {
+      if (this.removeCoin(coinToReturn)) {
+        this.coinReturnService.addToReturn(coinToReturn);
+      }
+    }
+  }
 }
