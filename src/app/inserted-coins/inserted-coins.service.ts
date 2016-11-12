@@ -23,6 +23,6 @@ export class InsertedCoinsService extends CoinsBalance {
       this.messageDisplayService.setDisplayBalance(this.ValueInCents / 100);
     } else {
       // Return coin
+    }
   }
-
 }

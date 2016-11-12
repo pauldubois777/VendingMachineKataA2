@@ -44,6 +44,30 @@ describe('Service: Inserted Coins', () => {
       testInsertCoin(CoinsEnum.QUARTER, .25);
     });
   });
+
+  it('inserting multiple coins in a row increases coin balance and value, and properly calls MessageDisplay DisplayBalance', () => {
+    service.insertCoin(CoinsEnum.QUARTER);
+    service.insertCoin(CoinsEnum.NICKLE);
+    service.insertCoin(CoinsEnum.NICKLE);
+    service.insertCoin(CoinsEnum.DIME);
+    service.insertCoin(CoinsEnum.QUARTER);
+    service.insertCoin(CoinsEnum.NICKLE);
+    service.insertCoin(CoinsEnum.DIME);
+
+    expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(3);
+    expect(service.getCoinBalance(CoinsEnum.DIME)).toEqual(2);
+    expect(service.getCoinBalance(CoinsEnum.QUARTER)).toEqual(2);
+    expect(messageDisplayService.setDisplayBalance).toHaveBeenCalledTimes(7);
+    expect(messageDisplayService.setDisplayBalance.calls.allArgs()).toEqual([
+      [.25],
+      [.30],
+      [.35],
+      [.45],
+      [.70],
+      [.75],
+      [.85]
+    ]);
+  });
 });
 
 function testInsertCoin(insertedCoin: CoinsEnum, messageDisplayValue: number) {
