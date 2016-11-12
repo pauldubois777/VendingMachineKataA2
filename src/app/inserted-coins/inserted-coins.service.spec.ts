@@ -33,11 +33,14 @@ describe('Service: Inserted Coins', () => {
 
   describe('insertCoin increases coin balance and value, and properly calls MessageDisplay DisplayBalance for', () => {
     it('Nickle', () => {
-      service.insertCoin(CoinsEnum.NICKLE);
-
-      expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(1);
-      expect(messageDisplayService.setDisplayBalance).toHaveBeenCalled();
-      expect(messageDisplayService.setDisplayBalance).toHaveBeenCalledWith(.05);
+      testInsertCoin(CoinsEnum.NICKLE, .05);
     });
   });
 });
+
+function testInsertCoin(insertedCoin: CoinsEnum, messageDisplayValue: number){
+  service.insertCoin(insertedCoin);
+  expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(1);
+  expect(messageDisplayService.setDisplayBalance).toHaveBeenCalled();
+  expect(messageDisplayService.setDisplayBalance).toHaveBeenCalledWith(messageDisplayValue);
+}
