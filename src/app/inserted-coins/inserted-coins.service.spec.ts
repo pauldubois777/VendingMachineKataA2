@@ -73,18 +73,25 @@ describe('Service: Inserted Coins', () => {
 
   describe('inserting invalid coin does not increase coin balances or value, and properly calls Coin Return service for', () => {
     it('Penny', () => {
-      service.insertCoin(CoinsEnum.PENNY);
-
-      expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(0);
-      expect(service.getCoinBalance(CoinsEnum.DIME)).toEqual(0);
-      expect(service.getCoinBalance(CoinsEnum.QUARTER)).toEqual(0);
-      expect(messageDisplayService.setDisplayBalance).not.toHaveBeenCalled();
-      expect(coinReturnService.addToReturn).toHaveBeenCalledTimes(1);
-      expect(coinReturnService.addToReturn).toHaveBeenCalledWith(CoinsEnum.PENNY);
+      testInsertInvalidCoin(CoinsEnum.PENNY);
     });
+    it('Unknown Coin', () => {
+      testInsertInvalidCoin(CoinsEnum.UNKNOWN);
+    });    
   });
 
 });
+
+function testInsertInvalidCoin(insertedCoin: CoinsEnum){
+  service.insertCoin(insertedCoin);
+
+  expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(0);
+  expect(service.getCoinBalance(CoinsEnum.DIME)).toEqual(0);
+  expect(service.getCoinBalance(CoinsEnum.QUARTER)).toEqual(0);
+  expect(messageDisplayService.setDisplayBalance).not.toHaveBeenCalled();
+  expect(coinReturnService.addToReturn).toHaveBeenCalledTimes(1);
+  expect(coinReturnService.addToReturn).toHaveBeenCalledWith(insertedCoin);
+}
 
 function testInsertCoin(insertedCoin: CoinsEnum, messageDisplayValue: number) {
   service.insertCoin(insertedCoin);
