@@ -35,12 +35,20 @@ describe('Service: Inserted Coins', () => {
     it('Nickle', () => {
       testInsertCoin(CoinsEnum.NICKLE, .05);
     });
+
+    it('Dime', () => {
+      testInsertCoin(CoinsEnum.DIME, .10);
+    });
+
+    it('Quarter', () => {
+      testInsertCoin(CoinsEnum.QUARTER, .25);
+    });
   });
 });
 
-function testInsertCoin(insertedCoin: CoinsEnum, messageDisplayValue: number){
+function testInsertCoin(insertedCoin: CoinsEnum, messageDisplayValue: number) {
   service.insertCoin(insertedCoin);
-  expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(1);
+  expect(service.getCoinBalance(insertedCoin)).toEqual(1);
   expect(messageDisplayService.setDisplayBalance).toHaveBeenCalled();
   expect(messageDisplayService.setDisplayBalance).toHaveBeenCalledWith(messageDisplayValue);
 }

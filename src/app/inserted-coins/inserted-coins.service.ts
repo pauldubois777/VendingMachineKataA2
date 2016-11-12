@@ -17,11 +17,12 @@ export class InsertedCoinsService extends CoinsBalance {
     super(0, 0, 0);
   }
 
-  insertCoin(coinEnum: CoinsEnum) {
-    if (coinEnum === CoinsEnum.NICKLE) {
-      this.addCoin(coinEnum);
+  insertCoin(insertedCoin: CoinsEnum) {
+    if (insertedCoin === CoinsEnum.NICKLE || insertedCoin === CoinsEnum.DIME || insertedCoin === CoinsEnum.QUARTER) {
+      this.addCoin(insertedCoin);
       this.messageDisplayService.setDisplayBalance(this.ValueInCents / 100);
-    }
+    } else {
+      // Return coin
   }
 
 }
