@@ -18,8 +18,10 @@ describe('Service: Inserted Coins', () => {
     messageDisplayService = new MessageDisplayService();
     spyOn(messageDisplayService, 'setDisplayBalance');
 
-    initialBankCoins = new InitialBankCoins();
     coinReturnService = new CoinReturnService;
+    spyOn(coinReturnService, 'addToReturn');
+
+    initialBankCoins = new InitialBankCoins();
     bankService = new BankService(initialBankCoins, coinReturnService);
     service = new InsertedCoinsService(coinReturnService, bankService, messageDisplayService);
   });
@@ -68,6 +70,20 @@ describe('Service: Inserted Coins', () => {
       [.85]
     ]);
   });
+
+  describe('inserting invalid coin does not increase coin balances or value, and properly calls Coin Return service for', () => {
+    it('Penny', () => {
+      service.insertCoin(CoinsEnum.PENNY);
+
+      expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(0);
+      expect(service.getCoinBalance(CoinsEnum.DIME)).toEqual(0);
+      expect(service.getCoinBalance(CoinsEnum.QUARTER)).toEqual(0);
+      expect(messageDisplayService.setDisplayBalance).not.toHaveBeenCalled();
+      expect(coinReturnService.addToReturn).toHaveBeenCalledTimes(1);
+      expect(coinReturnService.addToReturn).toHaveBeenCalledWith(CoinsEnum.PENNY);
+    });
+  });
+
 });
 
 function testInsertCoin(insertedCoin: CoinsEnum, messageDisplayValue: number) {

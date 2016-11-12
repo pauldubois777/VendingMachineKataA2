@@ -22,7 +22,7 @@ export class InsertedCoinsService extends CoinsBalance {
       this.addCoin(insertedCoin);
       this.messageDisplayService.setDisplayBalance(this.ValueInCents / 100);
     } else {
-      // Return coin
+      this.coinReturnService.addToReturn(insertedCoin);
     }
   }
 }
