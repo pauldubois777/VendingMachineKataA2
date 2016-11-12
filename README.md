@@ -71,5 +71,5 @@ This section will hold the final design that evolved during the writing of tests
 ## TODO
 
 * Upgrade to latest version of Jasmine.
-*   Then update functions created to replace getters or setters that can't be tested with current Jasmine version.
-*       MessageDisplayService.setDisplayBalance 
+    * Then update functions created to replace getters or setters that can't be tested with current Jasmine version.
+        * MessageDisplayService.setDisplayBalance 
