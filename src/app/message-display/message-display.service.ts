@@ -19,7 +19,7 @@ export class MessageDisplayService {
     this.setDisplayMessage();
   }
 
-  set DisplayBalance(balance: number) {
+  setDisplayBalance(balance: number) {
     this._displayBalance = balance;
     this.setDisplayMessage();
   }

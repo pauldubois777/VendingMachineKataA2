@@ -17,20 +17,20 @@ describe('Service: MessageDisplay', () => {
   });
 
   it('after setting DisplayBalance to non zero amount, message should be balance amount', () => {
-    service.DisplayBalance = 1.25;
+    service.setDisplayBalance(1.25);
     expect(service.displayMessage).toBe('1.25');
   });
 
   it('after setting DisplayBalance to non zero amount and set DisplayBalance back to zero, message should be insert coins message', () => {
-    service.DisplayBalance = 1.25;
+    service.setDisplayBalance(1.25);
     expect(service.displayMessage).toBe('1.25');
-    service.DisplayBalance = 0;
+    service.setDisplayBalance(0);
     expect(service.displayMessage).toBe(StringConstants.INSERT_COIN_MESSAGE);
   });
 
   it('after setting ExactChangeOnly to true and balance to zero, message should be exact change message', () => {
     service.ExactChangeOnly = true;
-    service.DisplayBalance = 0;
+    service.setDisplayBalance(0);
     expect(service.displayMessage).toBe(StringConstants.EXACT_CHANGE_MESSAGE);
   });
 
@@ -60,7 +60,7 @@ describe('Service: MessageDisplay', () => {
   it('setting temp message then immediately setting balance to non zero should not change temp message', () => {
     let tempMessage = 'This is a temp message';
     service.TempMessage = tempMessage;
-    service.DisplayBalance = 1.50;
+    service.setDisplayBalance(1.50);
     expect(service.displayMessage).toBe(tempMessage);
   });
 
@@ -68,7 +68,7 @@ describe('Service: MessageDisplay', () => {
   it('setting temp message then setting balance to non zero should show balance after temp message expires', (done) => {
     let tempMessage = 'This is a temp message';
     service.TempMessage = tempMessage;
-    service.DisplayBalance = 1.05;
+    service.setDisplayBalance(1.05);
     setTimeout( () => {
       expect(service.displayMessage).toBe('1.05');
       done();
