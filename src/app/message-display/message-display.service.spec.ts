@@ -36,13 +36,13 @@ describe('Service: MessageDisplay', () => {
 
   it('after setting TempMessage, message should be the temp message that was set', () => {
     let tempMessage = 'This is a temp message';
-    service.TempMessage = tempMessage;
+    service.setTempMessage(tempMessage);
     expect(service.displayMessage).toBe(tempMessage);
   });
 
   it('after setting TempMessage, message should revert after timeout duration', (done) => {
     let tempMessage = 'This is a temp message';
-    service.TempMessage = tempMessage;
+    service.setTempMessage(tempMessage);
     setTimeout( () => {
       expect(service.displayMessage).toBe(StringConstants.INSERT_COIN_MESSAGE);
       done();
@@ -51,15 +51,15 @@ describe('Service: MessageDisplay', () => {
 
   it('setting temp message and setting it again before timeout should change message', () => {
     let tempMessageOne = 'This is a temp message ONE';
-    service.TempMessage = tempMessageOne;
+    service.setTempMessage(tempMessageOne);
     let tempMessageTwo = 'This is a temp message TWO';
-    service.TempMessage = tempMessageTwo;
+    service.setTempMessage(tempMessageTwo);
     expect(service.displayMessage).toBe(tempMessageTwo);
   });
 
   it('setting temp message then immediately setting balance to non zero should not change temp message', () => {
     let tempMessage = 'This is a temp message';
-    service.TempMessage = tempMessage;
+    service.setTempMessage(tempMessage);
     service.setDisplayBalance(1.50);
     expect(service.displayMessage).toBe(tempMessage);
   });
@@ -67,7 +67,7 @@ describe('Service: MessageDisplay', () => {
 
   it('setting temp message then setting balance to non zero should show balance after temp message expires', (done) => {
     let tempMessage = 'This is a temp message';
-    service.TempMessage = tempMessage;
+    service.setTempMessage(tempMessage);
     service.setDisplayBalance(1.05);
     setTimeout( () => {
       expect(service.displayMessage).toBe('1.05');

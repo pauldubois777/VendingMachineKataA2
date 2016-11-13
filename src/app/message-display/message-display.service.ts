@@ -24,12 +24,12 @@ export class MessageDisplayService {
     this.setDisplayMessage();
   }
 
-  set ExactChangeOnly(exactChangeOnly: boolean){
+  set ExactChangeOnly(exactChangeOnly: boolean) {
     this._exactChangeOnly = exactChangeOnly;
     this.setDisplayMessage();
   }
 
-  set TempMessage(tempMessage: string){
+  setTempMessage(tempMessage: string) {
     // Cancel any previous temp message that is being displayed
     if (this._tempMsgTimer) {
       clearTimeout(this._tempMsgTimer);
