@@ -17,7 +17,6 @@ describe('Service: Inserted Coins', () => {
   beforeEach(() => {
     messageDisplayService = new MessageDisplayService();
     spyOn(messageDisplayService, 'setDisplayBalance');
-    spyOn(messageDisplayService, 'setTempMessage');
 
     coinReturnService = new CoinReturnService;
     spyOn(coinReturnService, 'addToReturn');
@@ -136,7 +135,7 @@ describe('Service: Inserted Coins', () => {
     });
   });
 
-  it('calling purchase with amount inserted returns true, deposits coins in bank, and displays thanks message', () => {
+  it('calling purchase with amount inserted returns true, deposits coins in bank, and sets display balance to 0', () => {
     service.insertCoin(CoinsEnum.QUARTER);
     service.insertCoin(CoinsEnum.NICKLE);
     service.insertCoin(CoinsEnum.DIME);
@@ -153,9 +152,24 @@ describe('Service: Inserted Coins', () => {
       [CoinsEnum.QUARTER]
     ]);
     expect(messageDisplayService.setDisplayBalance).toHaveBeenCalledWith(0);
-    expect(messageDisplayService.setTempMessage).toHaveBeenCalledWith('THANK YOU');
     expect(bankService.returnThisAmount).not.toHaveBeenCalled();
   });
+
+  it('calling purchase with more than amount inserted returns false and does not do anything else', () => {
+      service.insertCoin(CoinsEnum.QUARTER);
+      service.insertCoin(CoinsEnum.NICKLE);
+      service.insertCoin(CoinsEnum.DIME);
+      messageDisplayService.setDisplayBalance.calls.reset();
+
+      let retValue = service.purchase(50);
+
+      expect(retValue).toEqual(false);
+      expect(service.ValueInCents).toEqual(40);
+      expect(bankService.addCoin).not.toHaveBeenCalled();
+      expect(messageDisplayService.setDisplayBalance).not.toHaveBeenCalled();
+      expect(bankService.returnThisAmount).not.toHaveBeenCalled();
+  });
+
 });
 
 function testInsertInvalidCoin(insertedCoin: CoinsEnum) {

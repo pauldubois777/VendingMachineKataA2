@@ -44,10 +44,7 @@ export class InsertedCoinsService extends CoinsBalance {
     this.depositAllCoinsForDenomination(CoinsEnum.NICKLE);
     this.depositAllCoinsForDenomination(CoinsEnum.DIME);
     this.depositAllCoinsForDenomination(CoinsEnum.QUARTER);
-
-    // Take care of display balance and thanks
     this.messageDisplayService.setDisplayBalance(0);
-    this.messageDisplayService.setTempMessage('THANK YOU');
 
     // Tell the bank to return any excess amount beyond purchase price
     if (excessAmount > 0) {
