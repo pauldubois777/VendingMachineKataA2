@@ -33,6 +33,39 @@ export class InsertedCoinsService extends CoinsBalance {
     this.messageDisplayService.setDisplayBalance(0);
   }
 
+  purchase(costInCents: number): boolean {
+    if (costInCents > this.ValueInCents) {
+      return false;
+    }
+
+    let excessAmount = this.ValueInCents - costInCents;
+
+    // User has inserted enough for the purchase, so send all inserted coins to the bank
+    this.depositAllCoinsForDenomination(CoinsEnum.NICKLE);
+    this.depositAllCoinsForDenomination(CoinsEnum.DIME);
+    this.depositAllCoinsForDenomination(CoinsEnum.QUARTER);
+
+    // Take care of display balance and thanks
+    this.messageDisplayService.setDisplayBalance(0);
+    this.messageDisplayService.setTempMessage('THANK YOU');
+
+    // Tell the bank to return any excess amount beyond purchase price
+    if (excessAmount > 0) {
+      this.bankService.returnThisAmount(excessAmount);
+    }
+
+    return true;
+  }
+
+private depositAllCoinsForDenomination(coinToReturn: CoinsEnum) {
+    let coinCount = this.getCoinBalance(coinToReturn);
+    for (let idx = 0; idx < coinCount; idx++) {
+      if (this.removeCoin(coinToReturn)) {
+        this.bankService.addCoin(coinToReturn);
+      }
+    }
+  }
+
   private returnAllCoinsForDenomination(coinToReturn: CoinsEnum) {
     let coinCount = this.getCoinBalance(coinToReturn);
     for (let idx = 0; idx < coinCount; idx++) {

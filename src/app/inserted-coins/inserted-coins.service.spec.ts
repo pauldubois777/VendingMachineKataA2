@@ -17,12 +17,16 @@ describe('Service: Inserted Coins', () => {
   beforeEach(() => {
     messageDisplayService = new MessageDisplayService();
     spyOn(messageDisplayService, 'setDisplayBalance');
+    spyOn(messageDisplayService, 'setTempMessage');
 
     coinReturnService = new CoinReturnService;
     spyOn(coinReturnService, 'addToReturn');
 
     initialBankCoins = new InitialBankCoins();
     bankService = new BankService(initialBankCoins, coinReturnService);
+    spyOn(bankService, 'returnThisAmount');
+    spyOn(bankService, 'addCoin');
+
     service = new InsertedCoinsService(coinReturnService, bankService, messageDisplayService);
   });
 
@@ -129,9 +133,29 @@ describe('Service: Inserted Coins', () => {
       expect(messageDisplayService.setDisplayBalance).toHaveBeenCalled();
       expect(messageDisplayService.setDisplayBalance).toHaveBeenCalledWith(0);
       expect(service.ValueInCents).toEqual(0);
-    });    
+    });
   });
 
+  it('calling purchase with amount inserted returns true, deposits coins in bank, and displays thanks message', () => {
+    service.insertCoin(CoinsEnum.QUARTER);
+    service.insertCoin(CoinsEnum.NICKLE);
+    service.insertCoin(CoinsEnum.DIME);
+    messageDisplayService.setDisplayBalance.calls.reset();
+
+    let retValue = service.purchase(40);
+
+    expect(retValue).toEqual(true);
+    expect(service.ValueInCents).toEqual(0);
+    expect(bankService.addCoin).toHaveBeenCalledTimes(3);
+    expect(bankService.addCoin.calls.allArgs()).toEqual([
+      [CoinsEnum.NICKLE],
+      [CoinsEnum.DIME],
+      [CoinsEnum.QUARTER]
+    ]);
+    expect(messageDisplayService.setDisplayBalance).toHaveBeenCalledWith(0);
+    expect(messageDisplayService.setTempMessage).toHaveBeenCalledWith('THANK YOU');
+    expect(bankService.returnThisAmount).not.toHaveBeenCalled();
+  });
 });
 
 function testInsertInvalidCoin(insertedCoin: CoinsEnum) {
