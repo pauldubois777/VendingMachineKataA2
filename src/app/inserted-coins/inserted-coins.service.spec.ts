@@ -170,12 +170,15 @@ describe('Service: Inserted Coins', () => {
       expect(bankService.returnThisAmount).not.toHaveBeenCalled();
   });
 
-  it('calling purchase with less than amount inserted returns true, deposits all coins in bank, sets display balance to 0, and calls bank to return excess', () => {
+  it(`calling purchase with less than amount inserted returns true, 
+      deposits all coins in bank, 
+      sets display balance to 0, 
+      and calls bank to return excess`, () => {
     service.insertCoin(CoinsEnum.QUARTER);
     service.insertCoin(CoinsEnum.QUARTER);
     service.insertCoin(CoinsEnum.NICKLE);
     service.insertCoin(CoinsEnum.NICKLE);
-    service.insertCoin(CoinsEnum.DIME);    
+    service.insertCoin(CoinsEnum.DIME);
     service.insertCoin(CoinsEnum.DIME);
     service.insertCoin(CoinsEnum.DIME);
     messageDisplayService.setDisplayBalance.calls.reset();
