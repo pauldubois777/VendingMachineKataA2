@@ -11,6 +11,7 @@ import { InventoryService } from './inventory/inventory.service';
 import { InitialBankCoins } from './bank/initial-bank-coins';
 import { BankService } from './bank/bank.service';
 import { InsertedCoinsService } from './inserted-coins/inserted-coins.service';
+import { PurchaseService } from './purchase/purchase.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { InsertedCoinsService } from './inserted-coins/inserted-coins.service';
     InventoryService,
     BankService,
     InitialBankCoins,
-    InsertedCoinsService
+    InsertedCoinsService,
+    PurchaseService
   ],
   bootstrap: [AppComponent]
 })
