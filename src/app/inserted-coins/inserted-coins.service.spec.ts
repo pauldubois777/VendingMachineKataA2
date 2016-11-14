@@ -170,6 +170,33 @@ describe('Service: Inserted Coins', () => {
       expect(bankService.returnThisAmount).not.toHaveBeenCalled();
   });
 
+  it('calling purchase with less than amount inserted returns true, deposits all coins in bank, sets display balance to 0, and calls bank to return excess', () => {
+    service.insertCoin(CoinsEnum.QUARTER);
+    service.insertCoin(CoinsEnum.QUARTER);
+    service.insertCoin(CoinsEnum.NICKLE);
+    service.insertCoin(CoinsEnum.NICKLE);
+    service.insertCoin(CoinsEnum.DIME);    
+    service.insertCoin(CoinsEnum.DIME);
+    service.insertCoin(CoinsEnum.DIME);
+    messageDisplayService.setDisplayBalance.calls.reset();
+
+    let retValue = service.purchase(40);
+
+    expect(retValue).toEqual(true);
+    expect(service.ValueInCents).toEqual(0);
+    expect(bankService.addCoin).toHaveBeenCalledTimes(7);
+    expect(bankService.addCoin.calls.allArgs()).toEqual([
+      [CoinsEnum.NICKLE],
+      [CoinsEnum.NICKLE],
+      [CoinsEnum.DIME],
+      [CoinsEnum.DIME],
+      [CoinsEnum.DIME],
+      [CoinsEnum.QUARTER],
+      [CoinsEnum.QUARTER]
+    ]);
+    expect(messageDisplayService.setDisplayBalance).toHaveBeenCalledWith(0);
+    expect(bankService.returnThisAmount).toHaveBeenCalledWith(50);
+  });
 });
 
 function testInsertInvalidCoin(insertedCoin: CoinsEnum) {
