@@ -12,19 +12,23 @@ let bankService: BankService;
 let coinReturnService: CoinReturnService;
 let initialBankCoins: InitialBankCoins;
 let messageDisplayService: MessageDisplayService;
+let setDisplayBalanceSpy: jasmine.Spy;
+let addToReturnSpy: jasmine.Spy;
+let returnThisAmountSpy: jasmine.Spy;
+let addCoinSpy: jasmine.Spy;
 
 describe('Service: Inserted Coins', () => {
   beforeEach(() => {
     messageDisplayService = new MessageDisplayService();
-    spyOn(messageDisplayService, 'setDisplayBalance');
+    setDisplayBalanceSpy = spyOn(messageDisplayService, 'setDisplayBalance');
 
     coinReturnService = new CoinReturnService;
-    spyOn(coinReturnService, 'addToReturn');
+    addToReturnSpy = spyOn(coinReturnService, 'addToReturn');
 
     initialBankCoins = new InitialBankCoins();
     bankService = new BankService(initialBankCoins, coinReturnService);
-    spyOn(bankService, 'returnThisAmount');
-    spyOn(bankService, 'addCoin');
+    returnThisAmountSpy = spyOn(bankService, 'returnThisAmount');
+    addCoinSpy = spyOn(bankService, 'addCoin');
 
     service = new InsertedCoinsService(coinReturnService, bankService, messageDisplayService);
   });
@@ -62,8 +66,8 @@ describe('Service: Inserted Coins', () => {
     expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(3);
     expect(service.getCoinBalance(CoinsEnum.DIME)).toEqual(2);
     expect(service.getCoinBalance(CoinsEnum.QUARTER)).toEqual(2);
-    expect(messageDisplayService.setDisplayBalance).toHaveBeenCalledTimes(7);
-    expect(messageDisplayService.setDisplayBalance.calls.allArgs()).toEqual([
+    expect(setDisplayBalanceSpy).toHaveBeenCalledTimes(7);
+    expect(setDisplayBalanceSpy.calls.allArgs()).toEqual([
       [.25],
       [.30],
       [.35],
@@ -89,18 +93,18 @@ describe('Service: Inserted Coins', () => {
       service.insertCoin(CoinsEnum.NICKLE);
       service.insertCoin(CoinsEnum.DIME);
 
-      messageDisplayService.setDisplayBalance.calls.reset();
+      setDisplayBalanceSpy.calls.reset();
 
       service.returnAll();
 
-      expect(coinReturnService.addToReturn).toHaveBeenCalledTimes(3);
-      expect(coinReturnService.addToReturn.calls.allArgs()).toEqual([
+      expect(addToReturnSpy).toHaveBeenCalledTimes(3);
+      expect(addToReturnSpy.calls.allArgs()).toEqual([
         [CoinsEnum.NICKLE],
         [CoinsEnum.DIME],
         [CoinsEnum.QUARTER]
       ]);
-      expect(messageDisplayService.setDisplayBalance).toHaveBeenCalled();
-      expect(messageDisplayService.setDisplayBalance).toHaveBeenCalledWith(0);
+      expect(setDisplayBalanceSpy).toHaveBeenCalled();
+      expect(setDisplayBalanceSpy).toHaveBeenCalledWith(0);
       expect(service.ValueInCents).toEqual(0);
     });
 
@@ -114,12 +118,12 @@ describe('Service: Inserted Coins', () => {
       service.insertCoin(CoinsEnum.NICKLE);
       service.insertCoin(CoinsEnum.DIME);
 
-      messageDisplayService.setDisplayBalance.calls.reset();
+      setDisplayBalanceSpy.calls.reset();
 
       service.returnAll();
 
-      expect(coinReturnService.addToReturn).toHaveBeenCalledTimes(8);
-      expect(coinReturnService.addToReturn.calls.allArgs()).toEqual([
+      expect(addToReturnSpy).toHaveBeenCalledTimes(8);
+      expect(addToReturnSpy.calls.allArgs()).toEqual([
         [CoinsEnum.NICKLE],
         [CoinsEnum.NICKLE],
         [CoinsEnum.NICKLE],
@@ -129,8 +133,8 @@ describe('Service: Inserted Coins', () => {
         [CoinsEnum.QUARTER],
         [CoinsEnum.QUARTER]
       ]);
-      expect(messageDisplayService.setDisplayBalance).toHaveBeenCalled();
-      expect(messageDisplayService.setDisplayBalance).toHaveBeenCalledWith(0);
+      expect(setDisplayBalanceSpy).toHaveBeenCalled();
+      expect(setDisplayBalanceSpy).toHaveBeenCalledWith(0);
       expect(service.ValueInCents).toEqual(0);
     });
   });
@@ -139,35 +143,35 @@ describe('Service: Inserted Coins', () => {
     service.insertCoin(CoinsEnum.QUARTER);
     service.insertCoin(CoinsEnum.NICKLE);
     service.insertCoin(CoinsEnum.DIME);
-    messageDisplayService.setDisplayBalance.calls.reset();
+    setDisplayBalanceSpy.calls.reset();
 
     let retValue = service.purchase(40);
 
     expect(retValue).toEqual(true);
     expect(service.ValueInCents).toEqual(0);
-    expect(bankService.addCoin).toHaveBeenCalledTimes(3);
-    expect(bankService.addCoin.calls.allArgs()).toEqual([
+    expect(addCoinSpy).toHaveBeenCalledTimes(3);
+    expect(addCoinSpy.calls.allArgs()).toEqual([
       [CoinsEnum.NICKLE],
       [CoinsEnum.DIME],
       [CoinsEnum.QUARTER]
     ]);
-    expect(messageDisplayService.setDisplayBalance).toHaveBeenCalledWith(0);
-    expect(bankService.returnThisAmount).not.toHaveBeenCalled();
+    expect(setDisplayBalanceSpy).toHaveBeenCalledWith(0);
+    expect(returnThisAmountSpy).not.toHaveBeenCalled();
   });
 
   it('calling purchase with more than amount inserted returns false and does not do anything else', () => {
       service.insertCoin(CoinsEnum.QUARTER);
       service.insertCoin(CoinsEnum.NICKLE);
       service.insertCoin(CoinsEnum.DIME);
-      messageDisplayService.setDisplayBalance.calls.reset();
+      setDisplayBalanceSpy.calls.reset();
 
       let retValue = service.purchase(50);
 
       expect(retValue).toEqual(false);
       expect(service.ValueInCents).toEqual(40);
-      expect(bankService.addCoin).not.toHaveBeenCalled();
-      expect(messageDisplayService.setDisplayBalance).not.toHaveBeenCalled();
-      expect(bankService.returnThisAmount).not.toHaveBeenCalled();
+      expect(addCoinSpy).not.toHaveBeenCalled();
+      expect(setDisplayBalanceSpy).not.toHaveBeenCalled();
+      expect(returnThisAmountSpy).not.toHaveBeenCalled();
   });
 
   it(`calling purchase with less than amount inserted returns true, 
@@ -181,14 +185,14 @@ describe('Service: Inserted Coins', () => {
     service.insertCoin(CoinsEnum.DIME);
     service.insertCoin(CoinsEnum.DIME);
     service.insertCoin(CoinsEnum.DIME);
-    messageDisplayService.setDisplayBalance.calls.reset();
+    setDisplayBalanceSpy.calls.reset();
 
     let retValue = service.purchase(40);
 
     expect(retValue).toEqual(true);
     expect(service.ValueInCents).toEqual(0);
-    expect(bankService.addCoin).toHaveBeenCalledTimes(7);
-    expect(bankService.addCoin.calls.allArgs()).toEqual([
+    expect(addCoinSpy).toHaveBeenCalledTimes(7);
+    expect(addCoinSpy.calls.allArgs()).toEqual([
       [CoinsEnum.NICKLE],
       [CoinsEnum.NICKLE],
       [CoinsEnum.DIME],
@@ -197,8 +201,8 @@ describe('Service: Inserted Coins', () => {
       [CoinsEnum.QUARTER],
       [CoinsEnum.QUARTER]
     ]);
-    expect(messageDisplayService.setDisplayBalance).toHaveBeenCalledWith(0);
-    expect(bankService.returnThisAmount).toHaveBeenCalledWith(50);
+    expect(setDisplayBalanceSpy).toHaveBeenCalledWith(0);
+    expect(returnThisAmountSpy).toHaveBeenCalledWith(50);
   });
 });
 
@@ -208,14 +212,14 @@ function testInsertInvalidCoin(insertedCoin: CoinsEnum) {
   expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(0);
   expect(service.getCoinBalance(CoinsEnum.DIME)).toEqual(0);
   expect(service.getCoinBalance(CoinsEnum.QUARTER)).toEqual(0);
-  expect(messageDisplayService.setDisplayBalance).not.toHaveBeenCalled();
-  expect(coinReturnService.addToReturn).toHaveBeenCalledTimes(1);
-  expect(coinReturnService.addToReturn).toHaveBeenCalledWith(insertedCoin);
+  expect(setDisplayBalanceSpy).not.toHaveBeenCalled();
+  expect(addToReturnSpy).toHaveBeenCalledTimes(1);
+  expect(addToReturnSpy).toHaveBeenCalledWith(insertedCoin);
 }
 
 function testInsertCoin(insertedCoin: CoinsEnum, messageDisplayValue: number) {
   service.insertCoin(insertedCoin);
   expect(service.getCoinBalance(insertedCoin)).toEqual(1);
-  expect(messageDisplayService.setDisplayBalance).toHaveBeenCalled();
-  expect(messageDisplayService.setDisplayBalance).toHaveBeenCalledWith(messageDisplayValue);
+  expect(setDisplayBalanceSpy).toHaveBeenCalled();
+  expect(setDisplayBalanceSpy).toHaveBeenCalledWith(messageDisplayValue);
 }

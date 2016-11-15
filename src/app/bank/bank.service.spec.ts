@@ -260,7 +260,7 @@ function testReturnThisAmount(
   expectedAllArgs: Array<Array<CoinsEnum>>) {
 
   coinReturnService = new CoinReturnService();
-  spyOn(coinReturnService, 'addToReturn');
+  let addToReturnSpy = spyOn(coinReturnService, 'addToReturn');
   let initialBankCoins = createInitialBankCoins(initialNickels, initialDimes, initialQuarters);
   service = new BankService(initialBankCoins, coinReturnService);
 
@@ -271,11 +271,11 @@ function testReturnThisAmount(
   expect(service.ValueInCents).toEqual(expectedValueInCents, 'Value in cents');
 
   if (expectedTimesAddToReturnCalled === 0) {
-    expect(coinReturnService.addToReturn).not.toHaveBeenCalled();
+    expect(addToReturnSpy).not.toHaveBeenCalled();
   } else {
-    expect(coinReturnService.addToReturn).toHaveBeenCalledTimes(expectedTimesAddToReturnCalled);
+    expect(addToReturnSpy).toHaveBeenCalledTimes(expectedTimesAddToReturnCalled);
   }
-  expect(coinReturnService.addToReturn.calls.allArgs(0)).toEqual(expectedAllArgs);
+  expect(addToReturnSpy.calls.allArgs()).toEqual(expectedAllArgs);
 }
 
 function testBalanceForCanMakeChange(testNickles: number, testDimes: number, testQuarters: number): boolean {
