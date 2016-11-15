@@ -5,6 +5,7 @@ import { InventoryService } from '../inventory/inventory.service';
 import { Product } from '../models/product';
 import { StringConstants } from '../shared/string-constants';
 import { InsertedCoinsService } from '../inserted-coins/inserted-coins.service';
+import { formatDisplayPrice } from '../shared/helpers';
 
 @Injectable()
 export class PurchaseService {
@@ -23,7 +24,7 @@ export class PurchaseService {
       if (inventoryItem.qty > 0) {
         if (inventoryItem.product.costCents > this.insertedCoinsService.ValueInCents) {
           this.messageDisplayService.setTempMessage(
-            StringConstants.PRICE_MESSAGE_PREFIX + ' ' + (inventoryItem.product.costCents / 100));
+            formatDisplayPrice(inventoryItem.product.costCents));
           return false;
         }
       } else {

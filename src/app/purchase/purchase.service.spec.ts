@@ -12,6 +12,7 @@ import { BankService } from '../bank/bank.service';
 import { CoinReturnService } from '../coin-return/coin-return.service';
 import { InitialBankCoins } from '../bank/initial-bank-coins';
 import { CoinsEnum } from '../shared/coins.enum';
+import { formatDisplayPrice } from '../shared/helpers';
 
 let service: PurchaseService;
 let messageDisplayService: MessageDisplayService;
@@ -60,9 +61,7 @@ describe('Service: Purchase', () => {
     let retValue = service.purchase(initialInventory.inventory[1].product);
 
     expect(retValue).toEqual(false);
-    expect(setTempMessageSpy).toHaveBeenCalledWith(
-      StringConstants.PRICE_MESSAGE_PREFIX + ' ' + (initialInventory.inventory[1].product.costCents / 100)
-    );
+    expect(setTempMessageSpy).toHaveBeenCalledWith(formatDisplayPrice(initialInventory.inventory[1].product.costCents));
   });
 
   it('purchase product when coins inserted less than cost, calls service to display price message ', () => {
@@ -72,9 +71,7 @@ describe('Service: Purchase', () => {
     let retValue = service.purchase(initialInventory.inventory[1].product);
 
     expect(retValue).toEqual(false);
-    expect(setTempMessageSpy).toHaveBeenCalledWith(
-      StringConstants.PRICE_MESSAGE_PREFIX + ' ' + (initialInventory.inventory[1].product.costCents / 100)
-    );
+    expect(setTempMessageSpy).toHaveBeenCalledWith(formatDisplayPrice(initialInventory.inventory[1].product.costCents));
   });
 
 });
