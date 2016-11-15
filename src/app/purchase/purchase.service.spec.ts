@@ -7,10 +7,17 @@ import { InitialInventory } from '../inventory/initial-inventory';
 import { InventoryItem } from '../models/inventory-item';
 import { Product } from '../models/product';
 import { StringConstants } from '../shared/string-constants';
+import { InsertedCoinsService } from '../inserted-coins/inserted-coins.service';
+import { BankService } from '../bank/bank.service';
+import { CoinReturnService } from '../coin-return/coin-return.service';
+import { InitialBankCoins } from '../bank/initial-bank-coins';
 
 let service: PurchaseService;
 let messageDisplayService: MessageDisplayService;
 let inventoryService: InventoryService;
+let insertedCoinService: InsertedCoinsService;
+let bankService: BankService;
+let coinReturnService: CoinReturnService;
 let initialInventory: InitialInventory;
 let setTempMessageSpy: jasmine.Spy;
 
@@ -26,10 +33,14 @@ describe('Service: Purchase', () => {
     ];
     inventoryService = new InventoryService(initialInventory);
 
-    service = new PurchaseService(messageDisplayService, inventoryService);
+    coinReturnService = new CoinReturnService();
+    bankService = new BankService(new InitialBankCoins(), coinReturnService);
+    insertedCoinService = new InsertedCoinsService(coinReturnService, bankService, messageDisplayService);
+
+    service = new PurchaseService(messageDisplayService, inventoryService, insertedCoinService);
   });
 
-  it('purchase product with qty available 0 calls service to display temp message sold out', () => {
+  it('purchase product with 0 qty available calls service to display temp message sold out', () => {
     let retValue = service.purchase(initialInventory.inventory[0].product);
 
     expect(retValue).toEqual(false);
@@ -42,4 +53,15 @@ describe('Service: Purchase', () => {
     expect(retValue).toEqual(false);
     expect(setTempMessageSpy).toHaveBeenCalledWith(StringConstants.UNKNOWN_PRODUCT_MESSAGE);
   });
+
+  it('purchase product when no coins inserted, calls service to display price message ', () => {
+    // No money has been inserted
+    let retValue = service.purchase(initialInventory.inventory[1].product);
+
+    expect(retValue).toEqual(false);
+    expect(setTempMessageSpy).toHaveBeenCalledWith(
+      StringConstants.PRICE_MESSAGE_PREFIX + ' ' + (initialInventory.inventory[1].product.costCents / 100)
+    );
+  });
+
 });
