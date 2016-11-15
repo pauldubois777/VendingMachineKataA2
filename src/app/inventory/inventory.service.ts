@@ -25,6 +25,15 @@ export class InventoryService {
     return inventory;
   }
 
+  getItem(product: Product): InventoryItem {
+    let inventoryItemFound = this._inventory.find( inventoryItem => inventoryItem.product.id === product.id );
+    if (inventoryItemFound) {
+      return inventoryItemFound.clone();
+    } else {
+      return null;
+    }
+  }
+
   dispense(product: Product): boolean {
     let inventoryItemFound = this._inventory.find( inventoryItem => inventoryItem.product.id === product.id );
     if (inventoryItemFound) {

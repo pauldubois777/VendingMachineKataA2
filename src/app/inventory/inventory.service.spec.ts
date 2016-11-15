@@ -64,4 +64,17 @@ describe('Service: Inventory', () => {
     inventory[0].qty = origQty + 1;
     expect(service.Inventory[0].qty).toEqual(origQty);
   });
+
+  it('getItem returns Inventory Item for valid product', () => {
+    let returnedInventoryItem = service.getItem(initialInventory.inventory[0].product);
+    expect(returnedInventoryItem).not.toBe(initialInventory.inventory[0], 'Cloned inventory item');
+    expect(returnedInventoryItem.product).not.toBe(initialInventory.inventory[0].product, 'Cloned product');
+    expect(returnedInventoryItem).toEqual(initialInventory.inventory[0], 'Equal Product');
+    expect(returnedInventoryItem.product).toEqual(initialInventory.inventory[0].product, 'Equal Inventory Item');
+  });
+
+  it('getItem returns null for invalid product', () => {
+    let returnedInventoryItem = service.getItem(new Product(99887766, 'Fake Product', 123));
+    expect(returnedInventoryItem).toEqual(null);
+  });
 });
