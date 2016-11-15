@@ -11,6 +11,7 @@ import { InsertedCoinsService } from '../inserted-coins/inserted-coins.service';
 import { BankService } from '../bank/bank.service';
 import { CoinReturnService } from '../coin-return/coin-return.service';
 import { InitialBankCoins } from '../bank/initial-bank-coins';
+import { CoinsEnum } from '../shared/coins.enum';
 
 let service: PurchaseService;
 let messageDisplayService: MessageDisplayService;
@@ -56,6 +57,18 @@ describe('Service: Purchase', () => {
 
   it('purchase product when no coins inserted, calls service to display price message ', () => {
     // No money has been inserted
+    let retValue = service.purchase(initialInventory.inventory[1].product);
+
+    expect(retValue).toEqual(false);
+    expect(setTempMessageSpy).toHaveBeenCalledWith(
+      StringConstants.PRICE_MESSAGE_PREFIX + ' ' + (initialInventory.inventory[1].product.costCents / 100)
+    );
+  });
+
+  it('purchase product when coins inserted less than cost, calls service to display price message ', () => {
+    insertedCoinService.addCoin(CoinsEnum.NICKLE);
+    insertedCoinService.addCoin(CoinsEnum.DIME);
+    insertedCoinService.addCoin(CoinsEnum.QUARTER);
     let retValue = service.purchase(initialInventory.inventory[1].product);
 
     expect(retValue).toEqual(false);
