@@ -12,11 +12,12 @@ let service: PurchaseService;
 let messageDisplayService: MessageDisplayService;
 let inventoryService: InventoryService;
 let initialInventory: InitialInventory;
+let setTempMessageSpy: jasmine.Spy;
 
 describe('Service: Purchase', () => {
   beforeEach(() => {
     messageDisplayService = new MessageDisplayService();
-    spyOn(messageDisplayService, 'setTempMessage');
+    setTempMessageSpy = spyOn(messageDisplayService, 'setTempMessage');
 
     initialInventory = new InitialInventory();
     initialInventory.inventory = [
@@ -32,8 +33,13 @@ describe('Service: Purchase', () => {
     let retValue = service.purchase(initialInventory.inventory[0].product);
 
     expect(retValue).toEqual(false);
-    expect(messageDisplayService.setTempMessage).toHaveBeenCalledWith(StringConstants.SOLD_OUT_MESSAGE);
+    expect(setTempMessageSpy).toHaveBeenCalledWith(StringConstants.SOLD_OUT_MESSAGE);
   });
 
+  it('purchase invalid product calls service to display temp message error', () => {
+    let retValue = service.purchase(new Product(123321, 'Product not in inventory', 123));
 
+    expect(retValue).toEqual(false);
+    expect(setTempMessageSpy).toHaveBeenCalledWith(StringConstants.UNKNOWN_PRODUCT_MESSAGE);
+  });
 });

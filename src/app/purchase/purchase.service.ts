@@ -23,7 +23,8 @@ export class PurchaseService {
         return false;
       }
     } else {
-
+      this.messageDisplayService.setTempMessage(StringConstants.UNKNOWN_PRODUCT_MESSAGE);
+      return false;
     }
   }
 
