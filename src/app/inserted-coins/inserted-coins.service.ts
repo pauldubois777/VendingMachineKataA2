@@ -10,9 +10,9 @@ import { MessageDisplayService } from '../message-display/message-display.servic
 export class InsertedCoinsService extends CoinsBalance {
 
   constructor(
-    private coinReturnService: CoinReturnService,
-    private bankService: BankService,
-    private messageDisplayService: MessageDisplayService) {
+    private _coinReturnService: CoinReturnService,
+    private _bankService: BankService,
+    private _messageDisplayService: MessageDisplayService) {
 
     super(0, 0, 0);
   }
@@ -20,9 +20,9 @@ export class InsertedCoinsService extends CoinsBalance {
   insertCoin(insertedCoin: CoinsEnum) {
     if (insertedCoin === CoinsEnum.NICKLE || insertedCoin === CoinsEnum.DIME || insertedCoin === CoinsEnum.QUARTER) {
       this.addCoin(insertedCoin);
-      this.messageDisplayService.setDisplayBalance(this.ValueInCents / 100);
+      this._messageDisplayService.setDisplayBalance(this.ValueInCents / 100);
     } else {
-      this.coinReturnService.addToReturn(insertedCoin);
+      this._coinReturnService.addToReturn(insertedCoin);
     }
   }
 
@@ -30,7 +30,7 @@ export class InsertedCoinsService extends CoinsBalance {
     this.returnAllCoinsForDenomination(CoinsEnum.NICKLE);
     this.returnAllCoinsForDenomination(CoinsEnum.DIME);
     this.returnAllCoinsForDenomination(CoinsEnum.QUARTER);
-    this.messageDisplayService.setDisplayBalance(0);
+    this._messageDisplayService.setDisplayBalance(0);
   }
 
   purchase(costInCents: number): boolean {
@@ -44,11 +44,11 @@ export class InsertedCoinsService extends CoinsBalance {
     this.depositAllCoinsForDenomination(CoinsEnum.NICKLE);
     this.depositAllCoinsForDenomination(CoinsEnum.DIME);
     this.depositAllCoinsForDenomination(CoinsEnum.QUARTER);
-    this.messageDisplayService.setDisplayBalance(0);
+    this._messageDisplayService.setDisplayBalance(0);
 
     // Tell the bank to return any excess amount beyond purchase price
     if (excessAmount > 0) {
-      this.bankService.returnThisAmount(excessAmount);
+      this._bankService.returnThisAmount(excessAmount);
     }
 
     return true;
@@ -58,7 +58,7 @@ private depositAllCoinsForDenomination(coinToReturn: CoinsEnum) {
     let coinCount = this.getCoinBalance(coinToReturn);
     for (let idx = 0; idx < coinCount; idx++) {
       if (this.removeCoin(coinToReturn)) {
-        this.bankService.addCoin(coinToReturn);
+        this._bankService.addCoin(coinToReturn);
       }
     }
   }
@@ -67,7 +67,7 @@ private depositAllCoinsForDenomination(coinToReturn: CoinsEnum) {
     let coinCount = this.getCoinBalance(coinToReturn);
     for (let idx = 0; idx < coinCount; idx++) {
       if (this.removeCoin(coinToReturn)) {
-        this.coinReturnService.addToReturn(coinToReturn);
+        this._coinReturnService.addToReturn(coinToReturn);
       }
     }
   }

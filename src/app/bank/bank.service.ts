@@ -8,7 +8,7 @@ import { CoinReturnService } from '../coin-return/coin-return.service';
 @Injectable()
 export class BankService extends CoinsBalance {
 
-  constructor(initialBankCoins: InitialBankCoins, private coinReturnService: CoinReturnService) {
+  constructor(initialBankCoins: InitialBankCoins, private _coinReturnService: CoinReturnService) {
     super(initialBankCoins.nickles, initialBankCoins.dimes, initialBankCoins.quarters);
   }
 
@@ -59,7 +59,7 @@ export class BankService extends CoinsBalance {
       }
       for (let x = 0; x < numberOfCoinsToReturn; x++) {
         this.removeCoin(coinEnum);
-        this.coinReturnService.addToReturn(coinEnum);
+        this._coinReturnService.addToReturn(coinEnum);
       }
       valueRemainingInCents = valueRemainingInCents - (numberOfCoinsToReturn * coinValueInCents);
     }
