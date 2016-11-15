@@ -40,6 +40,8 @@ export class PurchaseService {
 
     let retValue = this.inventoryService.dispense(product);
     if (!retValue) {
+      // Something went wrong during dispense
+      this.messageDisplayService.setTempMessage(StringConstants.UNABLE_TO_DISPENSE_MESSAGE);
       return false;
     } else {
       this.insertedCoinsService.purchase(product.costCents);

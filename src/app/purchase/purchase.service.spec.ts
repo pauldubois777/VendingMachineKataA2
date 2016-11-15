@@ -93,12 +93,58 @@ describe('Service: Purchase', () => {
     insertedCoinsService.addCoin(CoinsEnum.DIME);
     insertedCoinsService.addCoin(CoinsEnum.QUARTER);
 
-    dispenseSpy.and.returnValue(true);
+    dispenseSpy.and.returnValue(true); // Successful dispense
     let retValue = service.purchase(product);
 
     expect(retValue).toEqual(true);
     expect(dispenseSpy).toHaveBeenCalledWith(product);
     expect(insertedCoinsServicePurchaseSpy).toHaveBeenCalledWith(product.costCents);
     expect(setTempMessageSpy).toHaveBeenCalledWith(StringConstants.THANK_YOU_MESSAGE);
+  });
+
+  it(`purchase product when coins inserted greater than cost,  
+      calls inventory service to dispense product, 
+      calls inserted coins service to purchase,
+      and display thank you message`, () => {
+
+    let product = initialInventory.inventory[1].product;
+
+    insertedCoinsService.addCoin(CoinsEnum.NICKLE);
+    insertedCoinsService.addCoin(CoinsEnum.NICKLE);
+    insertedCoinsService.addCoin(CoinsEnum.NICKLE);
+    insertedCoinsService.addCoin(CoinsEnum.DIME);
+    insertedCoinsService.addCoin(CoinsEnum.DIME);
+    insertedCoinsService.addCoin(CoinsEnum.QUARTER);
+    insertedCoinsService.addCoin(CoinsEnum.QUARTER);
+    insertedCoinsService.addCoin(CoinsEnum.QUARTER);
+
+    dispenseSpy.and.returnValue(true); // Successful dispense
+    let retValue = service.purchase(product);
+
+    expect(retValue).toEqual(true);
+    expect(dispenseSpy).toHaveBeenCalledWith(product);
+    expect(insertedCoinsServicePurchaseSpy).toHaveBeenCalledWith(product.costCents);
+    expect(setTempMessageSpy).toHaveBeenCalledWith(StringConstants.THANK_YOU_MESSAGE);
+  });
+
+it(`purchase product when coins inserted greater than cost but unsuccessful dispense,  
+      calls service to display dispense error message`, () => {
+
+    let product = initialInventory.inventory[1].product;
+
+    insertedCoinsService.addCoin(CoinsEnum.NICKLE);
+    insertedCoinsService.addCoin(CoinsEnum.NICKLE);
+    insertedCoinsService.addCoin(CoinsEnum.NICKLE);
+    insertedCoinsService.addCoin(CoinsEnum.DIME);
+    insertedCoinsService.addCoin(CoinsEnum.DIME);
+    insertedCoinsService.addCoin(CoinsEnum.QUARTER);
+    insertedCoinsService.addCoin(CoinsEnum.QUARTER);
+    insertedCoinsService.addCoin(CoinsEnum.QUARTER);
+
+    dispenseSpy.and.returnValue(false); // Unsuccessful dispense
+    let retValue = service.purchase(product);
+
+    expect(retValue).toEqual(false);
+    expect(setTempMessageSpy).toHaveBeenCalledWith(StringConstants.UNABLE_TO_DISPENSE_MESSAGE);
   });
 });

@@ -5,5 +5,6 @@ export class StringConstants {
     public static readonly UNKNOWN_PRODUCT_MESSAGE = 'ERROR: PRODUCT';
     public static readonly PRICE_MESSAGE_PREFIX = 'PRICE';
     public static readonly THANK_YOU_MESSAGE = 'THANK YOU!';
+    public static readonly UNABLE_TO_DISPENSE_MESSAGE = 'UNABLE TO DISPENSE';
     public static readonly PRODUCT_NOT_IN_INVENTORY_ERROR = 'Product is not in inventory';
 }
