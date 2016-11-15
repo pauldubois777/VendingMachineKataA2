@@ -19,22 +19,33 @@ export class PurchaseService {
 
   purchase(product: Product): boolean {
     let inventoryItem = this.inventoryService.getItem(product);
-
     if (inventoryItem) {
       if (inventoryItem.qty > 0) {
-        if (inventoryItem.product.costCents > this.insertedCoinsService.ValueInCents) {
+        if (this.insertedCoinsService.ValueInCents >= inventoryItem.product.costCents) {
+          // Successful purchase
+          let retValue = this.inventoryService.dispense(product);
+          if (retValue) {
+            this.insertedCoinsService.purchase(product.costCents);
+            this.messageDisplayService.setTempMessage(StringConstants.THANK_YOU_MESSAGE);
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          // Not enough money inserted for product cost
           this.messageDisplayService.setTempMessage(
             formatDisplayPrice(inventoryItem.product.costCents));
           return false;
         }
       } else {
+        // Product sold out
         this.messageDisplayService.setTempMessage(StringConstants.SOLD_OUT_MESSAGE);
         return false;
       }
     } else {
+      // Unknown product in inventory
       this.messageDisplayService.setTempMessage(StringConstants.UNKNOWN_PRODUCT_MESSAGE);
       return false;
     }
   }
-
 }
