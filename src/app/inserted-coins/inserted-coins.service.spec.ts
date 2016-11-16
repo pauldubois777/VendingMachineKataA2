@@ -37,7 +37,7 @@ describe('Service: Inserted Coins', () => {
     expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(0);
     expect(service.getCoinBalance(CoinsEnum.DIME)).toEqual(0);
     expect(service.getCoinBalance(CoinsEnum.QUARTER)).toEqual(0);
-    expect(service.ValueInCents).toEqual(0);
+    expect(service.getValueInCents()).toEqual(0);
   });
 
   describe('insertCoin increases coin balance and value, and properly calls MessageDisplay DisplayBalance for', () => {
@@ -105,7 +105,7 @@ describe('Service: Inserted Coins', () => {
       ]);
       expect(setDisplayBalanceSpy).toHaveBeenCalled();
       expect(setDisplayBalanceSpy).toHaveBeenCalledWith(0);
-      expect(service.ValueInCents).toEqual(0);
+      expect(service.getValueInCents()).toEqual(0);
     });
 
     it('inserting multiple coins of each denomination', () => {
@@ -135,7 +135,7 @@ describe('Service: Inserted Coins', () => {
       ]);
       expect(setDisplayBalanceSpy).toHaveBeenCalled();
       expect(setDisplayBalanceSpy).toHaveBeenCalledWith(0);
-      expect(service.ValueInCents).toEqual(0);
+      expect(service.getValueInCents()).toEqual(0);
     });
   });
 
@@ -148,7 +148,7 @@ describe('Service: Inserted Coins', () => {
     let retValue = service.purchase(40);
 
     expect(retValue).toEqual(true);
-    expect(service.ValueInCents).toEqual(0);
+    expect(service.getValueInCents()).toEqual(0);
     expect(addCoinSpy).toHaveBeenCalledTimes(3);
     expect(addCoinSpy.calls.allArgs()).toEqual([
       [CoinsEnum.NICKLE],
@@ -168,7 +168,7 @@ describe('Service: Inserted Coins', () => {
       let retValue = service.purchase(50);
 
       expect(retValue).toEqual(false);
-      expect(service.ValueInCents).toEqual(40);
+      expect(service.getValueInCents()).toEqual(40);
       expect(addCoinSpy).not.toHaveBeenCalled();
       expect(setDisplayBalanceSpy).not.toHaveBeenCalled();
       expect(returnThisAmountSpy).not.toHaveBeenCalled();
@@ -190,7 +190,7 @@ describe('Service: Inserted Coins', () => {
     let retValue = service.purchase(40);
 
     expect(retValue).toEqual(true);
-    expect(service.ValueInCents).toEqual(0);
+    expect(service.getValueInCents()).toEqual(0);
     expect(addCoinSpy).toHaveBeenCalledTimes(7);
     expect(addCoinSpy.calls.allArgs()).toEqual([
       [CoinsEnum.NICKLE],

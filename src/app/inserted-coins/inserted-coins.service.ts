@@ -20,7 +20,7 @@ export class InsertedCoinsService extends CoinsBalance {
   insertCoin(insertedCoin: CoinsEnum) {
     if (insertedCoin === CoinsEnum.NICKLE || insertedCoin === CoinsEnum.DIME || insertedCoin === CoinsEnum.QUARTER) {
       this.addCoin(insertedCoin);
-      this._messageDisplayService.setDisplayBalance(this.ValueInCents / 100);
+      this._messageDisplayService.setDisplayBalance(this.getValueInCents() / 100);
     } else {
       this._coinReturnService.addToReturn(insertedCoin);
     }
@@ -34,11 +34,11 @@ export class InsertedCoinsService extends CoinsBalance {
   }
 
   purchase(costInCents: number): boolean {
-    if (costInCents > this.ValueInCents) {
+    if (costInCents > this.getValueInCents()) {
       return false;
     }
 
-    let excessAmount = this.ValueInCents - costInCents;
+    let excessAmount = this.getValueInCents() - costInCents;
 
     // User has inserted enough for the purchase, so send all inserted coins to the bank
     this.depositAllCoinsForDenomination(CoinsEnum.NICKLE);

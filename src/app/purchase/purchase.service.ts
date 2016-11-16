@@ -32,7 +32,7 @@ export class PurchaseService {
       return false;
     }
 
-    if (this._insertedCoinsService.ValueInCents < inventoryItem.product.costCents) {
+    if (this._insertedCoinsService.getValueInCents() < inventoryItem.product.costCents) {
       // Not enough money inserted for product cost
       this._messageDisplayService.setTempMessage(formatDisplayPrice(inventoryItem.product.costCents));
       return false;

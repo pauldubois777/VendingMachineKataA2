@@ -16,7 +16,7 @@ describe('Model: CoinsBalance', () => {
     expect(coinsBalance.getCoinBalance(CoinsEnum.NICKLE)).toEqual(0);
     expect(coinsBalance.getCoinBalance(CoinsEnum.DIME)).toEqual(0);
     expect(coinsBalance.getCoinBalance(CoinsEnum.QUARTER)).toEqual(0);
-    expect(coinsBalance.ValueInCents).toEqual(0);
+    expect(coinsBalance.getValueInCents()).toEqual(0);
   });
 
   it('after creation with coin parameters, all coins have correct qty and value is correct', () => {
@@ -24,7 +24,7 @@ describe('Model: CoinsBalance', () => {
     expect(coinsBalance.getCoinBalance(CoinsEnum.NICKLE)).toEqual(nickles);
     expect(coinsBalance.getCoinBalance(CoinsEnum.DIME)).toEqual(dimes);
     expect(coinsBalance.getCoinBalance(CoinsEnum.QUARTER)).toEqual(quarters);
-    expect(coinsBalance.ValueInCents).toEqual(valueInCents);
+    expect(coinsBalance.getValueInCents()).toEqual(valueInCents);
   });
 
   it('calling reset sets all coin qtys to zero and value is zero', () => {
@@ -33,7 +33,7 @@ describe('Model: CoinsBalance', () => {
     expect(coinsBalance.getCoinBalance(CoinsEnum.NICKLE)).toEqual(0);
     expect(coinsBalance.getCoinBalance(CoinsEnum.DIME)).toEqual(0);
     expect(coinsBalance.getCoinBalance(CoinsEnum.QUARTER)).toEqual(0);
-    expect(coinsBalance.ValueInCents).toEqual(0);
+    expect(coinsBalance.getValueInCents()).toEqual(0);
   });
 
   it('adding valid coins returns true and updates qty and value correctly', () => {
@@ -72,12 +72,12 @@ function testAddCoin(coinEnum: CoinsEnum, expectedRetValue: boolean, coinQty: nu
   let retVal = coinsBalance.addCoin(coinEnum);
   expect(retVal).toEqual(expectedRetValue);
   expect(coinsBalance.getCoinBalance(coinEnum)).toEqual(coinQty);
-  expect(coinsBalance.ValueInCents).toEqual(expectedValue);
+  expect(coinsBalance.getValueInCents()).toEqual(expectedValue);
 }
 
 function testRemoveCoin(coinEnum: CoinsEnum, expectedRetValue: boolean, coinQty: number, expectedValue: number) {
   let retVal = coinsBalance.removeCoin(coinEnum);
   expect(retVal).toEqual(expectedRetValue);
   expect(coinsBalance.getCoinBalance(coinEnum)).toEqual(coinQty);
-  expect(coinsBalance.ValueInCents).toEqual(expectedValue);
+  expect(coinsBalance.getValueInCents()).toEqual(expectedValue);
 }

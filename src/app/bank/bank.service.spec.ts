@@ -24,7 +24,7 @@ describe('Service: Bank', () => {
     expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(nickles);
     expect(service.getCoinBalance(CoinsEnum.DIME)).toEqual(dimes);
     expect(service.getCoinBalance(CoinsEnum.QUARTER)).toEqual(quarters);
-    expect(service.ValueInCents).toEqual(valueInCents);
+    expect(service.getValueInCents()).toEqual(valueInCents);
   });
 
   describe('CanMakeChange returns true for bank coin balances that can make change when coin balance has', () => {
@@ -268,7 +268,7 @@ function testReturnThisAmount(
   expect(service.getCoinBalance(CoinsEnum.NICKLE)).toEqual(expectedBalanceNickles, 'Nickles');
   expect(service.getCoinBalance(CoinsEnum.DIME)).toEqual(expectedBalanceDimes, 'Dimes');
   expect(service.getCoinBalance(CoinsEnum.QUARTER)).toEqual(expectedBalanceQuarters, 'Quarters');
-  expect(service.ValueInCents).toEqual(expectedValueInCents, 'Value in cents');
+  expect(service.getValueInCents()).toEqual(expectedValueInCents, 'Value in cents');
 
   if (expectedTimesAddToReturnCalled === 0) {
     expect(addToReturnSpy).not.toHaveBeenCalled();

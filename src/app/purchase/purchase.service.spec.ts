@@ -11,7 +11,6 @@ import { InsertedCoinsService } from '../inserted-coins/inserted-coins.service';
 import { BankService } from '../bank/bank.service';
 import { CoinReturnService } from '../coin-return/coin-return.service';
 import { InitialBankCoins } from '../bank/initial-bank-coins';
-import { CoinsEnum } from '../shared/coins.enum';
 import { formatDisplayPrice } from '../shared/helpers';
 
 let service: PurchaseService;
@@ -22,61 +21,72 @@ let bankService: BankService;
 let coinReturnService: CoinReturnService;
 let initialInventory: InitialInventory;
 let setTempMessageSpy: jasmine.Spy;
-let insertedCoinsServicePurchaseSpy: jasmine.Spy;
+let purchaseSpy: jasmine.Spy;
 let dispenseSpy: jasmine.Spy;
+let getItemSpy: jasmine.Spy;
+let getValueInCentsSpy: jasmine.Spy;
+let product: Product;
+let inventoryItem: InventoryItem;
 
 describe('Service: Purchase', () => {
   beforeEach(() => {
+    product = new Product(99, 'Fake Product', 40);
+    inventoryItem = new InventoryItem(product, 6);
+
     messageDisplayService = new MessageDisplayService();
     setTempMessageSpy = spyOn(messageDisplayService, 'setTempMessage');
 
-    initialInventory = new InitialInventory();
-    initialInventory.inventory = [
-      new InventoryItem (new Product(1, 'Fruit Chews', 75), 0),
-      new InventoryItem (new Product(6, 'Cola', 60), 5),
-    ];
-    inventoryService = new InventoryService(initialInventory);
+    inventoryService = new InventoryService(new InitialInventory());
     dispenseSpy = spyOn(inventoryService, 'dispense');
+    getItemSpy = spyOn(inventoryService, 'getItem');
 
     coinReturnService = new CoinReturnService();
     bankService = new BankService(new InitialBankCoins(), coinReturnService);
 
     insertedCoinsService = new InsertedCoinsService(coinReturnService, bankService, messageDisplayService);
-    insertedCoinsServicePurchaseSpy = spyOn(insertedCoinsService, 'purchase');
+    purchaseSpy = spyOn(insertedCoinsService, 'purchase');
+    getValueInCentsSpy = spyOn(insertedCoinsService, 'getValueInCents');
 
     service = new PurchaseService(messageDisplayService, inventoryService, insertedCoinsService);
   });
 
   it('purchase product with 0 qty available calls service to display temp message sold out', () => {
-    let retValue = service.purchase(initialInventory.inventory[0].product);
+    inventoryItem.qty = 0;
+    getItemSpy.and.returnValue(inventoryItem);
+
+    let retValue = service.purchase(inventoryItem.product);
 
     expect(retValue).toEqual(false);
     expect(setTempMessageSpy).toHaveBeenCalledWith(StringConstants.SOLD_OUT_MESSAGE);
   });
 
   it('purchase invalid product calls service to display temp message error', () => {
-    let retValue = service.purchase(new Product(123321, 'Product not in inventory', 123));
+    getItemSpy.and.returnValue(null);
+
+    let retValue = service.purchase(inventoryItem.product);
 
     expect(retValue).toEqual(false);
     expect(setTempMessageSpy).toHaveBeenCalledWith(StringConstants.UNKNOWN_PRODUCT_MESSAGE);
   });
 
   it('purchase product when no coins inserted, calls service to display price message ', () => {
-    // No money has been inserted
-    let retValue = service.purchase(initialInventory.inventory[1].product);
+    getItemSpy.and.returnValue(inventoryItem);
+    getValueInCentsSpy.and.returnValue(0);
+
+    let retValue = service.purchase(inventoryItem.product);
 
     expect(retValue).toEqual(false);
-    expect(setTempMessageSpy).toHaveBeenCalledWith(formatDisplayPrice(initialInventory.inventory[1].product.costCents));
+    expect(setTempMessageSpy).toHaveBeenCalledWith(formatDisplayPrice(inventoryItem.product.costCents));
   });
 
   it('purchase product when coins inserted less than cost, calls service to display price message ', () => {
-    insertedCoinsService.addCoin(CoinsEnum.NICKLE);
-    insertedCoinsService.addCoin(CoinsEnum.DIME);
-    insertedCoinsService.addCoin(CoinsEnum.QUARTER);
-    let retValue = service.purchase(initialInventory.inventory[1].product);
+    getItemSpy.and.returnValue(inventoryItem);
+    getValueInCentsSpy.and.returnValue(inventoryItem.product.costCents - 10);
+
+    let retValue = service.purchase(inventoryItem.product);
 
     expect(retValue).toEqual(false);
-    expect(setTempMessageSpy).toHaveBeenCalledWith(formatDisplayPrice(initialInventory.inventory[1].product.costCents));
+    expect(setTempMessageSpy).toHaveBeenCalledWith(formatDisplayPrice(inventoryItem.product.costCents));
   });
 
   it(`purchase product when coins inserted equals cost,  
@@ -84,21 +94,15 @@ describe('Service: Purchase', () => {
       calls inserted coins service to purchase,
       and display thank you message`, () => {
 
-    let product = initialInventory.inventory[1].product;
-
-    insertedCoinsService.addCoin(CoinsEnum.NICKLE);
-    insertedCoinsService.addCoin(CoinsEnum.NICKLE);
-    insertedCoinsService.addCoin(CoinsEnum.NICKLE);
-    insertedCoinsService.addCoin(CoinsEnum.DIME);
-    insertedCoinsService.addCoin(CoinsEnum.DIME);
-    insertedCoinsService.addCoin(CoinsEnum.QUARTER);
-
+    getItemSpy.and.returnValue(inventoryItem);
+    getValueInCentsSpy.and.returnValue(inventoryItem.product.costCents);
     dispenseSpy.and.returnValue(true); // Successful dispense
-    let retValue = service.purchase(product);
+
+    let retValue = service.purchase(inventoryItem.product);
 
     expect(retValue).toEqual(true);
-    expect(dispenseSpy).toHaveBeenCalledWith(product);
-    expect(insertedCoinsServicePurchaseSpy).toHaveBeenCalledWith(product.costCents);
+    expect(dispenseSpy).toHaveBeenCalledWith(inventoryItem.product);
+    expect(purchaseSpy).toHaveBeenCalledWith(inventoryItem.product.costCents);
     expect(setTempMessageSpy).toHaveBeenCalledWith(StringConstants.THANK_YOU_MESSAGE);
   });
 
@@ -107,41 +111,25 @@ describe('Service: Purchase', () => {
       calls inserted coins service to purchase,
       and display thank you message`, () => {
 
-    let product = initialInventory.inventory[1].product;
+    getItemSpy.and.returnValue(inventoryItem);
+    getValueInCentsSpy.and.returnValue(inventoryItem.product.costCents + 25);
+    dispenseSpy.and.returnValue(true);
 
-    insertedCoinsService.addCoin(CoinsEnum.NICKLE);
-    insertedCoinsService.addCoin(CoinsEnum.NICKLE);
-    insertedCoinsService.addCoin(CoinsEnum.NICKLE);
-    insertedCoinsService.addCoin(CoinsEnum.DIME);
-    insertedCoinsService.addCoin(CoinsEnum.DIME);
-    insertedCoinsService.addCoin(CoinsEnum.QUARTER);
-    insertedCoinsService.addCoin(CoinsEnum.QUARTER);
-    insertedCoinsService.addCoin(CoinsEnum.QUARTER);
-
-    dispenseSpy.and.returnValue(true); // Successful dispense
-    let retValue = service.purchase(product);
+    let retValue = service.purchase(inventoryItem.product);
 
     expect(retValue).toEqual(true);
-    expect(dispenseSpy).toHaveBeenCalledWith(product);
-    expect(insertedCoinsServicePurchaseSpy).toHaveBeenCalledWith(product.costCents);
+    expect(dispenseSpy).toHaveBeenCalledWith(inventoryItem.product);
+    expect(purchaseSpy).toHaveBeenCalledWith(inventoryItem.product.costCents);
     expect(setTempMessageSpy).toHaveBeenCalledWith(StringConstants.THANK_YOU_MESSAGE);
   });
 
 it(`purchase product when coins inserted greater than cost but unsuccessful dispense,  
       calls service to display dispense error message`, () => {
 
-    let product = initialInventory.inventory[1].product;
-
-    insertedCoinsService.addCoin(CoinsEnum.NICKLE);
-    insertedCoinsService.addCoin(CoinsEnum.NICKLE);
-    insertedCoinsService.addCoin(CoinsEnum.NICKLE);
-    insertedCoinsService.addCoin(CoinsEnum.DIME);
-    insertedCoinsService.addCoin(CoinsEnum.DIME);
-    insertedCoinsService.addCoin(CoinsEnum.QUARTER);
-    insertedCoinsService.addCoin(CoinsEnum.QUARTER);
-    insertedCoinsService.addCoin(CoinsEnum.QUARTER);
-
+    getItemSpy.and.returnValue(inventoryItem);
+    getValueInCentsSpy.and.returnValue(inventoryItem.product.costCents + 25);
     dispenseSpy.and.returnValue(false); // Unsuccessful dispense
+
     let retValue = service.purchase(product);
 
     expect(retValue).toEqual(false);

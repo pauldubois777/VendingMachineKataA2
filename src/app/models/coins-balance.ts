@@ -68,7 +68,7 @@ export class CoinsBalance {
   }
 
   // Return value in cents to avoid Javascript floating point issues
-  get ValueInCents(): number {
+  getValueInCents(): number {
     return (this._nickels * 5) + (this._dimes * 10) + (this._quarters * 25);
   }
 }
