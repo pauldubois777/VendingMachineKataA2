@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppComponent } from './app.component';
+// Services
 import { CoinReturnService } from './services/coin-return/coin-return.service';
 import { MessageDisplayService } from './services/message-display/message-display.service';
 import { InitialInventory } from './services/inventory/initial-inventory';
@@ -12,12 +12,17 @@ import { InitialBankCoins } from './services/bank/initial-bank-coins';
 import { BankService } from './services/bank/bank.service';
 import { InsertedCoinsService } from './services/inserted-coins/inserted-coins.service';
 import { PurchaseService } from './services/purchase/purchase.service';
+
+// Components
+import { AppComponent } from './app.component';
 import { CoinSlotComponent } from './components/coin-slot/coin-slot.component';
+import { CoinComponent } from './components/coin/coin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CoinSlotComponent
+    CoinSlotComponent,
+    CoinComponent
   ],
   imports: [
     BrowserModule,
