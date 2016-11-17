@@ -12,7 +12,7 @@ export class InsertedCoinsService extends CoinsBalance {
   constructor(
     private _coinReturnService: CoinReturnService,
     private _bankService: BankService,
-    private _messageDisplayService: MessageService) {
+    private _messageService: MessageService) {
 
     super(0, 0, 0);
   }
@@ -20,7 +20,7 @@ export class InsertedCoinsService extends CoinsBalance {
   insertCoin(insertedCoin: CoinsEnum) {
     if (insertedCoin === CoinsEnum.NICKLE || insertedCoin === CoinsEnum.DIME || insertedCoin === CoinsEnum.QUARTER) {
       this.addCoin(insertedCoin);
-      this._messageDisplayService.setDisplayBalance(this.getValueInCents() / 100);
+      this._messageService.setDisplayBalance(this.getValueInCents() / 100);
     } else {
       this._coinReturnService.addToReturn(insertedCoin);
     }
@@ -30,7 +30,7 @@ export class InsertedCoinsService extends CoinsBalance {
     this.returnAllCoinsForDenomination(CoinsEnum.NICKLE);
     this.returnAllCoinsForDenomination(CoinsEnum.DIME);
     this.returnAllCoinsForDenomination(CoinsEnum.QUARTER);
-    this._messageDisplayService.setDisplayBalance(0);
+    this._messageService.setDisplayBalance(0);
   }
 
   purchase(costInCents: number): boolean {
@@ -44,7 +44,7 @@ export class InsertedCoinsService extends CoinsBalance {
     this.depositAllCoinsForDenomination(CoinsEnum.NICKLE);
     this.depositAllCoinsForDenomination(CoinsEnum.DIME);
     this.depositAllCoinsForDenomination(CoinsEnum.QUARTER);
-    this._messageDisplayService.setDisplayBalance(0);
+    this._messageService.setDisplayBalance(0);
 
     // Tell the bank to return any excess amount beyond purchase price
     if (excessAmount > 0) {
