@@ -5,7 +5,7 @@ import { InventoryService } from '../inventory/inventory.service';
 import { Product } from '../../models/product';
 import { StringConstants } from '../../shared/string-constants';
 import { InsertedCoinsService } from '../inserted-coins/inserted-coins.service';
-import { formatDisplayPrice } from '../../shared/helpers';
+import { formatPrice } from '../../shared/helpers';
 
 @Injectable()
 export class PurchaseService {
@@ -34,7 +34,7 @@ export class PurchaseService {
 
     if (this._insertedCoinsService.getValueInCents() < inventoryItem.product.costCents) {
       // Not enough money inserted for product cost
-      this._messageService.setTempMessage(formatDisplayPrice(inventoryItem.product.costCents));
+      this._messageService.setTempMessage(StringConstants.PRICE_MESSAGE_PREFIX + ' ' + formatPrice(inventoryItem.product.costCents));
       return false;
     }
 

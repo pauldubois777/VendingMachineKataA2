@@ -17,12 +17,14 @@ import { PurchaseService } from './services/purchase/purchase.service';
 import { AppComponent } from './app.component';
 import { CoinSlotComponent } from './components/coin-slot/coin-slot.component';
 import { CoinComponent } from './components/coin/coin.component';
+import { MessageDisplayComponent } from './components/message-display/message-display.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CoinSlotComponent,
-    CoinComponent
+    CoinComponent,
+    MessageDisplayComponent
   ],
   imports: [
     BrowserModule,

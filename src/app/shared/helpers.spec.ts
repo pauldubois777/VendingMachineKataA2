@@ -1,14 +1,13 @@
-import { formatDisplayPrice } from '../shared/helpers';
-import { StringConstants } from '../shared/string-constants';
+import { formatPrice } from '../shared/helpers';
 
 describe('Helpers: formatDisplayPrice', () => {
   it('various prices are formatted properly for display', () => {
-    expect(formatDisplayPrice(   1)).toEqual(StringConstants.PRICE_MESSAGE_PREFIX +  ' $0.01');
-    expect(formatDisplayPrice(  10)).toEqual(StringConstants.PRICE_MESSAGE_PREFIX +  ' $0.10');
-    expect(formatDisplayPrice( 100)).toEqual(StringConstants.PRICE_MESSAGE_PREFIX +  ' $1.00');
-    expect(formatDisplayPrice(1000)).toEqual(StringConstants.PRICE_MESSAGE_PREFIX + ' $10.00');
-    expect(formatDisplayPrice(  23)).toEqual(StringConstants.PRICE_MESSAGE_PREFIX +  ' $0.23');
-    expect(formatDisplayPrice( 234)).toEqual(StringConstants.PRICE_MESSAGE_PREFIX +  ' $2.34');
-    expect(formatDisplayPrice(2345)).toEqual(StringConstants.PRICE_MESSAGE_PREFIX + ' $23.45');
+    expect(formatPrice(   1)).toEqual('$0.01');
+    expect(formatPrice(  10)).toEqual('$0.10');
+    expect(formatPrice( 100)).toEqual('$1.00');
+    expect(formatPrice(1000)).toEqual('$10.00');
+    expect(formatPrice(  23)).toEqual('$0.23');
+    expect(formatPrice( 234)).toEqual('$2.34');
+    expect(formatPrice(2345)).toEqual('$23.45');
   });
 });

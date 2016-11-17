@@ -3,6 +3,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 
 import { StringConstants } from '../../shared/string-constants';
 import { NumericConstants } from '../../shared/numeric-constants';
+import { formatPrice } from '../../shared/helpers';
 
 @Injectable()
 export class MessageService {
@@ -20,8 +21,8 @@ export class MessageService {
     this.setCurrentMessage();
   }
 
-  setDisplayBalance(balance: number) {
-    this._displayBalance = balance;
+  setBalance(balanceCents: number) {
+    this._displayBalance = balanceCents;
     this.setCurrentMessage();
   }
 
@@ -58,10 +59,9 @@ export class MessageService {
           this.currentMessage = StringConstants.INSERT_COIN_MESSAGE;
         }
       } else {
-        this.currentMessage = '' + this._displayBalance;
+        this.currentMessage = formatPrice(this._displayBalance);
       }
     }
-
     this.currentMessageObservable.emit(this.currentMessage);
   }
 }

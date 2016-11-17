@@ -7,7 +7,7 @@ export class CoinsBalance {
     private _quarters = 0
   ) { }
 
-  addCoin(coinEnum: CoinsEnum): boolean {
+  protected addCoin(coinEnum: CoinsEnum): boolean {
     if (coinEnum === CoinsEnum.NICKLE) {
       this._nickels++;
       return true;

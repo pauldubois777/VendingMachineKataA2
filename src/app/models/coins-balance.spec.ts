@@ -69,7 +69,7 @@ describe('Model: CoinsBalance', () => {
 });
 
 function testAddCoin(coinEnum: CoinsEnum, expectedRetValue: boolean, coinQty: number, expectedValue: number) {
-  let retVal = coinsBalance.addCoin(coinEnum);
+  let retVal = coinsBalance['addCoin'](coinEnum);
   expect(retVal).toEqual(expectedRetValue);
   expect(coinsBalance.getCoinBalance(coinEnum)).toEqual(coinQty);
   expect(coinsBalance.getValueInCents()).toEqual(expectedValue);

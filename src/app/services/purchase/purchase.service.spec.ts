@@ -11,10 +11,10 @@ import { InsertedCoinsService } from '../inserted-coins/inserted-coins.service';
 import { BankService } from '../bank/bank.service';
 import { CoinReturnService } from '../coin-return/coin-return.service';
 import { InitialBankCoins } from '../bank/initial-bank-coins';
-import { formatDisplayPrice } from '../../shared/helpers';
+import { formatPrice } from '../../shared/helpers';
 
 let service: PurchaseService;
-let messageDisplayService: MessageService;
+let messageService: MessageService;
 let inventoryService: InventoryService;
 let insertedCoinsService: InsertedCoinsService;
 let bankService: BankService;
@@ -33,8 +33,8 @@ describe('Service: Purchase', () => {
     product = new Product(99, 'Fake Product', 40);
     inventoryItem = new InventoryItem(product, 6);
 
-    messageDisplayService = new MessageService();
-    setTempMessageSpy = spyOn(messageDisplayService, 'setTempMessage');
+    messageService = new MessageService();
+    setTempMessageSpy = spyOn(messageService, 'setTempMessage');
 
     inventoryService = new InventoryService(new InitialInventory());
     dispenseSpy = spyOn(inventoryService, 'dispense');
@@ -43,11 +43,11 @@ describe('Service: Purchase', () => {
     coinReturnService = new CoinReturnService();
     bankService = new BankService(new InitialBankCoins(), coinReturnService);
 
-    insertedCoinsService = new InsertedCoinsService(coinReturnService, bankService, messageDisplayService);
+    insertedCoinsService = new InsertedCoinsService(coinReturnService, bankService, messageService);
     purchaseSpy = spyOn(insertedCoinsService, 'purchase');
     getValueInCentsSpy = spyOn(insertedCoinsService, 'getValueInCents');
 
-    service = new PurchaseService(messageDisplayService, inventoryService, insertedCoinsService);
+    service = new PurchaseService(messageService, inventoryService, insertedCoinsService);
   });
 
   it('purchase product with 0 qty available calls service to display temp message sold out', () => {
@@ -76,7 +76,9 @@ describe('Service: Purchase', () => {
     let retValue = service.purchase(inventoryItem.product);
 
     expect(retValue).toEqual(false);
-    expect(setTempMessageSpy).toHaveBeenCalledWith(formatDisplayPrice(inventoryItem.product.costCents));
+    expect(setTempMessageSpy).toHaveBeenCalledWith(
+      StringConstants.PRICE_MESSAGE_PREFIX + ' ' + formatPrice(inventoryItem.product.costCents)
+    );
   });
 
   it('purchase product when coins inserted less than cost, calls service to display price message ', () => {
@@ -86,7 +88,9 @@ describe('Service: Purchase', () => {
     let retValue = service.purchase(inventoryItem.product);
 
     expect(retValue).toEqual(false);
-    expect(setTempMessageSpy).toHaveBeenCalledWith(formatDisplayPrice(inventoryItem.product.costCents));
+    expect(setTempMessageSpy).toHaveBeenCalledWith(
+      StringConstants.PRICE_MESSAGE_PREFIX + ' ' + formatPrice(inventoryItem.product.costCents)
+    );
   });
 
   it(`purchase product when coins inserted equals cost,  

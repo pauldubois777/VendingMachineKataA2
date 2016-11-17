@@ -47,6 +47,10 @@ export class BankService extends CoinsBalance {
     return remainingValueInCents; // In case the bank doesn't have enough and/or proper coins.  Let the caller deal with that.
   }
 
+  addCoin(coinEnum: CoinsEnum): boolean {
+    return super.addCoin(coinEnum);
+  }
+
   private returnCoinDenomination(
     valueRemainingInCents: number,
     coinEnum: CoinsEnum,

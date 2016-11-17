@@ -1,9 +1,11 @@
 /* tslint:disable:no-unused-variable */
 
+// TODO: Add tests for currentMessageObservable
 
 import { MessageService } from './message.service';
 import { StringConstants } from '../../shared/string-constants';
 import { NumericConstants } from '../../shared/numeric-constants';
+import { formatPrice } from '../../shared/helpers';
 
 let service: MessageService;
 
@@ -17,20 +19,20 @@ describe('Service: MessageDisplay', () => {
   });
 
   it('after setting DisplayBalance to non zero amount, message should be balance amount', () => {
-    service.setDisplayBalance(1.25);
-    expect(service.currentMessage).toBe('1.25');
+    service.setBalance(125);
+    expect(service.currentMessage).toBe(formatPrice(125));
   });
 
   it('after setting DisplayBalance to non zero amount and set DisplayBalance back to zero, message should be insert coins message', () => {
-    service.setDisplayBalance(1.25);
-    expect(service.currentMessage).toBe('1.25');
-    service.setDisplayBalance(0);
+    service.setBalance(125);
+    expect(service.currentMessage).toBe(formatPrice(125));
+    service.setBalance(0);
     expect(service.currentMessage).toBe(StringConstants.INSERT_COIN_MESSAGE);
   });
 
   it('after setting ExactChangeOnly to true and balance to zero, message should be exact change message', () => {
     service.ExactChangeOnly = true;
-    service.setDisplayBalance(0);
+    service.setBalance(0);
     expect(service.currentMessage).toBe(StringConstants.EXACT_CHANGE_MESSAGE);
   });
 
@@ -60,7 +62,7 @@ describe('Service: MessageDisplay', () => {
   it('setting temp message then immediately setting balance to non zero should not change temp message', () => {
     let tempMessage = 'This is a temp message';
     service.setTempMessage(tempMessage);
-    service.setDisplayBalance(1.50);
+    service.setBalance(150);
     expect(service.currentMessage).toBe(tempMessage);
   });
 
@@ -68,9 +70,9 @@ describe('Service: MessageDisplay', () => {
   it('setting temp message then setting balance to non zero should show balance after temp message expires', (done) => {
     let tempMessage = 'This is a temp message';
     service.setTempMessage(tempMessage);
-    service.setDisplayBalance(1.05);
+    service.setBalance(105);
     setTimeout( () => {
-      expect(service.currentMessage).toBe('1.05');
+      expect(service.currentMessage).toBe(formatPrice(105));
       done();
     }, NumericConstants.TEMP_MESSAGE_DURATION_MS);
   });
