@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { MessageDisplayService } from '../message-display/message-display.service';
 import { InventoryService } from '../inventory/inventory.service';
-import { Product } from '../models/product';
-import { StringConstants } from '../shared/string-constants';
+import { Product } from '../../models/product';
+import { StringConstants } from '../../shared/string-constants';
 import { InsertedCoinsService } from '../inserted-coins/inserted-coins.service';
-import { formatDisplayPrice } from '../shared/helpers';
+import { formatDisplayPrice } from '../../shared/helpers';
 
 @Injectable()
 export class PurchaseService {

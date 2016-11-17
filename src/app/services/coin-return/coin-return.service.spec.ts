@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { CoinReturnService } from './coin-return.service';
-import { CoinsEnum } from '../shared/coins.enum';
+import { CoinsEnum } from '../../shared/coins.enum';
 
 let service: CoinReturnService;
 

@@ -1,10 +1,10 @@
 /* tslint:disable:no-unused-variable */
 
 import { InitialInventory } from './initial-inventory';
-import { InventoryItem } from '../models/inventory-item';
+import { InventoryItem } from '../../models/inventory-item';
 import { InventoryService } from './inventory.service';
-import { Product } from '../models/product';
-import { StringConstants } from '../shared/string-constants';
+import { Product } from '../../models/product';
+import { StringConstants } from '../../shared/string-constants';
 
 let service: InventoryService;
 let initialInventory: InitialInventory;

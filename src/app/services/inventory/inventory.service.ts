@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { InventoryItem } from '../models/inventory-item';
-import { Product } from '../models/product';
+import { InventoryItem } from '../../models/inventory-item';
+import { Product } from '../../models/product';
 import { InitialInventory } from './initial-inventory';
-import { StringConstants } from '../shared/string-constants';
+import { StringConstants } from '../../shared/string-constants';
 
 @Injectable()
 export class InventoryService {

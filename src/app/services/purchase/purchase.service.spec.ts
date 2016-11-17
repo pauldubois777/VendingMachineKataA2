@@ -4,14 +4,14 @@ import { PurchaseService } from './purchase.service';
 import { MessageDisplayService } from '../message-display/message-display.service';
 import { InventoryService } from '../inventory/inventory.service';
 import { InitialInventory } from '../inventory/initial-inventory';
-import { InventoryItem } from '../models/inventory-item';
-import { Product } from '../models/product';
-import { StringConstants } from '../shared/string-constants';
+import { InventoryItem } from '../../models/inventory-item';
+import { Product } from '../../models/product';
+import { StringConstants } from '../../shared/string-constants';
 import { InsertedCoinsService } from '../inserted-coins/inserted-coins.service';
 import { BankService } from '../bank/bank.service';
 import { CoinReturnService } from '../coin-return/coin-return.service';
 import { InitialBankCoins } from '../bank/initial-bank-coins';
-import { formatDisplayPrice } from '../shared/helpers';
+import { formatDisplayPrice } from '../../shared/helpers';
 
 let service: PurchaseService;
 let messageDisplayService: MessageDisplayService;

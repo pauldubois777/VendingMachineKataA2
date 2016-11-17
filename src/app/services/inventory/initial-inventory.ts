@@ -1,5 +1,5 @@
-import { InventoryItem } from '../models/inventory-item';
-import { Product } from '../models/product';
+import { InventoryItem } from '../../models/inventory-item';
+import { Product } from '../../models/product';
 
 export class InitialInventory {
   inventory: Array<InventoryItem> = [

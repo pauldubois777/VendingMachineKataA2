@@ -4,7 +4,7 @@
 // unknown coins
 import { Injectable } from '@angular/core';
 
-import { CoinsEnum } from '../shared/coins.enum';
+import { CoinsEnum } from '../../shared/coins.enum';
 
 @Injectable()
 export class CoinReturnService {

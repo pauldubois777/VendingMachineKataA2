@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { BankService } from './bank.service';
-import { CoinsEnum } from '../shared/coins.enum';
+import { CoinsEnum } from '../../shared/coins.enum';
 import { InitialBankCoins } from './initial-bank-coins';
 import { CoinReturnService } from '../coin-return/coin-return.service';
 

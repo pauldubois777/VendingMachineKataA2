@@ -2,7 +2,7 @@
 
 import { InsertedCoinsService } from './inserted-coins.service';
 import { BankService } from '../bank/bank.service';
-import { CoinsEnum } from '../shared/coins.enum';
+import { CoinsEnum } from '../../shared/coins.enum';
 import { CoinReturnService } from '../coin-return/coin-return.service';
 import { InitialBankCoins } from '../bank/initial-bank-coins';
 import { MessageDisplayService } from '../message-display/message-display.service';

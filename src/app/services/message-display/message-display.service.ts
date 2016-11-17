@@ -1,8 +1,8 @@
 // This service represents the machines Message Display area.
 import { Injectable } from '@angular/core';
 
-import { StringConstants } from '../shared/string-constants';
-import { NumericConstants } from '../shared/numeric-constants';
+import { StringConstants } from '../../shared/string-constants';
+import { NumericConstants } from '../../shared/numeric-constants';
 
 @Injectable()
 export class MessageDisplayService {
