@@ -5,8 +5,8 @@ import { StringConstants } from '../../shared/string-constants';
 import { NumericConstants } from '../../shared/numeric-constants';
 
 @Injectable()
-export class MessageDisplayService {
-  displayMessage: string;
+export class MessageService {
+  currentMessage: string;
   private _displayBalance: number;
   private _exactChangeOnly: boolean;
   private _tempMessage: string;
@@ -48,16 +48,16 @@ export class MessageDisplayService {
 
   setDisplayMessage() {
     if (this._tempMessage) {
-      this.displayMessage = this._tempMessage;
+      this.currentMessage = this._tempMessage;
     } else {
       if (this._displayBalance === 0) {
         if (this._exactChangeOnly) {
-          this.displayMessage = StringConstants.EXACT_CHANGE_MESSAGE;
+          this.currentMessage = StringConstants.EXACT_CHANGE_MESSAGE;
         } else {
-          this.displayMessage = StringConstants.INSERT_COIN_MESSAGE;
+          this.currentMessage = StringConstants.INSERT_COIN_MESSAGE;
         }
       } else {
-        this.displayMessage = '' + this._displayBalance;
+        this.currentMessage = '' + this._displayBalance;
       }
     }
   }

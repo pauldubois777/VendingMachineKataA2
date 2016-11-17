@@ -5,13 +5,13 @@ import { BankService } from '../bank/bank.service';
 import { CoinsEnum } from '../../shared/coins.enum';
 import { CoinReturnService } from '../coin-return/coin-return.service';
 import { InitialBankCoins } from '../bank/initial-bank-coins';
-import { MessageDisplayService } from '../message-display/message-display.service';
+import { MessageService } from '../message/message.service';
 
 let service: InsertedCoinsService;
 let bankService: BankService;
 let coinReturnService: CoinReturnService;
 let initialBankCoins: InitialBankCoins;
-let messageDisplayService: MessageDisplayService;
+let messageDisplayService: MessageService;
 let setDisplayBalanceSpy: jasmine.Spy;
 let addToReturnSpy: jasmine.Spy;
 let returnThisAmountSpy: jasmine.Spy;
@@ -19,7 +19,7 @@ let addCoinSpy: jasmine.Spy;
 
 describe('Service: Inserted Coins', () => {
   beforeEach(() => {
-    messageDisplayService = new MessageDisplayService();
+    messageDisplayService = new MessageService();
     setDisplayBalanceSpy = spyOn(messageDisplayService, 'setDisplayBalance');
 
     coinReturnService = new CoinReturnService;

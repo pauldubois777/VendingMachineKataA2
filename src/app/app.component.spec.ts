@@ -4,7 +4,7 @@ import { TestBed, async } from '@angular/core/testing';
 
 // Services
 import { CoinReturnService } from './services/coin-return/coin-return.service';
-import { MessageDisplayService } from './services/message-display/message-display.service';
+import { MessageService } from './services/message/message.service';
 import { InitialInventory } from './services/inventory/initial-inventory';
 import { InventoryService } from './services/inventory/inventory.service';
 import { InitialBankCoins } from './services/bank/initial-bank-coins';
@@ -27,7 +27,7 @@ describe('App: VendingMachineKataA2', () => {
       ],
       providers: [
         CoinReturnService,
-        MessageDisplayService,
+        MessageService,
         InitialInventory,
         InventoryService,
         BankService,

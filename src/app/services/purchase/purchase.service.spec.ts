@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { PurchaseService } from './purchase.service';
-import { MessageDisplayService } from '../message-display/message-display.service';
+import { MessageService } from '../message/message.service';
 import { InventoryService } from '../inventory/inventory.service';
 import { InitialInventory } from '../inventory/initial-inventory';
 import { InventoryItem } from '../../models/inventory-item';
@@ -14,7 +14,7 @@ import { InitialBankCoins } from '../bank/initial-bank-coins';
 import { formatDisplayPrice } from '../../shared/helpers';
 
 let service: PurchaseService;
-let messageDisplayService: MessageDisplayService;
+let messageDisplayService: MessageService;
 let inventoryService: InventoryService;
 let insertedCoinsService: InsertedCoinsService;
 let bankService: BankService;
@@ -33,7 +33,7 @@ describe('Service: Purchase', () => {
     product = new Product(99, 'Fake Product', 40);
     inventoryItem = new InventoryItem(product, 6);
 
-    messageDisplayService = new MessageDisplayService();
+    messageDisplayService = new MessageService();
     setTempMessageSpy = spyOn(messageDisplayService, 'setTempMessage');
 
     inventoryService = new InventoryService(new InitialInventory());

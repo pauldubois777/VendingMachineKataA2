@@ -4,7 +4,7 @@ import { CoinsBalance } from '../../models/coins-balance';
 import { CoinsEnum } from '../../shared/coins.enum';
 import { BankService } from '../bank/bank.service';
 import { CoinReturnService } from '../coin-return/coin-return.service';
-import { MessageDisplayService } from '../message-display/message-display.service';
+import { MessageService } from '../message/message.service';
 
 @Injectable()
 export class InsertedCoinsService extends CoinsBalance {
@@ -12,7 +12,7 @@ export class InsertedCoinsService extends CoinsBalance {
   constructor(
     private _coinReturnService: CoinReturnService,
     private _bankService: BankService,
-    private _messageDisplayService: MessageDisplayService) {
+    private _messageDisplayService: MessageService) {
 
     super(0, 0, 0);
   }

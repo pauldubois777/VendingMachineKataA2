@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { MessageDisplayService } from '../message-display/message-display.service';
+import { MessageService } from '../message/message.service';
 import { InventoryService } from '../inventory/inventory.service';
 import { Product } from '../../models/product';
 import { StringConstants } from '../../shared/string-constants';
@@ -11,7 +11,7 @@ import { formatDisplayPrice } from '../../shared/helpers';
 export class PurchaseService {
 
   constructor(
-    private _messageDisplayService: MessageDisplayService,
+    private _messageService: MessageService,
     private _inventoryService: InventoryService,
     private _insertedCoinsService: InsertedCoinsService) {
 
@@ -22,30 +22,30 @@ export class PurchaseService {
 
     if (!inventoryItem) {
       // Unknown product in inventory
-      this._messageDisplayService.setTempMessage(StringConstants.UNKNOWN_PRODUCT_MESSAGE);
+      this._messageService.setTempMessage(StringConstants.UNKNOWN_PRODUCT_MESSAGE);
       return false;
     }
 
     if (inventoryItem.qty <= 0) {
       // Product sold out
-      this._messageDisplayService.setTempMessage(StringConstants.SOLD_OUT_MESSAGE);
+      this._messageService.setTempMessage(StringConstants.SOLD_OUT_MESSAGE);
       return false;
     }
 
     if (this._insertedCoinsService.getValueInCents() < inventoryItem.product.costCents) {
       // Not enough money inserted for product cost
-      this._messageDisplayService.setTempMessage(formatDisplayPrice(inventoryItem.product.costCents));
+      this._messageService.setTempMessage(formatDisplayPrice(inventoryItem.product.costCents));
       return false;
     }
 
     let retValue = this._inventoryService.dispense(product);
     if (!retValue) {
       // Something went wrong during dispense
-      this._messageDisplayService.setTempMessage(StringConstants.UNABLE_TO_DISPENSE_MESSAGE);
+      this._messageService.setTempMessage(StringConstants.UNABLE_TO_DISPENSE_MESSAGE);
       return false;
     } else {
       this._insertedCoinsService.purchase(product.costCents);
-      this._messageDisplayService.setTempMessage(StringConstants.THANK_YOU_MESSAGE);
+      this._messageService.setTempMessage(StringConstants.THANK_YOU_MESSAGE);
       return true;
     }
   }
