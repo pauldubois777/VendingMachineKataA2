@@ -17,6 +17,5 @@ export class CoinSlotComponent implements OnInit {
 
   onInsertCoin(coinEnum: CoinsEnum) {
     this._insertedCoinsService.addCoin(coinEnum);
-    console.log(coinEnum);
   }
 }
