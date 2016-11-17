@@ -14,6 +14,7 @@ export class MessageDisplayComponent implements OnInit, OnDestroy {
   constructor(private _messageService: MessageService) { }
 
   ngOnInit() {
+    this.message = this._messageService.currentMessage;
     this._currentMessageSubscription = this._messageService.currentMessageObservable.subscribe(
       (currentMessage: string) =>  {
         this.message = currentMessage;
