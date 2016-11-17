@@ -12,10 +12,12 @@ import { InitialBankCoins } from './services/bank/initial-bank-coins';
 import { BankService } from './services/bank/bank.service';
 import { InsertedCoinsService } from './services/inserted-coins/inserted-coins.service';
 import { PurchaseService } from './services/purchase/purchase.service';
+import { CoinSlotComponent } from './components/coin-slot/coin-slot.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CoinSlotComponent
   ],
   imports: [
     BrowserModule,
