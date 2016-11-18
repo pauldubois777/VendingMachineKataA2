@@ -1,5 +1,7 @@
 import { formatPrice } from '../shared/helpers';
 
+// TODO: Write tests for getCoinText
+
 describe('Helpers: formatDisplayPrice', () => {
   it('various prices are formatted properly for display', () => {
     expect(formatPrice(   1)).toEqual('$0.01');

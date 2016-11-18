@@ -20,6 +20,8 @@ import { CoinComponent } from './components/coin/coin.component';
 import { MessageDisplayComponent } from './components/message-display/message-display.component';
 import { ReturnCoinsComponent } from './components/return-coins/return-coins.component';
 import { CoinReturnAreaComponent } from './components/coin-return-area/coin-return-area.component';
+import { ProductComponent } from './components/product/product.component';
+import { ProductsForSaleComponent } from './components/products-for-sale/products-for-sale.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { CoinReturnAreaComponent } from './components/coin-return-area/coin-retu
     CoinComponent,
     MessageDisplayComponent,
     ReturnCoinsComponent,
-    CoinReturnAreaComponent
+    CoinReturnAreaComponent,
+    ProductComponent,
+    ProductsForSaleComponent
   ],
   imports: [
     BrowserModule,

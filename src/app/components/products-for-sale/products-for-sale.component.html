@@ -1,0 +1,6 @@
+<h3>Products For Sale</h3>
+<ul>
+  <li *ngFor='let inventoryItem of inventory'>
+    <vmk-product [product]='inventoryItem.product' (productClicked)='onProductClicked($event)'></vmk-product>
+  </li>
+</ul>
