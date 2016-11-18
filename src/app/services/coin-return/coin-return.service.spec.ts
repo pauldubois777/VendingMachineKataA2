@@ -40,20 +40,4 @@ describe('Service: CoinReturn', () => {
 
     expect(service.Coins.length).toBe(0);
   });
-
-  it('emptyReturn should return coins', () => {
-    service.addToReturn(CoinsEnum.DIME);
-    service.addToReturn(CoinsEnum.NICKLE);
-    service.addToReturn(CoinsEnum.QUARTER);
-    service.addToReturn(CoinsEnum.PENNY);
-
-    let returnedCoins = service.emptyReturn();
-
-    expect(returnedCoins.length).toBe(4);
-
-    expect(returnedCoins[0]).toBe(CoinsEnum.DIME);
-    expect(returnedCoins[1]).toBe(CoinsEnum.NICKLE);
-    expect(returnedCoins[2]).toBe(CoinsEnum.QUARTER);
-    expect(returnedCoins[3]).toBe(CoinsEnum.PENNY);
-  });
 });

@@ -19,6 +19,7 @@ import { CoinSlotComponent } from './components/coin-slot/coin-slot.component';
 import { CoinComponent } from './components/coin/coin.component';
 import { MessageDisplayComponent } from './components/message-display/message-display.component';
 import { ReturnCoinsComponent } from './components/return-coins/return-coins.component';
+import { CoinReturnAreaComponent } from './components/coin-return-area/coin-return-area.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ReturnCoinsComponent } from './components/return-coins/return-coins.com
     CoinSlotComponent,
     CoinComponent,
     MessageDisplayComponent,
-    ReturnCoinsComponent
+    ReturnCoinsComponent,
+    CoinReturnAreaComponent
   ],
   imports: [
     BrowserModule,
