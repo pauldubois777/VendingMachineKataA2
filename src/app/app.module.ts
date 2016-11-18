@@ -18,13 +18,15 @@ import { AppComponent } from './app.component';
 import { CoinSlotComponent } from './components/coin-slot/coin-slot.component';
 import { CoinComponent } from './components/coin/coin.component';
 import { MessageDisplayComponent } from './components/message-display/message-display.component';
+import { ReturnCoinsComponent } from './components/return-coins/return-coins.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CoinSlotComponent,
     CoinComponent,
-    MessageDisplayComponent
+    MessageDisplayComponent,
+    ReturnCoinsComponent
   ],
   imports: [
     BrowserModule,
