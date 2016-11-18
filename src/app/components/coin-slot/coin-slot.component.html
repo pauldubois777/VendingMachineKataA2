@@ -1,7 +1,7 @@
 <h3>Insert Coin</h3>
-<vmk-coin [coinEnum]='coinsEnum.PENNY' [coinText]="'1&cent;'" (coinClicked)='onInsertCoin($event)'></vmk-coin>
-<vmk-coin [coinEnum]='coinsEnum.NICKLE' [coinText]="'5&cent;'" (coinClicked)='onInsertCoin($event)'></vmk-coin>
-<vmk-coin [coinEnum]='coinsEnum.DIME' [coinText]="'10&cent;'" (coinClicked)='onInsertCoin($event)'></vmk-coin>
-<vmk-coin [coinEnum]='coinsEnum.QUARTER' [coinText]="'25&cent;'" (coinClicked)='onInsertCoin($event)'></vmk-coin>
-<vmk-coin [coinEnum]='coinsEnum.UNKNOWN' [coinText]="'Unknown'" (coinClicked)='onInsertCoin($event)'></vmk-coin>
+<vmk-coin [coinEnum]='coinsEnum.PENNY' (coinClicked)='onInsertCoin($event)'></vmk-coin>
+<vmk-coin [coinEnum]='coinsEnum.NICKLE' (coinClicked)='onInsertCoin($event)'></vmk-coin>
+<vmk-coin [coinEnum]='coinsEnum.DIME' (coinClicked)='onInsertCoin($event)'></vmk-coin>
+<vmk-coin [coinEnum]='coinsEnum.QUARTER' (coinClicked)='onInsertCoin($event)'></vmk-coin>
+<vmk-coin [coinEnum]='coinsEnum.UNKNOWN' (coinClicked)='onInsertCoin($event)'></vmk-coin>
 

@@ -1,6 +1,6 @@
 <h3>Coin Return Area</h3>
 <ul>
   <li *ngFor='let coin of coinsInReturn'>
-    <vmk-coin [coinEnum]='coin' [coinText]="coin" (coinClicked)='onTakeCoins()'></vmk-coin>
+    <vmk-coin [coinEnum]='coin' (coinClicked)='onTakeCoins()'></vmk-coin>
   </li>
 </ul>
