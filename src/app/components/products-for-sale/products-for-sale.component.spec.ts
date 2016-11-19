@@ -25,7 +25,7 @@ describe('Component: ProductsForSale', () => {
     bankService = new BankService(new InitialBankCoins(), coinReturnService);
     messageService = new MessageService(bankService);
     insertedCoinsService = new InsertedCoinsService(coinReturnService, bankService, messageService);
-    purchaseService = new PurchaseService(messageService, inventoryService, insertedCoinsService);
+    purchaseService = new PurchaseService(messageService, inventoryService, insertedCoinsService, bankService);
 
     let component = new ProductsForSaleComponent(inventoryService, purchaseService);
     expect(component).toBeTruthy();
