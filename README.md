@@ -71,7 +71,10 @@ This section will hold the final design that evolved during the writing of tests
 ## TODO
 * Possible Improvements
     * Allow methods that take a single coin to also accept an array of coins. (Where applicable)
-    * 
+    * Enhance Bank Service canMakeChange to get an optional array of coins.  Then use this to combine with banks coins to see if change can be made. 
+      This would allow the user to insert more than the cost of a product and purchase it, even if the bank cannot make change with the coins it has.
+      IE:  The bank has no nickles or dimes.  The user inserts 2 quarters, 2 dimes, and a nickle to buy a 75 cent item.  The item is SOLD OUT, so the user then
+      tries to purchase a poduct that costs 50 cents.  It should allow this, knowing that change can be made because all of the inserted coins is sent to the bank, and then excess returned.
 * Upgrade to latest version of Jasmine.
     * Then update functions created to replace getters or setters that can't be tested with current Jasmine version.
         * MessageDisplayService.setDisplayBalance 
