@@ -281,7 +281,7 @@ function testReturnThisAmount(
 function testBalanceForCanMakeChange(testNickles: number, testDimes: number, testQuarters: number): boolean {
     let initialBankCoins = createInitialBankCoins(testNickles, testDimes, testQuarters);
     service = new BankService(initialBankCoins, coinReturnService);
-    return service.CanMakeChange;
+    return service.canMakeChange();
 }
 
 function createInitialBankCoins(initialNickles: number, initialDimes: number, initialQuarters: number): InitialBankCoins {

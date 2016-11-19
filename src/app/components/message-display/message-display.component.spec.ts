@@ -4,13 +4,18 @@ import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 
 import { MessageDisplayComponent } from './message-display.component';
 import { MessageService } from '../../services/message/message.service';
+import { BankService } from '../../services/bank/bank.service';
+import { CoinReturnService } from '../../services/coin-return/coin-return.service';
+import { InitialBankCoins } from '../../services/bank/initial-bank-coins';
 
 let messageService: MessageService;
 let component:    MessageDisplayComponent;
 let fixture: ComponentFixture<MessageDisplayComponent>;
 
 describe('Component: MessageDisplay', () => {
-  messageService = new MessageService();
+  let coinReturnService = new CoinReturnService();
+  let bankService = new BankService(new InitialBankCoins(), coinReturnService);
+  messageService = new MessageService(bankService);
 
   beforeEach(() => {
     TestBed.configureTestingModule({

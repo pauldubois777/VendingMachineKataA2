@@ -4,30 +4,24 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { StringConstants } from '../../shared/string-constants';
 import { NumericConstants } from '../../shared/numeric-constants';
 import { formatPrice } from '../../shared/helpers';
+import { BankService } from '../bank/bank.service';
 
 @Injectable()
 export class MessageService {
   currentMessageObservable = new EventEmitter<string>();
   currentMessage: string;
   private _displayBalance: number;
-  private _exactChangeOnly: boolean;
   private _tempMessage: string;
   private _tempMsgTimer: NodeJS.Timer;
 
-  constructor() {
+  constructor(private _bankService: BankService) {
     this._displayBalance = 0;
-    this._exactChangeOnly = false;
     this._tempMessage = '';
     this.setCurrentMessage();
   }
 
   setBalance(balanceCents: number) {
     this._displayBalance = balanceCents;
-    this.setCurrentMessage();
-  }
-
-  set ExactChangeOnly(exactChangeOnly: boolean) {
-    this._exactChangeOnly = exactChangeOnly;
     this.setCurrentMessage();
   }
 
@@ -53,10 +47,10 @@ export class MessageService {
       this.currentMessage = this._tempMessage;
     } else {
       if (this._displayBalance === 0) {
-        if (this._exactChangeOnly) {
-          this.currentMessage = StringConstants.EXACT_CHANGE_MESSAGE;
-        } else {
+        if (this._bankService.canMakeChange()) {
           this.currentMessage = StringConstants.INSERT_COIN_MESSAGE;
+        } else {
+          this.currentMessage = StringConstants.EXACT_CHANGE_MESSAGE;
         }
       } else {
         this.currentMessage = formatPrice(this._displayBalance);

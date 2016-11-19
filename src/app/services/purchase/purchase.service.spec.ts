@@ -33,15 +33,15 @@ describe('Service: Purchase', () => {
     product = new Product(99, 'Fake Product', 40);
     inventoryItem = new InventoryItem(product, 6);
 
-    messageService = new MessageService();
-    setTempMessageSpy = spyOn(messageService, 'setTempMessage');
-
     inventoryService = new InventoryService(new InitialInventory());
     dispenseSpy = spyOn(inventoryService, 'dispense');
     getItemSpy = spyOn(inventoryService, 'getItem');
 
     coinReturnService = new CoinReturnService();
     bankService = new BankService(new InitialBankCoins(), coinReturnService);
+
+    messageService = new MessageService(bankService);
+    setTempMessageSpy = spyOn(messageService, 'setTempMessage');
 
     insertedCoinsService = new InsertedCoinsService(coinReturnService, bankService, messageService);
     purchaseSpy = spyOn(insertedCoinsService, 'purchase');

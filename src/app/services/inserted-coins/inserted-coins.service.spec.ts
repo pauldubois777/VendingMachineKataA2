@@ -19,14 +19,15 @@ let addCoinSpy: jasmine.Spy;
 
 describe('Service: Inserted Coins', () => {
   beforeEach(() => {
-    messageService = new MessageService();
-    setBalanceSpy = spyOn(messageService, 'setBalance');
-
     coinReturnService = new CoinReturnService;
     addToReturnSpy = spyOn(coinReturnService, 'addToReturn');
 
     initialBankCoins = new InitialBankCoins();
     bankService = new BankService(initialBankCoins, coinReturnService);
+
+    messageService = new MessageService(bankService);
+    setBalanceSpy = spyOn(messageService, 'setBalance');
+
     returnThisAmountSpy = spyOn(bankService, 'returnThisAmount');
     addCoinSpy = spyOn(bankService, 'addCoin');
 

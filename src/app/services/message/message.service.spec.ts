@@ -3,15 +3,27 @@
 // TODO: Add tests for currentMessageObservable
 
 import { MessageService } from './message.service';
+import { BankService } from '../bank/bank.service';
+import { CoinReturnService } from '../coin-return/coin-return.service';
+import { InitialBankCoins } from '../bank/initial-bank-coins';
 import { StringConstants } from '../../shared/string-constants';
 import { NumericConstants } from '../../shared/numeric-constants';
 import { formatPrice } from '../../shared/helpers';
 
 let service: MessageService;
+let bankService: BankService;
+let coinReturnService: CoinReturnService;
+let canMakeChangeSpy: jasmine.Spy;
 
 describe('Service: MessageDisplay', () => {
   beforeEach(() => {
-    service = new MessageService();
+    coinReturnService = new CoinReturnService();
+    bankService = new BankService(new InitialBankCoins(), coinReturnService);
+
+    canMakeChangeSpy = spyOn(bankService, 'canMakeChange');
+    canMakeChangeSpy.and.returnValue(true);
+
+    service = new MessageService(bankService);
   });
 
   it('after creation message should be insert coins message', () => {
@@ -30,8 +42,8 @@ describe('Service: MessageDisplay', () => {
     expect(service.currentMessage).toBe(StringConstants.INSERT_COIN_MESSAGE);
   });
 
-  it('after setting ExactChangeOnly to true and balance to zero, message should be exact change message', () => {
-    service.ExactChangeOnly = true;
+  it('bank cannot make change and balance is zero, message should be exact change message', () => {
+    canMakeChangeSpy.and.returnValue(false);
     service.setBalance(0);
     expect(service.currentMessage).toBe(StringConstants.EXACT_CHANGE_MESSAGE);
   });

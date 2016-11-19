@@ -20,10 +20,10 @@ describe('Component: ProductsForSale', () => {
     let coinReturnService: CoinReturnService;
     let purchaseService: PurchaseService;
 
-    messageService = new MessageService();
     inventoryService = new InventoryService(new InitialInventory());
     coinReturnService = new CoinReturnService();
     bankService = new BankService(new InitialBankCoins(), coinReturnService);
+    messageService = new MessageService(bankService);
     insertedCoinsService = new InsertedCoinsService(coinReturnService, bankService, messageService);
     purchaseService = new PurchaseService(messageService, inventoryService, insertedCoinsService);
 

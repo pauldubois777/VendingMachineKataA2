@@ -12,7 +12,7 @@ export class BankService extends CoinsBalance {
     super(initialBankCoins.nickles, initialBankCoins.dimes, initialBankCoins.quarters);
   }
 
-  get CanMakeChange(): boolean {
+  canMakeChange(): boolean {
     // Based on valid coins being nickle, dime, and quarter, the most change that will ever be
     // needed is 20 cents. This is because we will get all of the users money.  So we will
     // Always be able to return their own money back to them beyond the 20 cents.

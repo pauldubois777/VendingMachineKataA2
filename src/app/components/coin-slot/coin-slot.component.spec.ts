@@ -13,7 +13,7 @@ describe('Component: CoinSlot', () => {
   it('should create an instance', () => {
     let coinReturnService = new CoinReturnService();
     let bankService = new BankService(new InitialBankCoins, coinReturnService);
-    let messageService = new MessageService();
+    let messageService = new MessageService(bankService);
     let insertedCoinService = new InsertedCoinsService(coinReturnService, bankService, messageService);
 
     let component = new CoinSlotComponent(insertedCoinService);
