@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 import { InventoryItem } from '../../models/inventory-item';
 import { Product } from '../../models/product';
@@ -7,6 +7,7 @@ import { StringConstants } from '../../shared/string-constants';
 
 @Injectable()
 export class InventoryService {
+  inventoryChangedObservable = new EventEmitter<null>();
   private _inventory: Array<InventoryItem> = new Array<InventoryItem>();
 
   constructor(initialInventory: InitialInventory) {
@@ -40,6 +41,7 @@ export class InventoryService {
       if (inventoryItemFound.qty > 0) {
         // Send the product to the consumer!
         inventoryItemFound.qty--;
+        this.inventoryChangedObservable.emit();
         return true;
       } else {
         return false;

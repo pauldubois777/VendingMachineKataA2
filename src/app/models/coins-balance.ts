@@ -1,6 +1,10 @@
+import { EventEmitter } from '@angular/core';
+
 import { CoinsEnum } from '../shared/coins.enum';
 
 export class CoinsBalance {
+  balanceChangedObservable = new EventEmitter<null>();
+
   constructor(
     private _nickels = 0,
     private _dimes = 0,
@@ -10,14 +14,17 @@ export class CoinsBalance {
   protected addCoin(coinEnum: CoinsEnum): boolean {
     if (coinEnum === CoinsEnum.NICKLE) {
       this._nickels++;
+      this.balanceChangedObservable.emit();
       return true;
     } else {
       if (coinEnum === CoinsEnum.DIME) {
         this._dimes++;
+        this.balanceChangedObservable.emit();
         return true;
       } else {
         if (coinEnum === CoinsEnum.QUARTER) {
           this._quarters++;
+          this.balanceChangedObservable.emit();
           return true;
         } else {
           return false;
@@ -29,14 +36,17 @@ export class CoinsBalance {
   removeCoin(coinEnum: CoinsEnum): boolean {
     if (coinEnum === CoinsEnum.NICKLE && this._nickels > 0) {
       this._nickels--;
+      this.balanceChangedObservable.emit();
       return true;
     } else {
       if (coinEnum === CoinsEnum.DIME && this._dimes > 0) {
         this._dimes--;
+        this.balanceChangedObservable.emit();
         return true;
       } else {
         if (coinEnum === CoinsEnum.QUARTER && this._quarters > 0) {
           this._quarters--;
+          this.balanceChangedObservable.emit();
           return true;
         } else {
           return false;
@@ -49,6 +59,7 @@ export class CoinsBalance {
     this._nickels = 0;
     this._dimes = 0;
     this._quarters = 0;
+    this.balanceChangedObservable.emit();
   }
 
   getCoinBalance(coinEnum: CoinsEnum): number {

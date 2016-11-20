@@ -22,6 +22,8 @@ import { ReturnCoinsComponent } from './components/return-coins/return-coins.com
 import { CoinReturnAreaComponent } from './components/coin-return-area/coin-return-area.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProductsForSaleComponent } from './components/products-for-sale/products-for-sale.component';
+import { BankMonitorComponent } from './components/bank-monitor/bank-monitor.component';
+import { InventoryMonitorComponent } from './components/inventory-monitor/inventory-monitor.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ProductsForSaleComponent } from './components/products-for-sale/product
     ReturnCoinsComponent,
     CoinReturnAreaComponent,
     ProductComponent,
-    ProductsForSaleComponent
+    ProductsForSaleComponent,
+    BankMonitorComponent,
+    InventoryMonitorComponent
   ],
   imports: [
     BrowserModule,
