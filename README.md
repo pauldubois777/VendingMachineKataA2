@@ -1,6 +1,6 @@
 # VendingMachineKataA2
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.16.
+This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.20-4.
 
 I wrote it to code the [Vending Machine Kata](https://github.com/guyroyse/vending-machine-kata)
 
