@@ -31,7 +31,7 @@ let inventoryItem: InventoryItem;
 
 describe('Service: Purchase', () => {
   beforeEach(() => {
-    product = new Product(99, 'Fake Product', 40);
+    product = new Product(99, 'Fake Product', 40, 'assets/images/products/product1.svg');
     inventoryItem = new InventoryItem(product, 6);
 
     inventoryService = new InventoryService(new InitialInventory());
