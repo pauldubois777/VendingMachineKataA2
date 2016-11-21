@@ -5,7 +5,7 @@ import { getCoinText } from '../../shared/helpers';
 
 @Component({
   selector: 'vmk-coin',
-  template: `<button (click)='onCoinClick()'>{{coinText()}}</button>`,
+  template: `<button class='btn btn-primary' (click)='onCoinClick()'>{{coinText()}}</button>`,
   styles: []
 })
 export class CoinComponent implements OnInit {

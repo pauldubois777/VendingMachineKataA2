@@ -4,7 +4,7 @@ import { InsertedCoinsService } from '../../services/inserted-coins/inserted-coi
 
 @Component({
   selector: 'vmk-return-coins',
-  template: `<button (click)='onReturnClick()'>Return Coins</button>`,
+  template: `<button class='btn btn-success' (click)='onReturnClick()' [disabled]='!enableCoinReturn()' >Return Coins</button>`,
   styles: []
 })
 export class ReturnCoinsComponent implements OnInit {
@@ -16,5 +16,9 @@ export class ReturnCoinsComponent implements OnInit {
 
   onReturnClick() {
     this._insertedCoinsService.returnAll();
+  }
+
+  enableCoinReturn(): boolean {
+    return this._insertedCoinsService.getValueInCents() > 0;
   }
 }

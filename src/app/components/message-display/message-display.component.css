@@ -1,0 +1,10 @@
+.message {
+  font-family: 'Orbitron', serif;
+  font-size: 22px;
+  font-weight: bold;
+  color: red;
+  background-color: lightgray;
+  border: 1px solid black;
+  padding: 3px;
+  width: 300px;
+}

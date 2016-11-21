@@ -4,8 +4,8 @@ import { MessageService } from '../../services/message/message.service';
 
 @Component({
   selector: 'vmk-message-display',
-  template: `<h3>Message: {{message}}</h3>`,
-  styles: []
+  template: `<div class='message'>{{message}}</div>`,
+  styleUrls: ['./message-display.component.css']
 })
 export class MessageDisplayComponent implements OnInit, OnDestroy {
   message: string = '';
