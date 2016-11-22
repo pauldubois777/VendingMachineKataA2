@@ -1,0 +1,4 @@
+<h4>Dispensed Product (Click any product to empty)</h4>
+<div >
+  <img class='dispensedProduct' *ngFor='let product of dispensedProducts' src='{{product.imageUrl}}' (click)='productOnClick()'/>
+</div>

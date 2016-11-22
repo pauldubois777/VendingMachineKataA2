@@ -1,0 +1,11 @@
+.dispensedProduct {
+  max-width:90px;
+  max-height:90px;
+  width: auto;
+  height: auto;
+  cursor: pointer
+}
+
+.dispensedProduct:hover {
+  opacity: .8;
+}

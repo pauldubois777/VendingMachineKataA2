@@ -24,6 +24,7 @@ import { ProductComponent } from './components/product/product.component';
 import { ProductsForSaleComponent } from './components/products-for-sale/products-for-sale.component';
 import { BankMonitorComponent } from './components/bank-monitor/bank-monitor.component';
 import { InventoryMonitorComponent } from './components/inventory-monitor/inventory-monitor.component';
+import { DispensedProductComponent } from './components/dispensed-product/dispensed-product.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { InventoryMonitorComponent } from './components/inventory-monitor/invent
     ProductComponent,
     ProductsForSaleComponent,
     BankMonitorComponent,
-    InventoryMonitorComponent
+    InventoryMonitorComponent,
+    DispensedProductComponent
   ],
   imports: [
     BrowserModule,

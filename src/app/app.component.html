@@ -5,19 +5,22 @@
       <h4>Instructions</h4>
       <ul>
         <li>
-          <h5>Insert coins by clicking on coin</h5>
+          <h5>Insert coins by clicking on coin.</h5>
         </li>
         <li>
-          <h5>The penny and foreign coin will go right into the Coin Return Area (This is a U.S. hosted machine! :)</h5>
+          <h5>The penny and foreign coin will go right into the Coin Return Area (This is a U.S. hosted machine! :).</h5>
         </li>
         <li>
-          <h5>To return inserted coins, press the Return Coins button</h5>
+          <h5>To return inserted coins, press the Return Coins button.</h5>
         </li>
         <li>
-          <h5>Purchase product by clicking on a product after inserting enough money</h5>
+          <h5>Purchase product by clicking on a product after inserting enough money.</h5>
         </li>
         <li>
-          <h5>To empty the Coin Return area, click on any coin in the area</h5>
+          <h5>To empty the Dispensed Product area, click on any product in the area.</h5>
+        </li>        
+        <li>
+          <h5>To empty the Coin Return area, click on any coin in the area.</h5>
         </li>
         <li>
           <h5>Monitor the Bank and Inventory to "see inside" the machine as you take various actions.</h5>
@@ -39,12 +42,17 @@
   </div>
   <hr>
   <div class="row">
-    <vmk-products-for-sale></vmk-products-for-sale>
+    <div class="col-md-12">
+      <vmk-products-for-sale></vmk-products-for-sale>
+    </div>
   </div>
   <hr>  
   <div class="row">
-    <div class="col-md-12">
-    <vmk-coin-return-area></vmk-coin-return-area>
+    <div class="col-md-6">
+      <vmk-dispensed-product></vmk-dispensed-product>
+    </div>
+    <div class="col-md-6">
+      <vmk-coin-return-area></vmk-coin-return-area>
     </div>
   </div>
   <hr>

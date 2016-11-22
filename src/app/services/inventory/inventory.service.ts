@@ -8,6 +8,8 @@ import { StringConstants } from '../../shared/string-constants';
 @Injectable()
 export class InventoryService {
   inventoryChangedObservable = new EventEmitter<null>();
+  productDispensedObservable = new EventEmitter<Product>();
+
   private _inventory: Array<InventoryItem> = new Array<InventoryItem>();
 
   constructor(initialInventory: InitialInventory) {
@@ -42,6 +44,7 @@ export class InventoryService {
         // Send the product to the consumer!
         inventoryItemFound.qty--;
         this.inventoryChangedObservable.emit();
+        this.productDispensedObservable.emit(product);
         return true;
       } else {
         return false;
