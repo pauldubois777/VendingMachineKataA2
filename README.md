@@ -4,6 +4,8 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 
 I wrote it to code the [Vending Machine Kata](https://github.com/guyroyse/vending-machine-kata)
 
+Live demo is [here](http://vend.coderforchrist.com/)
+
 The initial services (non-gui) were all created using TDD (Test Driven Development). 
 
 Because of time constraints, I went forward with the component (gui) development without using TDD.  I commented out the app.component.spec.ts code, and only coded each components spec file with the items needed to get them to compile during tests.  IE: Injecting services where needed.
