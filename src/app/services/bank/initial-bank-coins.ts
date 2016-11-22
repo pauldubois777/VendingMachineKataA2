@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class InitialBankCoins {
-  nickles = 0;
-  dimes = 0;
+  nickles = 2;
+  dimes = 2;
   quarters = 6;
 }

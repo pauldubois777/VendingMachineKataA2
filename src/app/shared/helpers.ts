@@ -25,3 +25,19 @@ export function getCoinText(coinEnum: CoinsEnum): string {
       return 'Unknown';
   }
 }
+
+export function getCoinUrl(coinEnum: CoinsEnum): string {
+
+  switch (coinEnum) {
+    case CoinsEnum.PENNY:
+      return 'assets/images/coins/penny.png';
+    case CoinsEnum.NICKLE:
+      return 'assets/images/coins/nickle.png';
+    case CoinsEnum.DIME:
+      return 'assets/images/coins/dime.png';
+    case CoinsEnum.QUARTER:
+      return 'assets/images/coins/quarter.png';
+    default:
+      return 'assets/images/coins/unknown.png';
+  }
+}

@@ -2,11 +2,12 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { CoinsEnum } from '../../shared/coins.enum';
 import { getCoinText } from '../../shared/helpers';
+import { getCoinUrl } from '../../shared/helpers';
 
 @Component({
   selector: 'vmk-coin',
-  template: `<button class='btn btn-primary' (click)='onCoinClick()'>{{coinText()}}</button>`,
-  styles: []
+  template: `<img class='coin' [src]='coinUrl()' (click)='onCoinClick()' [title]='coinText()' />`,
+  styleUrls: ['./coin.component.css']
 })
 export class CoinComponent implements OnInit {
   @Input() coinEnum: CoinsEnum = CoinsEnum.UNKNOWN;
@@ -26,4 +27,7 @@ export class CoinComponent implements OnInit {
     return getCoinText(this.coinEnum);
   }
 
+  coinUrl(): string {
+    return getCoinUrl(this.coinEnum);
+  }
 }

@@ -1,6 +1,7 @@
 import { formatPrice } from '../shared/helpers';
 
 // TODO: Write tests for getCoinText
+// TODO: Write tests for getCoinUrl
 
 describe('Helpers: formatDisplayPrice', () => {
   it('various prices are formatted properly for display', () => {

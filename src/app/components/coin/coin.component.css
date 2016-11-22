@@ -1,0 +1,7 @@
+.coin {
+  cursor: pointer;
+}
+
+.coin:hover {
+  opacity: .7;
+}
