@@ -11,6 +11,7 @@ import { InventoryService } from '../../services/inventory/inventory.service';
   styleUrls: ['./inventory-monitor.component.css']
 })
 export class InventoryMonitorComponent implements OnInit, OnDestroy {
+  monitorVisible: boolean = false;
   inventory: Array<InventoryItem> = [];
   private _InventoryChangedSubscription: Subscription;
 

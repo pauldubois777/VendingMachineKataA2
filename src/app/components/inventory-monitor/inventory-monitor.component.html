@@ -1,6 +1,6 @@
-<h4>Inventory Monitor</h4>
-<ul>
+Inventory Monitor&nbsp;&nbsp;<vmk-hide-show-button [show]='monitorVisible' (stateChanged)='monitorVisible = $event'></vmk-hide-show-button>
+<ul *ngIf='monitorVisible'>
   <li *ngFor='let inventoryItem of inventory'>
-    <h5>Product: {{inventoryItem.product.description}}&nbsp;&nbsp;Qty: {{inventoryItem.qty}}</h5>
+    Product: {{inventoryItem.product.description}}&nbsp;&nbsp;Qty: {{inventoryItem.qty}}
   </li>
 </ul>

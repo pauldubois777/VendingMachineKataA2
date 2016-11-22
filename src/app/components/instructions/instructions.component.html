@@ -1,0 +1,10 @@
+Instructions&nbsp;&nbsp;<vmk-hide-show-button [show]='instructionsVisible' (stateChanged)='instructionsVisible = $event'></vmk-hide-show-button>
+<ul *ngIf='instructionsVisible'>
+  <li>Insert coins by clicking on coin.</li>
+  <li>The penny and foreign coin will go right into the Coin Return Area (This is a U.S. hosted machine! :).</li>
+  <li>To return inserted coins, press the Return Coins button.</li>
+  <li>Purchase product by clicking on a product after inserting enough money.</li>
+  <li>To empty the Dispensed Product area, click on any product in the area.</li>        
+  <li>To empty the Coin Return area, click on any coin in the area.</li>
+  <li>Monitor the Bank and Inventory to "see inside" the machine as you take various actions.</li>
+</ul>

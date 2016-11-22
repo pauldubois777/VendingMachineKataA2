@@ -25,6 +25,8 @@ import { ProductsForSaleComponent } from './components/products-for-sale/product
 import { BankMonitorComponent } from './components/bank-monitor/bank-monitor.component';
 import { InventoryMonitorComponent } from './components/inventory-monitor/inventory-monitor.component';
 import { DispensedProductComponent } from './components/dispensed-product/dispensed-product.component';
+import { InstructionsComponent } from './components/instructions/instructions.component';
+import { HideShowButtonComponent } from './components/hide-show-button/hide-show-button.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { DispensedProductComponent } from './components/dispensed-product/dispen
     ProductsForSaleComponent,
     BankMonitorComponent,
     InventoryMonitorComponent,
-    DispensedProductComponent
+    DispensedProductComponent,
+    InstructionsComponent,
+    HideShowButtonComponent
   ],
   imports: [
     BrowserModule,

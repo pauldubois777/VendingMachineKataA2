@@ -10,6 +10,7 @@ import { CoinsEnum } from '../../shared/coins.enum';
   styleUrls: ['./bank-monitor.component.css']
 })
 export class BankMonitorComponent implements OnInit, OnDestroy {
+  monitorVisible: boolean = false;
   nickles: number = 0;
   dimes: number = 0;
   quarters: number = 0;
