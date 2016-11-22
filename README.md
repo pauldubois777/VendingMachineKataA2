@@ -4,6 +4,20 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 
 I wrote it to code the [Vending Machine Kata](https://github.com/guyroyse/vending-machine-kata)
 
+The initial services (non-gui) were all created using TDD (Test Driven Development). 
+
+Because of time constraints, I went forward with the component (gui) development without using TDD.  I commented out the app.component.spec.ts code, and only coded each components spec file with the items needed to get them to compile during tests.  IE: Injecting services where needed.
+
+When time allows, I hope to return to this and code tests for the components, as well as refactor code where needed.
+
+Have fun, and let me know of any problems you see, or improvements I can make.  Thanks!
+
+## Final Design
+
+This section will hold the final design that evolved during the writing of tests and code.  It will show what went wrong with the original design, as well as items that were improved along the way.
+
+See the Design Phase section below for my initial design prior to coding.
+
 ## Design Phase
 
 Before writing any code, I first outlined a high level design of the objects and how they will interact.  I also wrote some logic notes as I thought through various aspects.
@@ -64,10 +78,6 @@ So here are my initial design objects and notes:
 * If zero, checks the Bank Object to see if it can make change.  If it can, then display "INSERT COIN", otherwise display "EXACT CHANGE ONLY".
 * Method to display temp messages - Save the current message. display the temp message text for 1 second, then restore the saved text. 
 
-## Final Design
-
-This section will hold the final design that evolved during the writing of tests and code.  It will show what went wrong with the original design, as well as items that were improved along the way.
-
 ## TODO
 * Possible Improvements
     * Allow methods that take a single coin to also accept an array of coins. (Where applicable)
@@ -75,6 +85,5 @@ This section will hold the final design that evolved during the writing of tests
       This would allow the user to insert more than the cost of a product and purchase it, even if the bank cannot make change with the coins it has.
       IE:  The bank has no nickles or dimes.  The user inserts 2 quarters, 2 dimes, and a nickle to buy a 75 cent item.  The item is SOLD OUT, so the user then
       tries to purchase a poduct that costs 50 cents.  It should allow this, knowing that change can be made because all of the inserted coins is sent to the bank, and then excess returned.
-* Upgrade to latest version of Jasmine.
-    * Then update functions created to replace getters or setters that can't be tested with current Jasmine version.
-        * MessageDisplayService.setDisplayBalance 
+* See if getters and setters can be tested with Jasmine.  IE: Can we now use toHaveBeenCalledTimes() on a getter?
+* Put coins into a class instead of usng an enum with helpers?
