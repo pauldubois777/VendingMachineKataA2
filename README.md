@@ -10,7 +10,9 @@ The initial services (non-gui) were all created using TDD (Test Driven Developme
 
 Because of time constraints, I went forward with the component (gui) development without using TDD.  I commented out the app.component.spec.ts code, and only coded each components spec file with the items needed to get them to compile during tests.  IE: Injecting services where needed.
 
-When time allows, I hope to return to this and code tests for the components, as well as refactor code where needed.
+Also, I upgraded the version of Angular CLI during the GUI phase, so some of the last components created have the current version of testing code.
+
+When time allows, I hope to return to this project and code tests for the components, as well as refactor code where needed.
 
 Have fun, and let me know of any problems you see, or improvements I can make.  Thanks!
 
