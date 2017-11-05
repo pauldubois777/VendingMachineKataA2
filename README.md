@@ -4,7 +4,7 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 
 I wrote it to code the [Vending Machine Kata](https://github.com/guyroyse/vending-machine-kata)
 
-Live demo is [here](http://vend.coderforchrist.com/)
+Live demo is [here](https://vendingmachinekataa2.firebaseapp.com/)
 
 The initial services (non-gui) were all created using TDD (Test Driven Development). 
 
